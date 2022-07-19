@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "types": [
+        "../megak-headhunter-6-backend/types"
+      ]
+    }
+  }
+}
