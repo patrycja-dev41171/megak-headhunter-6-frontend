@@ -1,17 +1,17 @@
 import React, { FormEvent, useState } from 'react';
 
 export const HomeAdmin = () => {
-  const [photo, setPhoto] = useState();
+  const [file, setFile] = useState();
 
   function changeHandler(event: FormEvent) {
-    setPhoto((event.target as any).files[0]);
+    setFile((event.target as any).files[0]);
   }
 
   async function handleSubmission() {
-    if (photo) {
+    if (file) {
       const formData = new FormData();
 
-      formData.append('photo', photo);
+      formData.append('photo', file);
 
       await fetch('http://localhost:8080/upload', {
         method: 'POST',
