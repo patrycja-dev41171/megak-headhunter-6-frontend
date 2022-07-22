@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "types": [
-        "../megak-headhunter-6-backend/types"
+        "../../back-end/megak-headhunter-6-backend/types"
       ]
     }
   }
