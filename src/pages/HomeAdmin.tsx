@@ -7,13 +7,13 @@ export const HomeAdmin = () => {
     setPhoto((event.target as any).files[0]);
   }
 
-  function handleSubmission() {
+  async function handleSubmission() {
     if (photo) {
       const formData = new FormData();
 
       formData.append('photo', photo);
 
-      fetch('http://localhost:8080/upload', {
+      await fetch('http://localhost:8080/upload', {
         method: 'POST',
         body: formData,
       });
