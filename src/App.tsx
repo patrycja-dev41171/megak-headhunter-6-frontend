@@ -1,11 +1,26 @@
 import React from 'react';
-import './App.css';
+import { LoginView } from './pages/LoginView/LoginView';
+import { Route, Routes } from 'react-router-dom';
 import { HomeAdmin } from './pages/HomeAdmin/HomeAdmin';
+import { RegisterView } from './pages/RegisterView/RegisterView';
 
 function App() {
   return (
     <>
-      <HomeAdmin></HomeAdmin>
+      <Routes>
+        <Route
+          path="/login"
+          element={<LoginView />}
+        />
+        <Route
+          path="/home-admin"
+          element={<HomeAdmin />}
+        />
+        <Route
+          path="/register"
+          element={<RegisterView />}
+        />
+      </Routes>
     </>
   );
 }
