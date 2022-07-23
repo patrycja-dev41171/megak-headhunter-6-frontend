@@ -1,0 +1,18 @@
+.btn {
+    font-size: 1.3rem;
+    width: 138px;
+    line-height: 27px;
+    background: #e02735;
+    border: 0;
+    color: #F7F7F7;
+    display: block;
+    margin: 10px auto 0 auto;
+    padding: 0 0 0 0;
+    text-decoration: none;
+    text-align: center;
+    opacity: 1;
+}
+
+.btn:hover {
+    background: #811821;
+}
