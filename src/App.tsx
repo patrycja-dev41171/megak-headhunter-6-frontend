@@ -1,13 +1,14 @@
 import React from 'react';
-import './App.css';
-import { HomeAdmin } from './pages/HomeAdmin';
+import { LoginView } from './pages/LoginViews/LoginView';
+import {Route, Routes} from 'react-router-dom';
 
 function App() {
   return (
     <>
-      <HomeAdmin></HomeAdmin>
+        <Routes>
+            <Route path="/registration" element={<LoginView/>}/>
+        </Routes>
     </>
-  );
-}
+)}
 
 export default App;
