@@ -1,16 +1,16 @@
 .btn {
-    font-size: 1.3rem;
-    width: 138px;
-    line-height: 27px;
+    font-size: 1.1rem;
+    width: 100px;
+    line-height: 40px;
     background: #e02735;
     border: 0;
     color: #F7F7F7;
     display: block;
-    margin: 10px auto 0 auto;
+    margin-left: 0;
     padding: 0 0 0 0;
     text-decoration: none;
     text-align: center;
-    opacity: 1;
+    /*opacity: 1;*/
 }
 
 .btn:hover {

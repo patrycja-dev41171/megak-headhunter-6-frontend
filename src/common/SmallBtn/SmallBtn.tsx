@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Btn.css';
+import './SmallBtn.css';
 
 interface Props {
   text: string;
@@ -9,7 +9,7 @@ interface Props {
   onClick?: MouseEventHandler;
 }
 
-export const Btn = (props: Props) =>
+export const SmallBtn = (props: Props) =>
   props.to ? (
     <Link
       className="btn"
