@@ -1,0 +1,16 @@
+.home-admin_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-admin_img {
+    width: 124px;
+    height: 76px;
+    margin: 10px;
+}
+
+.home-admin_h1 {
+    color: #F7F7F7;
+    margin: 10px;
+}

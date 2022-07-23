@@ -1,0 +1,29 @@
+.student-import_header {
+    margin-top: 10px;
+    color: #F7F7F7;
+    text-align: center;
+}
+
+.student-import_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F7F7F7;
+    text-align: center;
+}
+
+.student-import_input {
+    background-color: #292A2B;
+    width: 50vw;
+    height: 40px;
+    margin: 15px;
+    padding: 10px 10px 10px 50px;
+}
+
+.student-import_button {
+    background-color: #E02735;
+    color: #F7F7F7;
+    width: 100px;
+    height: 35px;
+    border: none;
+}

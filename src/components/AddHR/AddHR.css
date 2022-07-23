@@ -1,0 +1,37 @@
+.add-hr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    color: #F7F7F7;
+
+}
+
+.add-hr_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    margin: 10px auto;
+    padding: 20px 10px;
+    background-color: inherit;
+}
+
+.add-hr_form input  {
+    background-color: #292A2B;
+    width: 50vw;
+    height: 40px;
+    margin: 20px 0;
+    padding: 10px;
+    border: none;
+    color: #F7F7F7;
+}
+
+.add-hr_form button {
+    background-color: #E02735;
+    color: #F7F7F7;
+    width: 50vw;
+    height: 40px;
+    border: none;
+}
