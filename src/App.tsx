@@ -1,9 +1,10 @@
 import React from "react";
 // import React, {useEffect} from 'react';
-import { LoginView } from './pages/LoginView/LoginView';
-import { Route, Routes } from 'react-router-dom';
-import { HomeAdmin } from './pages/HomeAdmin/HomeAdmin';
-import { RegisterView } from './pages/RegisterView/RegisterView';
+import {LoginView} from './pages/LoginView/LoginView';
+import {Route, Routes} from 'react-router-dom';
+import {HomeAdmin} from './pages/HomeAdmin/HomeAdmin';
+import {RegisterView} from './pages/RegisterView/RegisterView';
+import {RemindPasswordView} from "./pages/RemindPasswordView/RemindPasswordView";
 // import {useDispatch, useSelector} from "react-redux";
 // import {StoreState} from "./redux/store";
 // import axios from 'axios';
@@ -67,22 +68,26 @@ export const App = () => {
     //     refreshToken()
     // }, []);
 
-return (
-    <>
-      <Routes>
-        <Route
-          path="/login"
-          element={<LoginView />}
-        />
-        <Route
-          path="/home-admin"
-          element={<HomeAdmin />}
-        />
-        <Route
-          path="/register"
-          element={<RegisterView />}
-        />
-      </Routes>
-    </>
-  );
+    return (
+        <>
+            <Routes>
+                <Route
+                    path="/login"
+                    element={<LoginView/>}
+                />
+                <Route
+                    path="/home-admin"
+                    element={<HomeAdmin/>}
+                />
+                <Route
+                    path="/register"
+                    element={<RegisterView/>}
+                />
+                <Route
+                    path="/remind-password"
+                    element={<RemindPasswordView/>}
+                />
+            </Routes>
+        </>
+    );
 }
