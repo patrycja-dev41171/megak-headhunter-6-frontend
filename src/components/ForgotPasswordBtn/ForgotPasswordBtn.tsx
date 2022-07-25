@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './RemindPasswordBtn.css';
+import './ForgotPasswordBtn.css';
 
-export const RemindPasswordBtn = () => {
+export const ForgotPasswordBtn = () => {
   return (
     <Link
-      className="remind-btn"
-      to="/remind-password">
+      className="forgot-btn"
+      to="/forgot-password">
       Zapomniałeś hasła?
     </Link>
   );

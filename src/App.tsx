@@ -1,15 +1,20 @@
-import React from "react";
+import React from 'react';
 // import React, {useEffect} from 'react';
-import {LoginView} from './pages/LoginView/LoginView';
-import {Route, Routes} from 'react-router-dom';
-import {HomeAdmin} from './pages/HomeAdmin/HomeAdmin';
-import {RegisterView} from './pages/RegisterView/RegisterView';
-import {RemindPasswordView} from "./pages/RemindPasswordView/RemindPasswordView";
-// import {useDispatch, useSelector} from "react-redux";
-// import {StoreState} from "./redux/store";
+import { LoginView } from './pages/LoginView/LoginView';
+import { Route, Routes } from 'react-router-dom';
+import { HomeAdmin } from './pages/HomeAdmin/HomeAdmin';
+import { RegisterView } from './pages/RegisterView/RegisterView';
+import { ForgotPasswordView } from './pages/ForgotPasswordView/ForgotPasswordView';
+import { ChangePasswordView } from './pages/ChangePasswordView/ChangePasswordView';
+import { HrHomeView } from './pages/HrHomeView/HrHomeView';
+import { HrSelectedStudentsView } from './pages/HrSelectedStudentsView/HrSelectedStudentsView';
+import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProfileView';
+import { StudentView } from './pages/StudentView/StudentView';
+// import {useDispatch, useSelector} from "react-redux-toolkit";
+// import {StoreState} from "./redux-toolkit/store";
 // import axios from 'axios';
 // import jwtDecode from "jwt-decode";
-// import {setAccessToken, setExpirationTime, setId, setRole} from './redux/actions/user';
+// import {setAccessToken, setExpirationTime, setId, setRole} from './redux-toolkit/actions/user';
 
 export const App = () => {
     // const {expirationTime, accessToken} = useSelector((store: StoreState) => store.user);
@@ -73,21 +78,41 @@ export const App = () => {
             <Routes>
                 <Route
                     path="/login"
-                    element={<LoginView/>}
+                    element={<LoginView />}
+                />
+                <Route
+                    path="/forgot-password"
+                    element={<ForgotPasswordView />}
                 />
                 <Route
                     path="/home-admin"
-                    element={<HomeAdmin/>}
+                    element={<HomeAdmin />}
                 />
                 <Route
-                    path="/register"
-                    element={<RegisterView/>}
+                    path="/change-password/:userId"
+                    element={<ChangePasswordView />}
                 />
                 <Route
-                    path="/remind-password"
-                    element={<RemindPasswordView/>}
+                    path="/register/:userId/:registerToken"
+                    element={<RegisterView />}
+                />
+                <Route
+                    path="/hr/home"
+                    element={<HrHomeView />}
+                />
+                <Route
+                    path="/hr/selected-students"
+                    element={<HrSelectedStudentsView />}
+                />
+                <Route
+                    path="/hr/student-profile/:studentId"
+                    element={<HrStudentProfileView />}
+                />
+                <Route
+                    path="/student"
+                    element={<StudentView />}
                 />
             </Routes>
         </>
     );
-}
+};

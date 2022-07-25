@@ -1,6 +1,0 @@
-export enum userAction{
-    SET_ID = 'SET_ID',
-    SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN',
-    SET_EXPIRATION_TIME = 'SET_EXPIRATION_TIME',
-    SET_ROLE = 'SET_ROLE',
-}

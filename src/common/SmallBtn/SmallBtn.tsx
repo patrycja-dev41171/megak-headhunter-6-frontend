@@ -10,13 +10,13 @@ interface Props {
 }
 
 export const SmallBtn = (props: Props) =>
-  props.to ? (
-    <Link
-      className="btn"
-      to={props.to}
-      onClick={props.onClick}>
-      {props.text}
-    </Link>
-  ) : (
-    <button className="btn">{props.text}</button>
-  );
+    props.to ? (
+        <Link
+            className="btn"
+            to={props.to}
+            onClick={props.onClick}>
+          {props.text}
+        </Link>
+    ) : (
+        <button className="btn">{props.text}</button>
+    );
