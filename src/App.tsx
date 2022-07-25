@@ -4,6 +4,12 @@ import { LoginView } from './pages/LoginView/LoginView';
 import { Route, Routes } from 'react-router-dom';
 import { HomeAdmin } from './pages/HomeAdmin/HomeAdmin';
 import { RegisterView } from './pages/RegisterView/RegisterView';
+import { ForgotPasswordView } from './pages/ForgotPasswordView/ForgotPasswordView';
+import { ChangePasswordView } from './pages/ChangePasswordView/ChangePasswordView';
+import { HrHomeView } from './pages/HrHomeView/HrHomeView';
+import { HrSelectedStudentsView } from './pages/HrSelectedStudentsView/HrSelectedStudentsView';
+import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProfileView';
+import { StudentView } from './pages/StudentView/StudentView';
 // import {useDispatch, useSelector} from "react-redux-toolkit";
 // import {StoreState} from "./redux-toolkit/store";
 // import axios from 'axios';
@@ -75,12 +81,36 @@ export const App = () => {
           element={<LoginView />}
         />
         <Route
+          path="/forgot-password"
+          element={<ForgotPasswordView />}
+        />
+        <Route
           path="/home-admin"
           element={<HomeAdmin />}
         />
         <Route
-          path="/register"
+          path="/change-password/:userId"
+          element={<ChangePasswordView />}
+        />
+        <Route
+          path="/register/:userId/:registerToken"
           element={<RegisterView />}
+        />
+        <Route
+          path="/hr/home"
+          element={<HrHomeView />}
+        />
+        <Route
+          path="/hr/selected-students"
+          element={<HrSelectedStudentsView />}
+        />
+        <Route
+          path="/hr/student-profile/:studentId"
+          element={<HrStudentProfileView />}
+        />
+        <Route
+          path="/student"
+          element={<StudentView />}
         />
       </Routes>
     </>
