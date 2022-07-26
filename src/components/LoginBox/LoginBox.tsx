@@ -7,6 +7,11 @@ import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-t
 import { SmallBtn } from '../../common/SmallBtn/SmallBtn';
 import './LoginBox.css';
 
+interface AccessToken {
+  name: string;
+  exp: number;
+}
+
 export const LoginBox = () => {
   const [error, setError] = useState('');
   const [form, setForm] = useState({
@@ -32,7 +37,7 @@ export const LoginBox = () => {
       });
 
       const data = await res.json();
-      const decoded: any = jwtDecode(data.accessToken);
+      const decoded = jwtDecode<AccessToken>(data.accessToken);
       dispatch(setId(data.id));
       dispatch(setAccessToken(data.accessToken));
       dispatch(setExpirationTime(decoded.exp));
@@ -42,8 +47,8 @@ export const LoginBox = () => {
       } else {
         // navigate(`/home`);
       }
-    } catch (err) {
-      setError('Invalid data.');
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 
