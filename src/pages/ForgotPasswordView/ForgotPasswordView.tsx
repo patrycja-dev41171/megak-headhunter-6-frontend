@@ -1,11 +1,6 @@
 import React from 'react';
+import {ForgotPassword} from "../../components/ForgotPassword/ForgotPassword";
 
 export const ForgotPasswordView = () => {
-  return (
-    <>
-      <h1>Forgot Password View</h1>
-      <p>Strona odzyskania hasła - formularz (email)</p>
-      <p>Dostęp: Dostępna dla niezalogowanego użytkownika </p>
-    </>
-  );
+  return <ForgotPassword/>
 };
