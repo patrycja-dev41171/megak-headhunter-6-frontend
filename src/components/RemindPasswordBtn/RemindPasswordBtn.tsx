@@ -7,7 +7,7 @@ export const RemindPasswordBtn = () => {
   return (
     <Link
       className="remind-btn"
-      to="/remind-password">
+      to="/forgot-password">
       Zapomniałeś hasła?
     </Link>
   );
