@@ -8,8 +8,8 @@ export const LogoutBtn = () => {
   const handleLogout = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      const data = await fetch('http://localhost:8080/logout', {
-        method: 'POST',
+      const data = await fetch('http://localhost:8080/login', {
+        method: 'DELETE',
         credentials: 'include',
         headers: {
           Accept: 'application/json',
