@@ -6,7 +6,6 @@ import {TextField} from "@mui/material";
 import {styled} from "@mui/system";
 import './ForgotPassword.css';
 
-
 const StyledTextField = styled(TextField, {
     name: "StyledTextField",
 })({
@@ -28,9 +27,9 @@ const StyledTextField = styled(TextField, {
 });
 
 type FormData = {
-    email: string,
-    confirmEmail: string,
-}
+  email: string;
+  confirmEmail: string;
+};
 
 export const ForgotPassword = () => {
 
@@ -110,3 +109,4 @@ export const ForgotPassword = () => {
         </div>
     );
 };
+
