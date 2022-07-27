@@ -47,8 +47,8 @@ export const LoginBox = () => {
       } else {
         // navigate(`/home`);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError('Nieprawidłowe dane logowania.');
     }
   };
 
