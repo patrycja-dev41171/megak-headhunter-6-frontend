@@ -27,3 +27,9 @@
     height: 35px;
     border: none;
 }
+
+.student-import_button:hover {
+    background-color: #811821;
+}
+
+
