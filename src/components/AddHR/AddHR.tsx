@@ -58,11 +58,11 @@ export const AddHR = () => {
             Imię i nazwisko: <br />
             <input
               type="text"
-              name="fullname"
+              name="fullName"
               required
               maxLength={100}
               value={form.fullName}
-              onChange={e => updateForm('fullname', e.target.value)}
+              onChange={e => updateForm('fullName', e.target.value)}
             />
           </label>
         </p>
