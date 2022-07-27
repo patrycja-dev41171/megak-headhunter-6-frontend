@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './AddHR.css';
 
 interface FormValues {
-  fullname: string;
+  fullName: string;
   email: string;
   company: string;
   maxReservedStudents: number;
@@ -12,7 +12,7 @@ interface FormValues {
 export const AddHR = () => {
   const [error, setError] = useState('');
   const [form, setForm] = useState<FormValues>({
-    fullname: '',
+    fullName: '',
     email: '',
     company: '',
     maxReservedStudents: 0,
@@ -33,7 +33,7 @@ export const AddHR = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fullname: form.fullname,
+          fullName: form.fullName,
           email: form.email,
           company: form.company,
           maxReservedStudents: form.maxReservedStudents,
@@ -61,7 +61,7 @@ export const AddHR = () => {
               name="fullname"
               required
               maxLength={100}
-              value={form.fullname}
+              value={form.fullName}
               onChange={e => updateForm('fullname', e.target.value)}
             />
           </label>
