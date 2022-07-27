@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {SyntheticEvent, useState} from 'react';
 
 import './AddHR.css';
 
@@ -25,8 +25,9 @@ export const AddHR = () => {
     }));
   };
 
-  const saveHR = async () => {
+  const saveHR = async (e:SyntheticEvent) => {
     try {
+      e.preventDefault();
       const res = await fetch('http://localhost:8080/admin/add-hr', {
         method: 'POST',
         headers: {
@@ -45,6 +46,12 @@ export const AddHR = () => {
     } catch (err) {
       setError('Nieprawidłowe dane. Błąd dodania HR do bazy danych.');
     }
+    setForm({
+      fullName: '',
+      email: '',
+      company: '',
+      maxReservedStudents: 0,
+    })
   };
 
   return (

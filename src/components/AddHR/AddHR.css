@@ -34,5 +34,10 @@
     width: 50vw;
     height: 40px;
     border: none;
+    transition: .5s;
     cursor: pointer;
+}
+
+.add-hr_form button:hover {
+    background-color: #811821;
 }

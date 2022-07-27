@@ -28,3 +28,8 @@
     border: none;
     cursor: pointer;
 }
+
+.student-import_button:hover {
+    background-color: #811821;
+}
+
