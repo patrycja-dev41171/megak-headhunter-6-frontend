@@ -89,6 +89,7 @@ export const LoginBox = () => {
                 <input
                   type="password"
                   name="password"
+                  autoComplete="off"
                   required
                   minLength={5}
                   maxLength={150}

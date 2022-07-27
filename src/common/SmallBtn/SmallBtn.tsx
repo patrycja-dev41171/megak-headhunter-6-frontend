@@ -18,5 +18,9 @@ export const SmallBtn = (props: Props) =>
       {props.text}
     </Link>
   ) : (
-    <button className="btn">{props.text}</button>
+    <button
+      className="btn"
+      onClick={props.onClick}>
+      {props.text}
+    </button>
   );
