@@ -5,6 +5,7 @@ import './StudentImport.css';
 export const StudentImport = () => {
   const [photo, setPhoto] = useState();
   const [error, setError] = useState(null);
+  const [respon, setRespon] = useState(null);
 
   function changeHandler(event: FormEvent) {
     setPhoto((event.target as any).files[0]);
@@ -21,8 +22,8 @@ export const StudentImport = () => {
           body: formData,
         });
         const data = await response.json();
-        const helix = data.message;
-        setError(helix);
+        setRespon(data);
+        setError(data.message);
       } catch (err: any) {
         console.log(err);
       }
@@ -31,7 +32,7 @@ export const StudentImport = () => {
 
   return (
     <>
-      <div>{error}</div>
+      <div>{error ? error : respon}</div>
 
       <header className="student-import_header">
         <h3>Zaimportuj listę studentów:</h3>
