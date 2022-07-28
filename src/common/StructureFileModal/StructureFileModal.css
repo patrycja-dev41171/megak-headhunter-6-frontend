@@ -1,0 +1,18 @@
+.dialogTitle {
+    background-color: lightgray;
+    color: #292a2b;
+}
+
+.dialogContentText {
+    margin-top: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 15px;
+}
+
+.dialogContentText-spacing {
+    margin-left: 10px;
+}
+
+.dialogContentText-spacingDouble {
+    margin-left: 15px;
+}
