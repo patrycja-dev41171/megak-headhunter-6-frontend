@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-
+import {StructureFileModal} from "../../common/StructureFileModal/StructureFileModal";
 import './StudentImport.css';
 
 export const StudentImport = () => {
@@ -36,6 +36,7 @@ export const StudentImport = () => {
 
       <header className="student-import_header">
         <h3>Zaimportuj listę studentów:</h3>
+        <StructureFileModal/>
       </header>
       <main className="student-import_main">
         <input
