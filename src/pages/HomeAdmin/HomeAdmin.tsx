@@ -7,7 +7,7 @@ import { LogoutBtn } from '../../components/LogoutBtn/LogoutBtn';
 
 export const HomeAdmin = () => {
   return (
-    <>
+    <div className="home-admin-container">
       <header className="home-admin_header">
         <img
           className="home-admin_img"
@@ -23,6 +23,6 @@ export const HomeAdmin = () => {
         <StudentImport />
         <AddHR />
       </main>
-    </>
+    </div>
   );
 };
