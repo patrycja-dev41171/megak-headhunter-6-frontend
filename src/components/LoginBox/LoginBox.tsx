@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-toolkit/features/user/user-slice';
 import { SmallBtn } from '../../common/SmallBtn/SmallBtn';
 import './LoginBox.css';
+import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 
 interface AccessToken {
   name: string;
@@ -18,8 +19,8 @@ export const LoginBox = () => {
     email: '',
     password: '',
   });
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
+  const dispatch = useDispatch();  let navigate = useNavigate();
+
 
   const login = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -62,11 +63,7 @@ export const LoginBox = () => {
   return (
     <div className="login-view">
       <div>
-        <img
-          src="logo-megak.webp"
-          alt="Logo MegaK"
-          className="logo"
-        />
+        <MiniLogoMegaK />
         <form onSubmit={login}>
           <div className="form-box">
             <p className="input-box">

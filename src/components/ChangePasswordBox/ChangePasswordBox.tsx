@@ -7,6 +7,7 @@ import { styled } from '@mui/system';
 import './ChangePasswordBox.css';
 import { SmallBtn } from '../../common/SmallBtn/SmallBtn';
 import { useParams } from 'react-router-dom';
+import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 
 const StyledTextField = styled(TextField, {
   name: 'StyledTextField',
@@ -70,12 +71,11 @@ export const ChangePasswordBox = () => {
 
   return (
     <div className="changePass-view ">
-      <img
-        src="logo-megak.webp"
-        alt="Logo MegaK"
-        className="logo"
-      />
-      <p className="changePass-info">Utwórz nowe hasło do twojego konta.</p>
+      <MiniLogoMegaK />
+      <div className="changePass-info">
+        <h1 className="header">Utwórz nowe hasło do twojego konta</h1>
+        <p>Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny.</p>
+      </div>
       <form
         onSubmit={handleSubmit(submitForm)}
         className="changePass-form">
