@@ -6,7 +6,7 @@ export const MiniLogoMegaK = () => {
   return (
     <div>
       <img
-        src="logo-megak.webp"
+        src="../../logo-megak.webp"
         alt="Logo MegaK"
         className="logo"
       />
