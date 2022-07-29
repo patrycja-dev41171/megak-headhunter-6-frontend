@@ -24,13 +24,9 @@ export const userSchema = yup.object().shape({
 
   password: yup
     .string()
-    .min(8, 'Hasło musi posiadać przynajmniej 8 znaków')
     .max(255, 'Hasło nie może być dłuższy niż 255 znaków')
     .required('Podaj hasło')
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Hasło musi zawierać jedną wielką oraz jedną małą literę, jedną liczbę i znak specjalny'
-    ),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
 
   confirmPassword: yup.string().oneOf([yup.ref('password'), null]),
 });
