@@ -5,6 +5,7 @@ import {userSchema} from "../../Validations/UserValidation";
 import {TextField} from "@mui/material";
 import {styled} from "@mui/system";
 import './ForgotPassword.css';
+import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
 
 const StyledTextField = styled(TextField, {
     name: "StyledTextField",
@@ -54,7 +55,9 @@ export const ForgotPassword = () => {
                     ...data,
                 }),
             });
+            console.log({data})
             const result = await res.json();
+            console.log(result)
             setFeedback(result.message)
             setIsSuccessfullySubmitted(true);
         } catch (err) {
@@ -72,11 +75,11 @@ export const ForgotPassword = () => {
             <p className="remPass-info">
                 Podaj swój adres e-mail, wyślemy Ci Twoje hasło.
             </p>
-            <form onSubmit={handleSubmit(submitForm)} className="remPass-form">
+            <form onSubmit={handleSubmit(submitForm)}>
 
                 <div className="inputFormRemPass">
                     <StyledTextField
-                        variant="outlined"
+                        variant="filled"
                         type="email"
                         error={!!errors.email}
                         label="Podaj email"
@@ -86,9 +89,9 @@ export const ForgotPassword = () => {
                     />
                 </div>
 
-                <div className="inputFormRemPass">
+                <div className="remPass-input">
                     <StyledTextField
-                        variant="outlined"
+                        variant="filled"
                         type="email"
                         error={!!errors.confirmEmail}
                         label="Potwierdź email"
@@ -101,10 +104,8 @@ export const ForgotPassword = () => {
                 {isSuccessfullySubmitted && (
                     <p className="remPass-success">Hasło zostało wysłane na podany e-mail</p>
                 )}
-                <p className="remPass-btn-box">
-                    <button className="remPass-btn">Wyślij hasło</button>
-                </p>
-                {feedback}
+                <AnimatedSecondaryButton>Wyślij hasło</AnimatedSecondaryButton>
+               <p style={{color: '#ffffff'}}>{feedback}</p>
             </form>
         </div>
     );
