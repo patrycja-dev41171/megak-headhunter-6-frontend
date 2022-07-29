@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 interface User {
   id: string;
   accessToken: string;
-  expirationTime: string | number;
+  expirationTime: number;
   role: string;
 }
 
 const initialState: User = {
   id: '',
   accessToken: '',
-  expirationTime: '',
+  expirationTime: 0,
   role: '',
 };
 
@@ -23,7 +23,7 @@ interface SetAccessToken {
 }
 
 interface SetExpirationTime {
-  payload: number | string;
+  payload: number;
 }
 
 interface SetRole {
