@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
-import {userSchema} from "../../Validations/UserValidation";
+import {userSchemaForgotPassword} from "../../Validations/UserValidation";
 import {TextField} from "@mui/material";
 import {styled} from "@mui/system";
+import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import {ModalTopBottomError, ModalTopBottomSuccess} from "../../common/AlertModal/AlertModal";
 import './ForgotPassword.css';
 
 const StyledTextField = styled(TextField, {
@@ -27,22 +29,33 @@ const StyledTextField = styled(TextField, {
 });
 
 type FormData = {
-  email: string;
-  confirmEmail: string;
+    userEmail: string;
+    confirmEmail: string;
 };
 
 export const ForgotPassword = () => {
-
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
+    const [openInfoModal, setOpenInfoModal] = useState<boolean>(false);
     const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
-        resolver: yupResolver(userSchema),
-        mode: "onTouched",
+        resolver: yupResolver(userSchemaForgotPassword),
+        mode: "onBlur",
     })
-    const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(
-        false
-    );
-    const [feedback, setFeedback] = useState('');
 
-    const submitForm: SubmitHandler<FormData> = async (data: FormData) => {
+    const displayModals = (error: string, success: string ) => {
+        if(error) {
+            return < ModalTopBottomError errorMessage={feedbackError}/>
+        }
+        if (success) {
+            return < ModalTopBottomSuccess successMessage={feedbackSuccess}/>
+        }
+        return null
+    }
+
+
+
+    const submitForm: SubmitHandler<FormData> = async ({userEmail: email, confirmEmail}) => {
+        setOpenInfoModal(false);
         try {
             const res = await fetch('http://localhost:8080/forgot-password', {
                 method: 'POST',
@@ -51,12 +64,14 @@ export const ForgotPassword = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    ...data,
+                    email, confirmEmail
                 }),
             });
             const result = await res.json();
-            setFeedback(result.message)
-            setIsSuccessfullySubmitted(true);
+            console.log(result)
+            setFeedbackError(result.message)
+            // lub setFeedbackSuccess(string z informacja o sukcesie)
+            setOpenInfoModal(true)
         } catch (err) {
             console.log(err);
         }
@@ -72,41 +87,31 @@ export const ForgotPassword = () => {
             <p className="remPass-info">
                 Podaj swój adres e-mail, wyślemy Ci Twoje hasło.
             </p>
-            <form onSubmit={handleSubmit(submitForm)} className="remPass-form">
-
-                <div className="inputFormRemPass">
+            <form onSubmit={handleSubmit(submitForm)}>
+                <div className="remPass-input">
                     <StyledTextField
-                        variant="outlined"
                         type="email"
-                        error={!!errors.email}
+                        {...register('userEmail')}
+                        variant="filled"
+                        error={!!errors.userEmail}
                         label="Podaj email"
-                        helperText={errors.email ? errors.email?.message : ''}
-                        {...register('email')}
-                        disabled={isSuccessfullySubmitted}
+                        helperText={errors.userEmail ? errors.userEmail?.message : ''}
                     />
                 </div>
 
-                <div className="inputFormRemPass">
+                <div className="remPass-input">
                     <StyledTextField
-                        variant="outlined"
                         type="email"
+                        {...register('confirmEmail')}
+                        variant="filled"
                         error={!!errors.confirmEmail}
                         label="Potwierdź email"
                         helperText={errors.confirmEmail && "Niepoprawnie potwierdzony email"}
-                        {...register('confirmEmail')}
-                        disabled={isSuccessfullySubmitted}
                     />
                 </div>
-
-                {isSuccessfullySubmitted && (
-                    <p className="remPass-success">Hasło zostało wysłane na podany e-mail</p>
-                )}
-                <p className="remPass-btn-box">
-                    <button className="remPass-btn">Wyślij hasło</button>
-                </p>
-                {feedback}
+                <AnimatedSecondaryButton type="submit">Wyślij hasło</AnimatedSecondaryButton>
             </form>
+            {openInfoModal && displayModals(feedbackError, feedbackSuccess)}
         </div>
     );
 };
-

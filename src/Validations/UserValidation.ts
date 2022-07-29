@@ -1,6 +1,16 @@
 import * as yup from 'yup';
 
-//błędy walidacji na froncie
+//błędy walidacji na froncie tworzymy dla kazdego formularza osobny obiekt tylko z polami które występują w formularzu
+
+export const userSchemaForgotPassword = yup.object().shape({
+  userEmail: yup
+      .string()
+      .email('Nieprawidłowy email')
+      .min(5, 'Email musi posiadać przynajmniej 5 znaków')
+      .max(255, 'Email nie może być dłuższy niż 255 znaków')
+      .required('Podaj email'),
+  confirmEmail: yup.string().oneOf([yup.ref('userEmail'), null]),
+}).required();
 
 export const userSchema = yup.object().shape({
   email: yup
