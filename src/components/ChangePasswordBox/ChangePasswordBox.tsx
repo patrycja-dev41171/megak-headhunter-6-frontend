@@ -3,9 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema } from '../../Validations/UserValidation';
 import { TextField } from '@mui/material';
-import { styled } from '@mui/system';
-import './ChangePasswordBox.css';
-import { SmallBtn } from '../../common/SmallBtn/SmallBtn';
+import {styled} from '@mui/system';
+import '../commonStyles.css';
+import {SmallBtn} from '../../common/SmallBtn/SmallBtn';
 import { useParams } from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 
@@ -70,45 +70,46 @@ export const ChangePasswordBox = () => {
   };
 
   return (
-    <div className="changePass-view ">
-      <MiniLogoMegaK />
-      <div className="changePass-info">
-        <h1 className="header">Utwórz nowe hasło do twojego konta</h1>
-        <p>Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jeden znak specjalny.</p>
-      </div>
-      <form
-        onSubmit={handleSubmit(submitForm)}
-        className="changePass-form">
-        <div className="inputFormChangePass">
-          <StyledTextField
-            variant="outlined"
-            type="password"
-            error={!!errors.password}
-            label="Podaj hasło"
-            helperText={errors.password ? errors.password?.message : ''}
-            {...register('password')}
-            disabled={isSuccessfullySubmitted}
-          />
+      <div className="setPass-view ">
+        <MiniLogoMegaK/>
+        <div className="setPass-info">
+          <h1 className="header">Utwórz nowe hasło do twojego konta</h1>
+          <p>Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jeden
+            znak specjalny.</p>
         </div>
+        <form
+            onSubmit={handleSubmit(submitForm)}
+            className="setPass-form">
+          <div className="inputFormSetPass">
+            <StyledTextField
+                variant="outlined"
+                type="password"
+                error={!!errors.password}
+                label="Podaj hasło"
+                helperText={errors.password ? errors.password?.message : ''}
+                {...register('password')}
+                disabled={isSuccessfullySubmitted}
+            />
+          </div>
 
-        <div className="inputFormChangePass">
-          <StyledTextField
-            variant="outlined"
-            type="password"
-            error={!!errors.confirmPassword}
-            label="Potwierdź hasło"
-            helperText={errors.confirmPassword && 'Podane hasła nie są takie same!'}
-            {...register('confirmPassword')}
-            disabled={isSuccessfullySubmitted}
-          />
-        </div>
+          <div className="inputFormSetPass">
+            <StyledTextField
+                variant="outlined"
+                type="password"
+                error={!!errors.confirmPassword}
+                label="Potwierdź hasło"
+                helperText={errors.confirmPassword && 'Podane hasła nie są takie same!'}
+                {...register('confirmPassword')}
+                disabled={isSuccessfullySubmitted}
+            />
+          </div>
 
-        {isSuccessfullySubmitted && <p className="remPass-success">Utworzono nowe hasło do twojego konta</p>}
-        <p className="changePass-btn">
-          <SmallBtn text="Utwórz" />
-        </p>
-        {feedback}
-      </form>
+          {isSuccessfullySubmitted && <p className="setPass-success">Utworzono nowe hasło do twojego konta</p>}
+          <p className="setPass-btn">
+            <SmallBtn text="Utwórz"/>
+          </p>
+          {feedback}
+        </form>
     </div>
   );
 };
