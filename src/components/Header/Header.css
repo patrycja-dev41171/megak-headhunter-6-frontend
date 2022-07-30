@@ -1,0 +1,47 @@
+.main-header {
+    width: 100vw;
+    background-color: #1e1e1f;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10vh;
+}
+
+.logo-background {
+    margin-top: 12px;
+    height: 55px;
+    width: 89px;
+    margin-left: 15vw;
+}
+
+.logo {
+    width: 89px;
+}
+
+.user-info {
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    width: 260px;
+    height: 80px;
+    /*background-color: #dc1010;*/
+    margin-right: 5vw;
+}
+
+.photo-space {
+    width: 50px;
+}
+
+.user-name {
+    color: white;
+}
+
+.options-btn {
+    /*background: #1cad5c;*/
+}
+
+.photo {
+    width: 100%;
+    border-radius: 25px;
+}
