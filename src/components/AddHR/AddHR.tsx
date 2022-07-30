@@ -1,6 +1,10 @@
 import React, {SyntheticEvent, useState} from 'react';
-
 import './AddHR.css';
+import {styled} from "@mui/system";
+import {TextField} from "@mui/material";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {userSchemaForgotPassword} from "../../Validations/UserValidation";
 
 interface FormValues {
   fullName: string;
@@ -8,6 +12,34 @@ interface FormValues {
   company: string;
   maxReservedStudents: number;
 }
+
+const StyledTextField = styled(TextField, {
+  name: "StyledTextField",
+})({
+  input: {
+    width: '300px',
+    '&:-webkit-autofill': {
+      WebkitBoxShadow: '0 0 0 1000px #292a2b inset',
+      WebkitTextFillColor: '#7E7E7E',
+      borderRadius: '0',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: '#7E7E7E',
+  },
+  '& .MuiInputBase-input': {
+    color: '#7E7E7E',
+    backgroundColor: '#292a2b',
+  },
+});
+
+// export const AddHR = () => {
+//   const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
+//     resolver: yupResolver(userSchemaForgotPassword),
+//     mode: "onBlur",
+//   })
+//   return null
+// }
 
 export const AddHR = () => {
   const [error, setError] = useState('');
@@ -55,7 +87,7 @@ export const AddHR = () => {
   };
 
   return (
-    <div className="add-hr">
+    <div className="add-hr_container">
       <h3>Dodaj HR:</h3>
       <form
         className="add-hr_form"

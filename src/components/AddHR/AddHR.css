@@ -1,21 +1,16 @@
-.add-hr {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
+.add-hr_container {
+    margin: 30px 0 20px 0;
     color: #F7F7F7;
-
 }
 
 .add-hr_form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50vw;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*width: 50vw;*/
     margin: 10px auto;
-    padding: 20px 10px;
-    background-color: inherit;
+    /*padding: 20px 10px;*/
+    /*background-color: inherit;*/
 }
 
 .add-hr_form input  {
