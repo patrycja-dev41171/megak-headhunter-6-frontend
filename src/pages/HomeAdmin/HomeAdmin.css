@@ -2,11 +2,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
     height: 100vh;
     background: #222224;
-    width: 100vw;}
+    width: 100vw;
+}
 
 .home-admin_header {
     display: flex;
