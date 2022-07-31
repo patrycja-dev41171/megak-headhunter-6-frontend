@@ -5,7 +5,7 @@ import {userSchemaForgotPassword} from "../../Validations/UserValidation";
 import {TextField} from "@mui/material";
 import {styled} from "@mui/system";
 import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
-import {ModalTopBottomError, ModalTopBottomSuccess} from "../../common/AlertModal/AlertModal";
+import {ModalError, ModalSuccess} from "../../common/AlertModal/AlertModal";
 import './ForgotPassword.css';
 
 const StyledTextField = styled(TextField, {
@@ -44,10 +44,10 @@ export const ForgotPassword = () => {
 
     const displayModals = (error: string, success: string ) => {
         if(error) {
-            return < ModalTopBottomError errorMessage={feedbackError}/>
+            return < ModalError vertical="bottom" horizontal="center" errorMessage={feedbackError}/>
         }
         if (success) {
-            return < ModalTopBottomSuccess successMessage={feedbackSuccess}/>
+            return < ModalSuccess vertical="bottom" horizontal="center" successMessage={feedbackSuccess}/>
         }
         return null
     }

@@ -1,150 +1,129 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, {useState} from 'react';
 import './AddHR.css';
-import {styled} from "@mui/system";
-import {TextField} from "@mui/material";
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {userSchemaForgotPassword} from "../../Validations/UserValidation";
+import {schemaAddHr} from "../../Validations/UserValidation";
+import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import SimpleDialog from "@mui/material/Dialog";
+import {StyledTextField} from "./StyledTextField";
+import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
 
 interface FormValues {
-  fullName: string;
-  email: string;
-  company: string;
-  maxReservedStudents: number;
+    fullName: string;
+    hrEmail: string;
+    company: string;
+    maxReservedStudents: number;
 }
 
-const StyledTextField = styled(TextField, {
-  name: "StyledTextField",
-})({
-  input: {
-    width: '300px',
-    '&:-webkit-autofill': {
-      WebkitBoxShadow: '0 0 0 1000px #292a2b inset',
-      WebkitTextFillColor: '#7E7E7E',
-      borderRadius: '0',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#7E7E7E',
-  },
-  '& .MuiInputBase-input': {
-    color: '#7E7E7E',
-    backgroundColor: '#292a2b',
-  },
-});
-
-// export const AddHR = () => {
-//   const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
-//     resolver: yupResolver(userSchemaForgotPassword),
-//     mode: "onBlur",
-//   })
-//   return null
-// }
-
 export const AddHR = () => {
-  const [error, setError] = useState('');
-  const [form, setForm] = useState<FormValues>({
-    fullName: '',
-    email: '',
-    company: '',
-    maxReservedStudents: 0,
-  });
+    //modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => {
+        setOpenModal(false);
+    };
 
-  const updateForm = (key: string, value: any) => {
-    setForm(form => ({
-      ...form,
-      [key]: value,
-    }));
-  };
+    //infoFromBackendStatus
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
-  const saveHR = async (e:SyntheticEvent) => {
-    try {
-      e.preventDefault();
-      const res = await fetch('http://localhost:8080/admin/add-hr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName: form.fullName,
-          email: form.email,
-          company: form.company,
-          maxReservedStudents: form.maxReservedStudents,
-        }),
-      });
-      if (!(await res.json())) {
-        throw new Error('Error adding hr by admin.');
-      }
-    } catch (err) {
-      setError('Nieprawidłowe dane. Błąd dodania HR do bazy danych.');
-    }
-    setForm({
-      fullName: '',
-      email: '',
-      company: '',
-      maxReservedStudents: 0,
+    const {register, handleSubmit, formState: {errors}} = useForm<FormValues>({
+        resolver: yupResolver(schemaAddHr),
+        mode: "onChange",
     })
-  };
 
-  return (
-    <div className="add-hr_container">
-      <h3>Dodaj HR:</h3>
-      <form
-        className="add-hr_form"
-        onSubmit={saveHR}>
-        <p>
-          <label>
-            Imię i nazwisko: <br />
-            <input
-              type="text"
-              name="fullName"
-              required
-              maxLength={100}
-              value={form.fullName}
-              onChange={e => updateForm('fullName', e.target.value)}
-            />
-          </label>
-        </p>
-        <p>
-          <label>
-            Email: <br />
-            <input
-              type="text"
-              name="email"
-              required
-              maxLength={100}
-              value={form.email}
-              onChange={e => updateForm('email', e.target.value)}
-            />
-          </label>
-        </p>
-        <p>
-          <label>
-            Firma: <br />
-            <input
-              type="text"
-              name="company"
-              required
-              maxLength={100}
-              value={form.company}
-              onChange={e => updateForm('company', e.target.value)}
-            />
-          </label>
-        </p>
-        <p>
-          <label>
-            Maksymalna ilość studentów: <br />
-            <input
-              type="number"
-              name="maxReservedStudents"
-              value={form.maxReservedStudents}
-              onChange={e => updateForm('maxReservedStudents', Number(e.target.value))}
-            />
-          </label>
-        </p>
-        <p className="p_error">{error}</p>
-        <button>Zapisz</button>
-      </form>
-    </div>
-  );
-};
+    const submitForm: SubmitHandler<FormValues> = async ({
+                                                             hrEmail: email,
+                                                             fullName,
+                                                             company,
+                                                             maxReservedStudents
+                                                         }) => {
+        try {
+            const res = await fetch('http://localhost:8080/admin/add-hr', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email, fullName, company, maxReservedStudents
+                }),
+            });
+
+            const result = await res.json();
+            setOpenModal(true)
+            setFeedbackSuccess(result)
+            setFeedbackError(result.message)
+
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    return (
+        <>
+            <div className="add-hr_container">
+                <h3>Dodaj HR:</h3>
+                <form onSubmit={handleSubmit(submitForm)} className="add-hr_form">
+
+                    <div className="add-hr_input">
+                        <StyledTextField
+                            fullWidth
+                            type="text"
+                            {...register('fullName')}
+                            variant="filled"
+                            error={!!errors.fullName}
+                            label="Imię i nazwisko"
+                            helperText={errors.fullName ? errors.fullName?.message : ''}
+                        />
+                    </div>
+
+                    <div className="add-hr_input">
+                        <StyledTextField
+                            fullWidth
+                            type="email"
+                            {...register('hrEmail')}
+                            variant="filled"
+                            error={!!errors.hrEmail}
+                            label="Email"
+                            helperText={errors.hrEmail ? errors.hrEmail?.message : ''}
+                        />
+                    </div>
+
+                    <div className="add-hr_input">
+                        <StyledTextField
+                            fullWidth
+                            type="text"
+                            {...register('company')}
+                            variant="filled"
+                            error={!!errors.company}
+                            label="Nazwa firmy"
+                            helperText={errors.company ? errors.company?.message : ''}
+                        />
+                    </div>
+
+                    <div className="add-hr_input">
+                        <StyledTextField
+                            fullWidth
+                            type="number"
+                            defaultValue={10}
+                            {...register('maxReservedStudents')}
+                            InputProps={{inputProps: {min: 1, max: 999},}}
+                            variant="filled"
+                            error={!!errors.maxReservedStudents}
+                            label="Liczba studentów"
+                            helperText={errors.maxReservedStudents ? errors.maxReservedStudents?.message : ''}
+                        />
+                    </div>
+                    {
+                        openModal && <SimpleDialog
+                            open={openModal}
+                            onClose={handleClose}
+                        >
+                            {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                        </SimpleDialog>
+                    }
+                    <AnimatedSecondaryButton type="submit">Dodaj HR</AnimatedSecondaryButton>
+                </form>
+            </div>
+        </>
+    )
+}

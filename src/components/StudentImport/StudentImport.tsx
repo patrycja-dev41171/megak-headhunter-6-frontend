@@ -1,95 +1,82 @@
-import React, { FormEvent, useState } from 'react';
+import React, {FormEvent, useState} from 'react';
 import {StructureFileModal} from "../../common/StructureFileModal/StructureFileModal";
 import './StudentImport.css';
 import {SelectFileButton} from "../../common/SelectFileBtn/SelectFileBtn";
 import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
-import {TransitionAlertError, TransitionAlertSuccess} from "../../common/TransitionAlert/TransitionAlerts";
+import SimpleDialog from "@mui/material/Dialog";
+import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
 
 export const StudentImport = () => {
-  const [photo, setPhoto] = useState();
-  const [fileName, setFileName] = useState<string>('')
-  const [error, setError] = useState<string>('');
-  const [response, setResponse] = useState<string>('');
-  const [isModalStatusOpen, setIsModalStatusOpen] = useState<boolean>(false)
-  const [isModalExpanded, setIsModalExpanded] = useState<boolean>(false);
+    //modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => {
+        setOpenModal(false);
+    };
 
-  const displayFileName = (name: string) => {
-    return <span className="student-import_fileNameBox">
+    //infoFromBackendStatus
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
+
+    const [photo, setPhoto] = useState();
+    const [fileName, setFileName] = useState<string>('')
+
+    const displayFileName = (name: string) => {
+        return <span className="student-import_fileNameBox">
       {!name ? 'Nie wybrano pliku' : <strong>{name}</strong>}
     </span>
-  }
-
-  const displayModals = (err: string, success: string ) => {
-    if(err) {
-      return <TransitionAlertError
-          text={err}
-          isModalExpanded={isModalExpanded}
-          setIsModalExpanded={setIsModalExpanded}
-      />
     }
-    if (success) {
-      return <TransitionAlertSuccess
-          text={success}
-          isModalExpanded={isModalExpanded}
-          setIsModalExpanded={setIsModalExpanded}
-      />
+
+    const changeHandler = (event: FormEvent) => {
+        setFileName((event.target as any).files[0].name)
+        setPhoto((event.target as any).files[0]);
     }
-    return null
-  }
 
-  const changeHandler = (event: FormEvent) => {
-    setFileName((event.target as any).files[0].name)
-    setPhoto((event.target as any).files[0]);
-  }
+    const handleSubmission = async () => {
 
-  const handleSubmission =  async () => {
+        if (photo) {
+            const formData = new FormData();
+            formData.append('photo', photo);
 
-    setError('');
-    setResponse('');
-    setIsModalStatusOpen(false);
+            try {
+                const response = await fetch('http://localhost:8080/admin/upload/students', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
 
-    if (photo) {
-      const formData = new FormData();
-      formData.append('photo', photo);
+                setOpenModal(true)
+                setFeedbackSuccess(result)
+                setFeedbackError(result.message)
 
-      try {
-        const response = await fetch('http://localhost:8080/admin/upload/students', {
-          method: 'POST',
-          body: formData,
-        });
-        const data = await response.json();
-
-        //data: string = info z backendu o sukcesie
-        setResponse(data);
-
-        //data.message: string = info z backendu o błędzie
-        setError(data.message);
-
-        setIsModalStatusOpen(true);
-        setIsModalExpanded(true);
-
-      } catch (err: any) {
-        console.log(err);
-      }
+            } catch (err: any) {
+                console.log(err);
+            }
+        }
     }
-  }
 
-  return (
-    <>
-      <header className="student-import_header">
-        <h3 className="student-import_headerTitle">Zaimportuj listę studentów:</h3>
-        <StructureFileModal/>
-      </header>
+    return (
+        <>
+            <header className="student-import_header">
+                <h3 className="student-import_headerTitle">Zaimportuj listę studentów:</h3>
+                <StructureFileModal/>
+            </header>
 
-      <main className="student-import_main">
-        <SelectFileButton handleChange={changeHandler}/>
-        <p>{displayFileName(fileName)}</p>
-        <AnimatedSecondaryButton onClick={handleSubmission}>Wyślij plik</AnimatedSecondaryButton>
-      </main>
+            <main className="student-import_main">
+                <SelectFileButton handleChange={changeHandler}/>
+                <p>{displayFileName(fileName)}</p>
+                <AnimatedSecondaryButton onClick={handleSubmission}>Wyślij plik</AnimatedSecondaryButton>
+            </main>
 
-      <div>
-        {isModalStatusOpen && displayModals(error, response)}
-      </div>
-    </>
-  );
+            <div>
+                {
+                    openModal && <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}
+                    >
+                        {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                    </SimpleDialog>
+                }
+            </div>
+        </>
+    );
 };
