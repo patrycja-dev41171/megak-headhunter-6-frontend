@@ -1,56 +1,82 @@
-import React, { FormEvent, useState } from 'react';
+import React, {FormEvent, useState} from 'react';
 import {StructureFileModal} from "../../common/StructureFileModal/StructureFileModal";
 import './StudentImport.css';
+import {SelectFileButton} from "../../common/SelectFileBtn/SelectFileBtn";
+import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import SimpleDialog from "@mui/material/Dialog";
+import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
 
 export const StudentImport = () => {
-  const [photo, setPhoto] = useState();
-  const [error, setError] = useState(null);
-  const [respon, setRespon] = useState(null);
+    //modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => {
+        setOpenModal(false);
+    };
 
-  function changeHandler(event: FormEvent) {
-    setPhoto((event.target as any).files[0]);
-  }
+    //infoFromBackendStatus
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
-  async function handleSubmission() {
-    if (photo) {
-      const formData = new FormData();
-      formData.append('photo', photo);
+    const [photo, setPhoto] = useState();
+    const [fileName, setFileName] = useState<string>('')
 
-      try {
-        const response = await fetch('http://localhost:8080/admin/upload/students', {
-          method: 'POST',
-          body: formData,
-        });
-        const data = await response.json();
-        setRespon(data);
-        setError(data.message);
-      } catch (err: any) {
-        console.log(err);
-      }
+    const displayFileName = (name: string) => {
+        return <span className="student-import_fileNameBox">
+      {!name ? 'Nie wybrano pliku' : <strong>{name}</strong>}
+    </span>
     }
-  }
 
-  return (
-    <>
-      <div>{error ? error : respon}</div>
+    const changeHandler = (event: FormEvent) => {
+        setFileName((event.target as any).files[0].name)
+        setPhoto((event.target as any).files[0]);
+    }
 
-      <header className="student-import_header">
-        <h3>Zaimportuj listę studentów:</h3>
-        <StructureFileModal/>
-      </header>
-      <main className="student-import_main">
-        <input
-          className="student-import_input"
-          type="file"
-          name="foo"
-          onChange={changeHandler}
-        />
-        <button
-          onClick={handleSubmission}
-          className="student-import_button">
-          Wyślij
-        </button>
-      </main>
-    </>
-  );
+    const handleSubmission = async () => {
+
+        if (photo) {
+            const formData = new FormData();
+            formData.append('photo', photo);
+
+            try {
+                const response = await fetch('http://localhost:8080/admin/upload/students', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
+
+                setOpenModal(true)
+                setFeedbackSuccess(result)
+                setFeedbackError(result.message)
+
+            } catch (err: any) {
+                console.log(err);
+            }
+        }
+    }
+
+    return (
+        <>
+            <header className="student-import_header">
+                <h3 className="student-import_headerTitle">Zaimportuj listę studentów:</h3>
+                <StructureFileModal/>
+            </header>
+
+            <main className="student-import_main">
+                <SelectFileButton handleChange={changeHandler}/>
+                <p>{displayFileName(fileName)}</p>
+                <AnimatedSecondaryButton onClick={handleSubmission}>Wyślij plik</AnimatedSecondaryButton>
+            </main>
+
+            <div>
+                {
+                    openModal && <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}
+                    >
+                        {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                    </SimpleDialog>
+                }
+            </div>
+        </>
+    );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 // import React, {useEffect} from 'react';
 import { LoginView } from './pages/LoginView/LoginView';
 import { Route, Routes } from 'react-router-dom';
-import { HomeAdmin } from './pages/HomeAdmin/HomeAdmin';
 import { RegisterView } from './pages/RegisterView/RegisterView';
 import { ForgotPasswordView } from './pages/ForgotPasswordView/ForgotPasswordView';
 import { ChangePasswordView } from './pages/ChangePasswordView/ChangePasswordView';
@@ -10,6 +9,7 @@ import { HrHomeView } from './pages/HrHomeView/HrHomeView';
 import { HrSelectedStudentsView } from './pages/HrSelectedStudentsView/HrSelectedStudentsView';
 import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProfileView';
 import { StudentView } from './pages/StudentView/StudentView';
+import {HomeAdminView} from "./pages/HomeAdminView/HomeAdminView";
 // import { StoreState } from './redux-toolkit/store';
 // import axios from 'axios';
 // import jwtDecode from 'jwt-decode';
@@ -86,7 +86,7 @@ export const App = () => {
         />
         <Route
           path="/home-admin"
-          element={<HomeAdmin />}
+          element={<HomeAdminView />}
         />
         <Route
           path="/change-password/:userId"
