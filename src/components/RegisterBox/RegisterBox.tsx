@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { userSchema } from '../../Validations/UserValidation';
-import { TextField } from '@mui/material';
+import React, {useState} from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {userSchema} from '../../Validations/UserValidation';
+import {TextField} from '@mui/material';
 import {styled} from '@mui/system';
 import '../commonStyles.css';
 import {SmallBtn} from '../../common/SmallBtn/SmallBtn';
-import { useParams } from 'react-router-dom';
-import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
+import {useParams} from 'react-router-dom';
+import {MiniLogoMegaK} from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 
 const StyledTextField = styled(TextField, {
   name: 'StyledTextField',
@@ -34,11 +34,11 @@ type FormData = {
   confirmPassword: string;
 };
 
-export const ChangePasswordBox = () => {
+export const RegisterBox = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<FormData>({
     resolver: yupResolver(userSchema),
     mode: 'onTouched',
@@ -46,11 +46,11 @@ export const ChangePasswordBox = () => {
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
   const [feedback, setFeedback] = useState('');
 
-  const { userId } = useParams();
+  const {userId, registerToken} = useParams();
 
   const submitForm: SubmitHandler<FormData> = async (data: FormData) => {
     try {
-      const res = await fetch('http://localhost:8080/change-password', {
+      const res = await fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -59,6 +59,7 @@ export const ChangePasswordBox = () => {
         body: JSON.stringify({
           ...data,
           userId,
+          registerToken,
         }),
       });
       const result = await res.json();
@@ -73,9 +74,12 @@ export const ChangePasswordBox = () => {
       <div className="setPass-view ">
         <MiniLogoMegaK/>
         <div className="setPass-info">
-          <h1 className="header">Utwórz nowe hasło do twojego konta</h1>
-          <p>Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jeden
-            znak specjalny.</p>
+          <h1 className="header">Rejestracja nowego użytkownika</h1>
+          <p>
+            Utwórz hasło dla swojego konta. Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą
+            literę, jedną cyfrę i
+            jeden znak specjalny.
+          </p>
         </div>
         <form
             onSubmit={handleSubmit(submitForm)}
@@ -104,12 +108,12 @@ export const ChangePasswordBox = () => {
             />
           </div>
 
-          {isSuccessfullySubmitted && <p className="setPass-success">Utworzono nowe hasło do twojego konta</p>}
+          {isSuccessfullySubmitted && <p className="setPass-success">Rejestracja przebiegła pomyślnie.</p>}
           <p className="setPass-btn">
-            <SmallBtn text="Utwórz"/>
+            <SmallBtn text="Zarejestruj"/>
           </p>
           {feedback}
         </form>
-    </div>
+      </div>
   );
 };
