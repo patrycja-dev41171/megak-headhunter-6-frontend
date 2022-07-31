@@ -1,35 +1,27 @@
 .student-import_header {
     margin-top: 10px;
     color: #F7F7F7;
-    text-align: center;
+}
+
+.student-import_headerTitle {
+    margin: 10px auto 5px auto;
 }
 
 .student-import_main {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #F7F7F7;
-    text-align: center;
+    background-color: #3B3E3FFF;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(229, 229, 237, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(229, 229, 237, 1);
+    box-shadow: 0px 0px 5px 0px rgba(229, 229, 237, 1);
 }
 
-.student-import_input {
-    background-color: #292A2B;
-    width: 50vw;
-    height: 40px;
-    margin: 15px;
-    padding: 10px 10px 10px 50px;
-}
-
-.student-import_button {
-    background-color: #E02735;
-    color: #F7F7F7;
-    width: 100px;
-    height: 35px;
-    border: none;
-    cursor: pointer;
-}
-
-.student-import_button:hover {
-    background-color: #811821;
+.student-import_fileNameBox {
+    color: #88888d;
+    margin: 0 60px 0 20px;
 }
 

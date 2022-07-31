@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Snackbar, {SnackbarOrigin} from '@mui/material/Snackbar';
 import {Alert} from "@mui/material";
 import {useState} from 'react';
@@ -9,17 +9,21 @@ export interface State extends SnackbarOrigin {
 
 interface ErrorProps {
     errorMessage: string;
+    vertical: "bottom" | "top";
+    horizontal: "right" | "left" | "center";
 }
 
 interface SuccessProps {
     successMessage: string;
+    vertical: "bottom" | "top";
+    horizontal: "right" | "left" | "center";
 }
 
-export function ModalTopBottomError(props: ErrorProps) {
+export function ModalError(props: ErrorProps) {
     const [state] = useState<State>({
         open: true,
-        vertical: 'bottom',
-        horizontal: 'center',
+        vertical: props.vertical,
+        horizontal: props.horizontal,
     });
     const {vertical, horizontal, open} = state;
     const {errorMessage} = props;
@@ -39,11 +43,11 @@ export function ModalTopBottomError(props: ErrorProps) {
     );
 }
 
-export function ModalTopBottomSuccess(props: SuccessProps) {
+export function ModalSuccess(props: SuccessProps) {
     const [state] = useState<State>({
         open: true,
-        vertical: 'bottom',
-        horizontal: 'center',
+        vertical: props.vertical,
+        horizontal: props.horizontal,
     });
     const {vertical, horizontal, open} = state;
     const {successMessage} = props;

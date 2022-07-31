@@ -1,4 +1,4 @@
-.changePass-view {
+.setPass-view {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,33 +9,33 @@
     width: 100vw;
 }
 
-.inputFormChangePass {
+.inputFormSetPass {
     margin: 10px;
 }
 
-.changePass-form {
+.setPass-form {
     display: flex;
     flex-direction: column;
 }
 
-.changePass-info {
+.setPass-info {
     color: #7E7E7E;
     margin: 15px;
     width: 413px;
     font-size: 16px;
 }
 
-.changePass-success {
+.setPass-success {
     color: #217721;
 }
 
-.changePass-btn-box {
+.setPass-btn-box {
     margin: 25px;
     display: flex;
     justify-content: center;
 }
 
-.changePass-btn {
+.setPass-btn {
     padding-left: 130px;
     padding-top: 25px;
 }

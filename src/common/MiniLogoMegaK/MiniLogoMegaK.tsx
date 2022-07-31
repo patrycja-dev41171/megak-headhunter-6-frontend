@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './MiniLogoMegaK.css';
 
 export const MiniLogoMegaK = () => {
