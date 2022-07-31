@@ -1,14 +1,14 @@
 import React from 'react';
-import {MiniLogoMegaK} from "../../common/MiniLogoMegaK/MiniLogoMegaK";
-import {StudentImport} from "../StudentImport/StudentImport";
-import {AddHR} from "../AddHR/AddHR";
+import { StudentImport } from '../StudentImport/StudentImport';
+import { AddHR } from '../AddHR/AddHR';
+import { Header } from '../Header/Header';
 
 export const HomeAdmin = () => {
-    return (
-        <div className='main-container'>
-            <MiniLogoMegaK/>
-            <StudentImport/>
-            <AddHR/>
-        </div>
-    )
-}
+  return (
+    <div className="main-container">
+      <Header />
+      <StudentImport />
+      <AddHR />
+    </div>
+  );
+};

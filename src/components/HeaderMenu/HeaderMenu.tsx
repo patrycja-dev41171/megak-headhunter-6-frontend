@@ -1,26 +1,26 @@
-import React, {MouseEventHandler, SyntheticEvent} from 'react';
-import {styled} from '@mui/material/styles';
-import Menu, {MenuProps} from '@mui/material/Menu';
-import {useNavigate} from 'react-router-dom';
+import React, { MouseEventHandler, SyntheticEvent } from 'react';
+import { styled } from '@mui/material/styles';
+import Menu, { MenuProps } from '@mui/material/Menu';
+import { useNavigate } from 'react-router-dom';
 
 import './HeaderMenu.css';
-import {MenuBtn} from '../../common/MenuBtn/MenuBtn';
-import {ShowMenuBtn} from '../../common/ShowMenuBtn/ShowMenuBtn';
+import { MenuBtn } from '../../common/MenuBtn/MenuBtn';
+import { ShowMenuBtn } from '../../common/ShowMenuBtn/ShowMenuBtn';
 
 const StyledMenu = styled((props: MenuProps) => (
-    <Menu
-        elevation={0}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        {...props}
-    />
-))(({theme}) => ({
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
   '& .MuiPaper-root': {
     marginTop: theme.spacing(1),
     minWidth: 220,
@@ -76,19 +76,19 @@ export const HeaderMenu = (props: Props) => {
   };
 
   return (
-      <div className={props.className}>
-        <ShowMenuBtn onClick={handleClick}/>
-        <StyledMenu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}>
-          <MenuBtn
-              text="Konto"
-              to="/hr/profile"></MenuBtn>
-          <MenuBtn
-              text="Wyloguj"
-              onClick={handleLogout}></MenuBtn>
-        </StyledMenu>
-      </div>
+    <div className={props.className}>
+      <ShowMenuBtn onClick={handleClick} />
+      <StyledMenu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}>
+        <MenuBtn
+          text="Konto"
+          to="/hr/profile"></MenuBtn>
+        <MenuBtn
+          text="Wyloguj"
+          onClick={handleLogout}></MenuBtn>
+      </StyledMenu>
+    </div>
   );
 };
