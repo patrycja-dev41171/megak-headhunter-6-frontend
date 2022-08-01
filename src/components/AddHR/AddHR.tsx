@@ -5,7 +5,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {schemaAddHr} from "../../Validations/UserValidation";
 import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
 import SimpleDialog from "@mui/material/Dialog";
-import {StyledTextField} from "./StyledTextField";
+import {AddHrStyledTextField} from "./AddHrStyledTextField";
 import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
 
 interface FormValues {
@@ -65,7 +65,7 @@ export const AddHR = () => {
                 <form onSubmit={handleSubmit(submitForm)} className="add-hr_form">
 
                     <div className="add-hr_input">
-                        <StyledTextField
+                        <AddHrStyledTextField
                             fullWidth
                             type="text"
                             {...register('fullName')}
@@ -77,7 +77,7 @@ export const AddHR = () => {
                     </div>
 
                     <div className="add-hr_input">
-                        <StyledTextField
+                        <AddHrStyledTextField
                             fullWidth
                             type="email"
                             {...register('hrEmail')}
@@ -89,7 +89,7 @@ export const AddHR = () => {
                     </div>
 
                     <div className="add-hr_input">
-                        <StyledTextField
+                        <AddHrStyledTextField
                             fullWidth
                             type="text"
                             {...register('company')}
@@ -101,7 +101,7 @@ export const AddHR = () => {
                     </div>
 
                     <div className="add-hr_input">
-                        <StyledTextField
+                        <AddHrStyledTextField
                             fullWidth
                             type="number"
                             defaultValue={10}

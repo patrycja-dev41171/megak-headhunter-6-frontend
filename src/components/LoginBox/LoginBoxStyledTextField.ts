@@ -1,7 +1,7 @@
 import {styled} from "@mui/system";
 import {TextField} from "@mui/material";
 
-export const StyledTextField = styled(TextField, {
+export const LoginBoxStyledTextField= styled(TextField, {
     name: "StyledTextField",
 })({
     input: {
@@ -17,11 +17,5 @@ export const StyledTextField = styled(TextField, {
     '& .MuiInputBase-input': {
         color: '#7E7E7E',
         backgroundColor: '#292a2b',
-    },
-    "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-        display: "none",
-    },
-    "& input[type=number]": {
-        MozAppearance: "textfield",
-    },
+    }
 });
