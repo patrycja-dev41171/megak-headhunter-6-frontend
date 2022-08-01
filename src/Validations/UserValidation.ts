@@ -12,6 +12,7 @@ export const userSchemaForgotPassword = yup.object().shape({
     confirmEmail: yup.string().oneOf([yup.ref('userEmail'), null]),
 }).required();
 
+//home-admin
 export const schemaAddHr = yup.object().shape({
     hrEmail: yup
         .string()
@@ -41,6 +42,23 @@ export const schemaAddHr = yup.object().shape({
 
 }).required('Musisz podać liczbę studentów');
 
+//login
+export const schemaLogin = yup.object().shape({
+    loginEmail: yup
+        .string()
+        .email('Nieprawidłowy email')
+        .min(5, 'Email musi posiadać przynajmniej 5 znaków')
+        .max(255, 'Email nie może być dłuższy niż 255 znaków')
+        .required('Podaj email'),
+
+    loginPassword: yup
+        .string()
+        .min(1, 'Pole nie może być puste')
+        .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
+        .required('Podaj hasło'),
+        // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
+}).required();
+
 
 export const userSchema = yup.object().shape({
     email: yup
@@ -54,7 +72,7 @@ export const userSchema = yup.object().shape({
 
     password: yup
         .string()
-        .max(255, 'Hasło nie może być dłuższy niż 255 znaków')
+        .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
         .required('Podaj hasło')
         .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
 
