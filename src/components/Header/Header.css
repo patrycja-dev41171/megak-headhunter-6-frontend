@@ -4,7 +4,7 @@
     height: 80px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8vh;
+    margin-bottom: 4vh;
 }
 
 .logo-background {
@@ -30,10 +30,10 @@
 }
 
 .user-name {
-    color: white;
+    /*color: white;*/
 }
 
 .options-btn {
-    padding-top: 3px;
+    /*padding-top: 3px;*/
 }
 

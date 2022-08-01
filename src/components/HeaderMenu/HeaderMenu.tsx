@@ -1,11 +1,10 @@
-import React, { MouseEventHandler, SyntheticEvent } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
-
-import './HeaderMenu.css';
 import { MenuBtn } from '../../common/MenuBtn/MenuBtn';
 import { ShowMenuBtn } from '../../common/ShowMenuBtn/ShowMenuBtn';
+import './HeaderMenu.css';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu

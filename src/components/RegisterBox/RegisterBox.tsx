@@ -1,119 +1,184 @@
-import React, {useState} from 'react';
+import React, {MouseEvent, useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {userSchema} from '../../Validations/UserValidation';
-import {TextField} from '@mui/material';
-import {styled} from '@mui/system';
-import '../commonStyles.css';
-import {SmallBtn} from '../../common/SmallBtn/SmallBtn';
+import {schemaCreatePassword} from '../../Validations/UserValidation';
 import {useParams} from 'react-router-dom';
 import {MiniLogoMegaK} from '../../common/MiniLogoMegaK/MiniLogoMegaK';
+import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
+import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import SimpleDialog from "@mui/material/Dialog";
+import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
+import "../../styles/stylesForForms.css";
 
-const StyledTextField = styled(TextField, {
-  name: 'StyledTextField',
-})({
-  input: {
-    width: '300px',
-    '&:-webkit-autofill': {
-      WebkitBoxShadow: '0 0 0 1000px #292a2b inset',
-      WebkitTextFillColor: '#7E7E7E',
-      borderRadius: '0',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#7E7E7E',
-  },
-  '& .MuiInputBase-input': {
-    color: '#7E7E7E',
-    backgroundColor: '#292a2b',
-  },
-});
-
-type FormData = {
-  password: string;
-  confirmPassword: string;
+type FormValues = {
+    registerPassword: string;
+    confirmPassword: string;
 };
 
+interface InputNumber {
+    registerPassword: string;
+    showRegisterPassword: boolean;
+    confirmPassword: string;
+    showConfirmPassword: boolean;
+}
+
 export const RegisterBox = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: {errors},
-  } = useForm<FormData>({
-    resolver: yupResolver(userSchema),
-    mode: 'onTouched',
-  });
-  const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
-  const [feedback, setFeedback] = useState('');
+    //eye visible-hidden handle
+    const [values, setValues] = useState<InputNumber>({
+        registerPassword: '',
+        showRegisterPassword: false,
+        confirmPassword: '',
+        showConfirmPassword: false,
+    });
 
-  const {userId, registerToken} = useParams();
+    const ClickShowRegPass = () => {
+        setValues({
+            ...values,
+            showRegisterPassword: !values.showRegisterPassword,
+        });
+    };
 
-  const submitForm: SubmitHandler<FormData> = async (data: FormData) => {
-    try {
-      const res = await fetch('http://localhost:8080/register', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          userId,
-          registerToken,
-        }),
-      });
-      const result = await res.json();
-      setFeedback(result.message);
-      setIsSuccessfullySubmitted(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const ClickShowConfirmPass = () => {
+        setValues({
+            ...values,
+            showConfirmPassword: !values.showConfirmPassword,
+        });
+    };
 
-  return (
-      <div className="setPass-view ">
-        <MiniLogoMegaK/>
-        <div className="setPass-info">
-          <h1 className="header">Rejestracja nowego użytkownika</h1>
-          <p>
-            Utwórz hasło dla swojego konta. Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą
-            literę, jedną cyfrę i
-            jeden znak specjalny.
-          </p>
+    const handleMouseDownPassword = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+    };
+
+    //modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => {
+        setOpenModal(false);
+    };
+
+    //infoFromBackendStatus
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
+
+    const {register, handleSubmit, formState: {errors}} = useForm<FormValues>({
+        resolver: yupResolver(schemaCreatePassword),
+        mode: 'onChange',
+    });
+
+    const {userId, registerToken} = useParams();
+
+    const submitForm: SubmitHandler<FormValues> = async ({
+                                                             registerPassword: password,
+                                                             confirmPassword,
+                                                         }) => {
+        try {
+            const res = await fetch('http://localhost:8080/register', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    password,
+                    confirmPassword,
+                    userId,
+                    registerToken,
+                }),
+            });
+            const result = await res.json();
+
+            setOpenModal(true)
+            setFeedbackSuccess(result);
+            setFeedbackError(result.message);
+
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    return (
+        <div className="main-container ">
+            <MiniLogoMegaK/>
+            <h1 className="formView_header">Utwórz hasło</h1>
+            <p className="formView_header_instruction">
+                Utwórz hasło dla swojego konta. Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną
+                małą literę, jedną cyfrę i jeden znak specjalny.
+            </p>
+            <form
+                onSubmit={handleSubmit(submitForm)}
+                className="formView_form"
+            >
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
+                        variant="filled"
+                        type={values.showRegisterPassword ? 'text' : 'password'}
+                        error={!!errors.registerPassword}
+                        label="Podaj hasło"
+                        helperText={errors.registerPassword ? errors.registerPassword?.message : ''}
+                        {...register('registerPassword')}
+                        InputProps={{
+                            style: {backgroundColor: "#292a2b"},
+                            endAdornment: <InputAdornment
+                                position="end"
+                            >
+                                <IconButton
+                                    sx={{
+                                        color: '#7E7E7E',
+                                    }}
+                                    aria-label="toggle password visibility"
+                                    onClick={ClickShowRegPass}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
+                                    {values.showRegisterPassword ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>,
+                        }}
+                    />
+                </div>
+
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
+                        variant="filled"
+                        type={values.showConfirmPassword ? 'text' : 'password'}
+                        error={!!errors.confirmPassword}
+                        label="Potwierdź hasło"
+                        helperText={errors.confirmPassword && 'Podane hasła nie są takie same!'}
+                        {...register('confirmPassword')}
+                        InputProps={{
+                            style: {backgroundColor: "#292a2b"},
+                            endAdornment: <InputAdornment
+                                position="end"
+                            >
+                                <IconButton
+                                    sx={{
+                                        color: '#7E7E7E',
+                                    }}
+                                    aria-label="toggle password visibility"
+                                    onClick={ClickShowConfirmPass}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
+                                    {values.showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>,
+                        }}
+                    />
+                </div>
+
+                <AnimatedSecondaryButton type="submit">Utwórz hasło</AnimatedSecondaryButton>
+            </form>
+            {
+                openModal && <SimpleDialog
+                    open={openModal}
+                    onClose={handleClose}
+                >
+                    {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                </SimpleDialog>
+            }
         </div>
-        <form
-            onSubmit={handleSubmit(submitForm)}
-            className="setPass-form">
-          <div className="inputFormSetPass">
-            <StyledTextField
-                variant="outlined"
-                type="password"
-                error={!!errors.password}
-                label="Podaj hasło"
-                helperText={errors.password ? errors.password?.message : ''}
-                {...register('password')}
-                disabled={isSuccessfullySubmitted}
-            />
-          </div>
-
-          <div className="inputFormSetPass">
-            <StyledTextField
-                variant="outlined"
-                type="password"
-                error={!!errors.confirmPassword}
-                label="Potwierdź hasło"
-                helperText={errors.confirmPassword && 'Podane hasła nie są takie same!'}
-                {...register('confirmPassword')}
-                disabled={isSuccessfullySubmitted}
-            />
-          </div>
-
-          {isSuccessfullySubmitted && <p className="setPass-success">Rejestracja przebiegła pomyślnie.</p>}
-          <p className="setPass-btn">
-            <SmallBtn text="Zarejestruj"/>
-          </p>
-          {feedback}
-        </form>
-      </div>
-  );
+    );
 };

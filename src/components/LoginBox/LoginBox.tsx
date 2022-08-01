@@ -1,4 +1,4 @@
-import React, {useState, MouseEvent, } from 'react';
+import React, {useState, MouseEvent,} from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import jwtDecode from 'jwt-decode';
 import {useDispatch} from 'react-redux';
@@ -9,21 +9,20 @@ import {setAccessToken, setExpirationTime, setId, setRole} from '../../redux-too
 import {MiniLogoMegaK} from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import SimpleDialog from "@mui/material/Dialog";
 import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
-import {LoginBoxStyledTextField} from "./LoginBoxStyledTextField"
 import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
 import {RemindPasswordBtn} from "../../common/RemindPasswordBtn/RemindPasswordBtn";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import './LoginBox.css';
+import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
+import '../../styles/stylesForForms.css';
 
 interface FormValues {
     loginEmail: string;
     loginPassword: string;
 }
 
-//input number
 interface InputNumber {
     loginPassword: string;
     showPassword: boolean;
@@ -35,13 +34,13 @@ interface AccessToken {
 }
 
 export const LoginBox = () => {
-    //input number service
+    //eye visible-hidden handle
     const [values, setValues] = useState<InputNumber>({
         loginPassword: '',
         showPassword: false,
     });
 
-    const handleClickShowPassword = () => {
+    const showPassword = () => {
         setValues({
             ...values,
             showPassword: !values.showPassword,
@@ -90,14 +89,13 @@ export const LoginBox = () => {
 
             const result = await res.json();
 
-            setOpenModal(true)
-
             const decoded = jwtDecode<AccessToken>(result.accessToken);
             dispatch(setId(result.id));
             dispatch(setAccessToken(result.accessToken));
             dispatch(setExpirationTime(decoded.exp));
             dispatch(setRole(result.role));
 
+            setOpenModal(true)
             setFeedbackSuccess(result);
             setFeedbackError(result.message);
 
@@ -112,63 +110,64 @@ export const LoginBox = () => {
     };
 
     return (
-        <>
-            <div className="main-container">
-                <MiniLogoMegaK/>
-                <form onSubmit={handleSubmit(submitForm)} className="login_form">
-                    <div className="login_form_input">
-                        <LoginBoxStyledTextField
-                            fullWidth
-                            type="email"
-                            {...register('loginEmail')}
-                            variant="filled"
-                            error={!!errors.loginEmail}
-                            label="Email"
-                            helperText={errors.loginEmail ? errors.loginEmail?.message : ''}
-                        />
-                    </div>
-                    <div className="login_form_input">
-                        <LoginBoxStyledTextField
-                            fullWidth
-                            type={values.showPassword ? 'text' : 'password'}
-                            {...register('loginPassword')}
-                            variant="filled"
-                            error={!!errors.loginPassword}
-                            label="Podaj hasło"
-                            helperText={errors.loginPassword ? errors.loginPassword?.message : ''}
-                            InputProps={{
-                                style:{backgroundColor:"#292a2b"},
-                                endAdornment: <InputAdornment
-                                    position="end"
+
+        <div className="main-container">
+            <MiniLogoMegaK/>
+            <h1 className="formView_header">Zaloguj się</h1>
+            <form onSubmit={handleSubmit(submitForm)} className="formView_form">
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
+                        type="email"
+                        {...register('loginEmail')}
+                        variant="filled"
+                        error={!!errors.loginEmail}
+                        label="Email"
+                        helperText={errors.loginEmail ? errors.loginEmail?.message : ''}
+                    />
+                </div>
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
+                        variant="filled"
+                        type={values.showPassword ? 'text' : 'password'}
+                        error={!!errors.loginPassword}
+                        label="Podaj hasło"
+                        helperText={errors.loginPassword ? errors.loginPassword?.message : ''}
+                        {...register('loginPassword')}
+                        InputProps={{
+                            style: {backgroundColor: "#292a2b"},
+                            endAdornment: <InputAdornment
+                                position="end"
+                            >
+                                <IconButton
+                                    sx={{
+                                        color: '#7E7E7E',
+                                    }}
+                                    aria-label="toggle password visibility"
+                                    onClick={showPassword}
+                                    onMouseDown={handleMouseDownPassword}
                                 >
-                                    <IconButton
-                                        sx={{
-                                            color: '#7E7E7E',
-                                        }}
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                    >
-                                        {values.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>,
-                            }}
-                        />
-                    </div>
-                    {
-                        openModal && <SimpleDialog
-                            open={openModal}
-                            onClose={handleClose}
-                        >
-                            {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
-                        </SimpleDialog>
-                    }
-                    <div className="login_form_forgotPasswordBtn">
-                        <RemindPasswordBtn/>
-                    </div>
-                    <AnimatedSecondaryButton type="submit">Dodaj HR</AnimatedSecondaryButton>
-                </form>
-            </div>
-        </>
+                                    {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                </IconButton>
+                            </InputAdornment>,
+                        }}
+                    />
+                </div>
+                <div className="formView_forgotPasswordBtnBox">
+                    <RemindPasswordBtn/>
+                </div>
+                <AnimatedSecondaryButton type="submit">Zaloguj się</AnimatedSecondaryButton>
+            </form>
+
+            {
+                openModal && <SimpleDialog
+                    open={openModal}
+                    onClose={handleClose}
+                >
+                    {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                </SimpleDialog>
+            }
+        </div>
     );
 };

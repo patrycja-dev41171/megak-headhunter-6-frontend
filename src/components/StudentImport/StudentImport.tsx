@@ -1,10 +1,10 @@
 import React, {FormEvent, useState} from 'react';
 import {StructureFileModal} from "../../common/StructureFileModal/StructureFileModal";
-import './StudentImport.css';
 import {SelectFileButton} from "../../common/SelectFileBtn/SelectFileBtn";
 import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
 import SimpleDialog from "@mui/material/Dialog";
 import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
+import './StudentImport.css';
 
 export const StudentImport = () => {
     //modal
@@ -21,18 +21,17 @@ export const StudentImport = () => {
     const [fileName, setFileName] = useState<string>('')
 
     const displayFileName = (name: string) => {
-        return <span className="student-import_fileNameBox">
+        return <span className="studentImport_fileNameBox">
       {!name ? 'Nie wybrano pliku' : <strong>{name}</strong>}
     </span>
     }
 
-    const changeHandler = (event: FormEvent) => {
+    const changeHandlerFiles = (event: FormEvent) => {
         setFileName((event.target as any).files[0].name)
         setPhoto((event.target as any).files[0]);
     }
 
-    const handleSubmission = async () => {
-
+    const submitForm = async () => {
         if (photo) {
             const formData = new FormData();
             formData.append('photo', photo);
@@ -56,27 +55,21 @@ export const StudentImport = () => {
 
     return (
         <>
-            <header className="student-import_header">
-                <h3 className="student-import_headerTitle">Zaimportuj listę studentów:</h3>
-                <StructureFileModal/>
-            </header>
-
-            <main className="student-import_main">
-                <SelectFileButton handleChange={changeHandler}/>
+            <h2 className="studentImport_header">Zaimportuj listę studentów:</h2>
+            <StructureFileModal/>
+            <main className="studentImport_main">
+                <SelectFileButton handleChange={changeHandlerFiles}/>
                 <p>{displayFileName(fileName)}</p>
-                <AnimatedSecondaryButton onClick={handleSubmission}>Wyślij plik</AnimatedSecondaryButton>
+                <AnimatedSecondaryButton onClick={submitForm}>Wyślij plik</AnimatedSecondaryButton>
             </main>
-
-            <div>
-                {
-                    openModal && <SimpleDialog
-                        open={openModal}
-                        onClose={handleClose}
-                    >
-                        {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
-                    </SimpleDialog>
-                }
-            </div>
+            {
+                openModal && <SimpleDialog
+                    open={openModal}
+                    onClose={handleClose}
+                >
+                    {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                </SimpleDialog>
+            }
         </>
     );
 };
