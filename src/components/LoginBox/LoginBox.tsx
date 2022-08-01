@@ -69,10 +69,8 @@ export const LoginBox = () => {
     const dispatch = useDispatch();
     let navigate = useNavigate();
 
-    const submitForm: SubmitHandler<FormValues> = async ({
-                                                             loginEmail: email,
-                                                             loginPassword: password
-                                                         }) => {
+    const submitForm: SubmitHandler<FormValues> = async ({loginEmail: email, loginPassword: password
+    }) => {
 
         try {
             const res = await fetch(`http://localhost:8080/login`, {

@@ -8,6 +8,7 @@
     color: #7E7E7E;
     margin: 5px 30vw;
     font-size: 16px;
+    max-width: 600px;
 }
 
 .formView_form {

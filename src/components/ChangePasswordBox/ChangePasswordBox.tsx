@@ -72,9 +72,9 @@ export const ChangePasswordBox = () => {
 
     const {userId} = useParams();
 
-    const submitForm: SubmitHandler<FormValues> = async ({ changedPassword: password,
-                                                           confirmChangedPassword: confirmPassword
+    const submitForm: SubmitHandler<FormValues> = async ({ changedPassword: password, confirmChangedPassword: confirmPassword
     }) => {
+
         try {
             const res = await fetch('http://localhost:8080/change-password', {
                 method: 'POST',

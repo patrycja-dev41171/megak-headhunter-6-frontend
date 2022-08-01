@@ -70,10 +70,9 @@ export const RegisterBox = () => {
 
     const {userId, registerToken} = useParams();
 
-    const submitForm: SubmitHandler<FormValues> = async ({
-                                                             registerPassword: password,
-                                                             confirmPassword,
-                                                         }) => {
+    const submitForm: SubmitHandler<FormValues> = async ({registerPassword: password, confirmPassword
+    }) => {
+
         try {
             const res = await fetch('http://localhost:8080/register', {
                 method: 'POST',

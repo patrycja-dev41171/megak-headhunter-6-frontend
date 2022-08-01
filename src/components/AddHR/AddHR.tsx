@@ -31,12 +31,9 @@ export const AddHR = () => {
         mode: "onChange",
     })
 
-    const submitForm: SubmitHandler<FormValues> = async ({
-                                                             hrEmail: email,
-                                                             fullName,
-                                                             company,
-                                                             maxReservedStudents
-                                                         }) => {
+    const submitForm: SubmitHandler<FormValues> = async ({hrEmail: email, fullName, company, maxReservedStudents
+    }) => {
+
         try {
             const res = await fetch('http://localhost:8080/admin/add-hr', {
                 method: 'POST',

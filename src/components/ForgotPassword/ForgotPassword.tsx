@@ -29,7 +29,8 @@ export const ForgotPassword = () => {
         mode: "onBlur",
     })
 
-    const submitForm: SubmitHandler<FormData> = async ({userEmail: email, confirmEmail}) => {
+    const submitForm: SubmitHandler<FormData> = async ({userEmail: email, confirmEmail
+    }) => {
 
         try {
             const res = await fetch('http://localhost:8080/forgot-password', {
