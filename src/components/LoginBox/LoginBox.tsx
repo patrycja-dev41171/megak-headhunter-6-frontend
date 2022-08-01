@@ -18,7 +18,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import './LoginBox.css';
 
-
 interface FormValues {
     loginEmail: string;
     loginPassword: string;
