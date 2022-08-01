@@ -1,13 +1,4 @@
-.student-import_header {
-    margin-top: 10px;
-    color: #F7F7F7;
-}
-
-.student-import_headerTitle {
-    margin: 10px auto 5px auto;
-}
-
-.student-import_main {
+.studentImport_main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,13 +6,19 @@
     border-radius: 5px;
     padding: 20px;
     margin: 20px auto;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(229, 229, 237, 1);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(229, 229, 237, 1);
-    box-shadow: 0px 0px 5px 0px rgba(229, 229, 237, 1);
+    -webkit-box-shadow: 0 0 5px 0 rgba(229, 229, 237, 1);
+    -moz-box-shadow: 0 0 5px 0 rgba(229, 229, 237, 1);
+    box-shadow: 0 0 5px 0 rgba(229, 229, 237, 1);
 }
 
-.student-import_fileNameBox {
+.studentImport_fileNameBox {
     color: #88888d;
     margin: 0 60px 0 20px;
+}
+
+.studentImport_header {
+    color: #f7f7f7;
+    margin: 5px;
+    font-size: 20px;
 }
 

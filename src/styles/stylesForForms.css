@@ -1,0 +1,34 @@
+.formView_header {
+    color: #f7f7f7;
+    margin: 5px;
+    font-size: 25px;
+}
+
+.formView_header_instruction {
+    color: #7E7E7E;
+    margin: 5px 30vw;
+    font-size: 16px;
+}
+
+.formView_form {
+    width: 350px;
+}
+
+.formView_input {
+    margin: 10px 0;
+}
+
+.formView_forgotPasswordBtnBox {
+    text-align: right;
+    margin: 12px 0;
+}
+
+.addHrFormView_form {
+    width: 500px;
+}
+
+.addHrFormView_header {
+    color: #f7f7f7;
+    margin: 5px;
+    font-size: 20px;
+}

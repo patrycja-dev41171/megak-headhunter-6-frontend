@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 //błędy walidacji na froncie tworzymy dla kazdego formularza osobny obiekt tylko z polami które występują w formularzu
 
-export const userSchemaForgotPassword = yup.object().shape({
+export const schemaForgotPassword = yup.object().shape({
     userEmail: yup
         .string()
         .email('Nieprawidłowy email')
@@ -56,25 +56,29 @@ export const schemaLogin = yup.object().shape({
         .min(1, 'Pole nie może być puste')
         .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
         .required('Podaj hasło'),
-        // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
+    // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
 }).required();
 
-
-export const userSchema = yup.object().shape({
-    email: yup
+export const schemaCreatePassword = yup.object().shape({
+    registerPassword: yup
         .string()
-        .min(5, 'Email musi posiadać przynajmniej 5 znaków')
-        .email('Nieprawidłowy email')
-        .max(255, 'Email nie może być dłuższy niż 255 znaków')
-        .required('Podaj email'),
-
-    confirmEmail: yup.string().oneOf([yup.ref('email'), null]),
-
-    password: yup
-        .string()
+        .min(1, 'Pole nie może być puste')
         .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
-        .required('Podaj hasło')
-        .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
+        .required('Podaj hasło'),
+    //poprawić ten warunek
+        // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
 
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null]),
+    confirmPassword: yup.string().oneOf([yup.ref('registerPassword'), null]),
+});
+
+export const schemaChangedPassword = yup.object().shape({
+    changedPassword: yup
+        .string()
+        .min(1, 'Pole nie może być puste')
+        .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
+        .required('Podaj hasło'),
+    //poprawić ten warunek
+    // .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
+
+    confirmChangedPassword: yup.string().oneOf([yup.ref('changedPassword'), null]),
 });

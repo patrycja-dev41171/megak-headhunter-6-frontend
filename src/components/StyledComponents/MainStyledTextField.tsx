@@ -1,7 +1,7 @@
 import {styled} from "@mui/system";
 import {TextField} from "@mui/material";
 
-export const LoginBoxStyledTextField= styled(TextField, {
+export const MainStyledTextField = styled(TextField, {
     name: "StyledTextField",
 })({
     input: {
@@ -17,5 +17,5 @@ export const LoginBoxStyledTextField= styled(TextField, {
     '& .MuiInputBase-input': {
         color: '#7E7E7E',
         backgroundColor: '#292a2b',
-    }
+    },
 });

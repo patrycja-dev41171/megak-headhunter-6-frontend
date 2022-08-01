@@ -1,32 +1,13 @@
 import React, {useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
-import {userSchemaForgotPassword} from "../../Validations/UserValidation";
-import {TextField} from "@mui/material";
-import {styled} from "@mui/system";
+import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
+import {schemaForgotPassword} from "../../Validations/UserValidation";
 import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
-import {ModalError, ModalSuccess} from "../../common/AlertModal/AlertModal";
-import './ForgotPassword.css';
-
-const StyledTextField = styled(TextField, {
-    name: "StyledTextField",
-})({
-    input: {
-        width: '300px',
-        '&:-webkit-autofill': {
-            WebkitBoxShadow: '0 0 0 1000px #292a2b inset',
-            WebkitTextFillColor: '#7E7E7E',
-            borderRadius: '0',
-        },
-    },
-    '& .MuiInputLabel-root': {
-        color: '#7E7E7E',
-    },
-    '& .MuiInputBase-input': {
-        color: '#7E7E7E',
-        backgroundColor: '#292a2b',
-    },
-});
+import {MiniLogoMegaK} from "../../common/MiniLogoMegaK/MiniLogoMegaK";
+import SimpleDialog from "@mui/material/Dialog";
+import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
+import "../../styles/stylesForForms.css"
 
 type FormData = {
     userEmail: string;
@@ -34,28 +15,22 @@ type FormData = {
 };
 
 export const ForgotPassword = () => {
+    //modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => {
+        setOpenModal(false);
+    };
+    //informacje z backendu
     const [feedbackError, setFeedbackError] = useState('');
     const [feedbackSuccess, setFeedbackSuccess] = useState('');
-    const [openInfoModal, setOpenInfoModal] = useState<boolean>(false);
+
     const {register, handleSubmit, formState: {errors}} = useForm<FormData>({
-        resolver: yupResolver(userSchemaForgotPassword),
+        resolver: yupResolver(schemaForgotPassword),
         mode: "onBlur",
     })
 
-    const displayModals = (error: string, success: string ) => {
-        if(error) {
-            return < ModalError vertical="bottom" horizontal="center" errorMessage={feedbackError}/>
-        }
-        if (success) {
-            return < ModalSuccess vertical="bottom" horizontal="center" successMessage={feedbackSuccess}/>
-        }
-        return null
-    }
-
-
-
     const submitForm: SubmitHandler<FormData> = async ({userEmail: email, confirmEmail}) => {
-        setOpenInfoModal(false);
+
         try {
             const res = await fetch('http://localhost:8080/forgot-password', {
                 method: 'POST',
@@ -68,28 +43,33 @@ export const ForgotPassword = () => {
                 }),
             });
             const result = await res.json();
-            console.log(result)
+
+            //informacje jako string z backendu wyświetlane w modalu
+            //error: result.message
+            //success: result
+            setOpenModal(true)
             setFeedbackError(result.message)
-            // lub setFeedbackSuccess(string z informacja o sukcesie)
-            setOpenInfoModal(true)
+            setFeedbackSuccess(result)
+
         } catch (err) {
             console.log(err);
         }
     };
 
     return (
-        <div className="remPass-view">
-            <img
-                src="logo-megak.webp"
-                alt="Logo MegaK"
-                className="logo"
-            />
-            <p className="remPass-info">
-                Podaj swój adres e-mail, wyślemy Ci Twoje hasło.
+        <div className="main-container">
+            <MiniLogoMegaK/>
+            <h1 className="formView_header">Zresetuj swoje hasło</h1>
+            <p className="formView_header_instruction">
+                Podaj swój adres e-mail poniżej, aby otrzymać link do zresetowania hasła.
             </p>
-            <form onSubmit={handleSubmit(submitForm)}>
-                <div className="remPass-input">
-                    <StyledTextField
+            <form
+                onSubmit={handleSubmit(submitForm)}
+                className="formView_form"
+            >
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
                         type="email"
                         {...register('userEmail')}
                         variant="filled"
@@ -99,8 +79,9 @@ export const ForgotPassword = () => {
                     />
                 </div>
 
-                <div className="remPass-input">
-                    <StyledTextField
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
                         type="email"
                         {...register('confirmEmail')}
                         variant="filled"
@@ -109,9 +90,16 @@ export const ForgotPassword = () => {
                         helperText={errors.confirmEmail && "Niepoprawnie potwierdzony email"}
                     />
                 </div>
+                {
+                    openModal && <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}
+                    >
+                        {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                    </SimpleDialog>
+                }
                 <AnimatedSecondaryButton type="submit">Wyślij hasło</AnimatedSecondaryButton>
             </form>
-            {openInfoModal && displayModals(feedbackError, feedbackSuccess)}
         </div>
     );
 };
