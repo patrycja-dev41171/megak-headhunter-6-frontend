@@ -78,6 +78,10 @@ export const App = () => {
     <>
       <Routes>
         <Route
+          path="/"
+          element={<LoginView />}
+        />
+        <Route
           path="/login"
           element={<LoginView />}
         />
