@@ -9,7 +9,8 @@ import { HrHomeView } from './pages/HrHomeView/HrHomeView';
 import { HrSelectedStudentsView } from './pages/HrSelectedStudentsView/HrSelectedStudentsView';
 import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProfileView';
 import { StudentView } from './pages/StudentView/StudentView';
-import {HomeAdminView} from "./pages/HomeAdminView/HomeAdminView";
+import { HomeAdminView } from './pages/HomeAdminView/HomeAdminView';
+import { HrProfileView } from './pages/HrProfileView/HrProfileView';
 // import { StoreState } from './redux-toolkit/store';
 // import axios from 'axios';
 // import jwtDecode from 'jwt-decode';
@@ -111,6 +112,10 @@ export const App = () => {
         <Route
           path="/student"
           element={<StudentView />}
+        />
+        <Route
+          path="/hr/profile"
+          element={<HrProfileView />}
         />
       </Routes>
     </>
