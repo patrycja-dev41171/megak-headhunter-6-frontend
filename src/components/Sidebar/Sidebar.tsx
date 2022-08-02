@@ -59,9 +59,6 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   const handleStatusChange = async () => {
-    setOpenModal(true);
-    setFeedbackSuccess('asdfdsfgdfgd');
-
     const isConfirm = window.confirm('Czy jesteś pewien, że ten student został zatrudniony?');
     if (isConfirm) {
       try {
@@ -73,8 +70,9 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
           }),
         });
         const result = await data.json();
-
+        setFeedbackSuccess(result);
         setFeedbackError(result.message);
+        setOpenModal(true);
       } catch (err) {
         console.log(err);
       }
