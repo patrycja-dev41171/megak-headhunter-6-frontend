@@ -9,7 +9,7 @@ import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-t
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
+import { MainButton } from '../../common/MainButton/MainButton';
 import { RemindPasswordBtn } from '../../common/RemindPasswordBtn/RemindPasswordBtn';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
@@ -87,14 +87,15 @@ export const LoginBox = () => {
           password,
         }),
       });
-
       const result = await res.json();
-      const decoded = jwtDecode<AccessToken>(result.accessToken);
-      dispatch(setId(result.id));
-      dispatch(setAccessToken(result.accessToken));
-      dispatch(setExpirationTime(decoded.exp));
-      dispatch(setRole(result.role));
 
+      if (result.accessToken) {
+        const decoded = jwtDecode<AccessToken>(result.accessToken);
+        dispatch(setId(result.id));
+        dispatch(setAccessToken(result.accessToken));
+        dispatch(setExpirationTime(decoded.exp));
+        dispatch(setRole(result.role));
+      }
       setOpenModal(true);
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
@@ -163,7 +164,7 @@ export const LoginBox = () => {
         <div className="formView_forgotPasswordBtnBox">
           <RemindPasswordBtn />
         </div>
-        <AnimatedSecondaryButton type="submit">Zaloguj się</AnimatedSecondaryButton>
+        <MainButton type="submit">Zaloguj się</MainButton>
       </form>
       {openModal && (
         <SimpleDialog

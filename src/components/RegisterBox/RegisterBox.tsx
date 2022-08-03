@@ -5,7 +5,7 @@ import { schemaCreatePassword } from '../../Validations/UserValidation';
 import {useNavigate, useParams} from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
-import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
+import { MainButton } from '../../common/MainButton/MainButton';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -103,7 +103,7 @@ export const RegisterBox = () => {
   };
 
   return (
-    <div className="main-container ">
+    <div className="main-container">
       <MiniLogoMegaK />
       <h1 className="formView_header">Utwórz hasło</h1>
       <p className="formView_header_instruction">
@@ -169,7 +169,7 @@ export const RegisterBox = () => {
           />
         </div>
 
-        <AnimatedSecondaryButton type="submit">Utwórz hasło</AnimatedSecondaryButton>
+        <MainButton type="submit">Utwórz hasło</MainButton>
       </form>
       {openModal && (
         <SimpleDialog

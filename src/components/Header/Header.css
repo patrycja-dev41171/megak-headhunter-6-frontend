@@ -1,31 +1,24 @@
 .main-header {
-    width: 100vw;
-    background-color: #1e1e1f;
+    background-color: #1E1E1F;
     height: 80px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 4vh;
-}
-
-.logo-background {
-    height: 55px;
-    width: 89px;
-    margin-left: 15vw;
-    padding-top: 8px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
 }
 
 .user-info {
     display: flex;
-    color: white;
     justify-content: space-between;
     align-items: center;
-    width: 220px;
+    color: white;
     height: 80px;
-    margin-right: 5vw;
+    width: 220px;
 }
 
 .photo-space {
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     width: 45px;
 }
 

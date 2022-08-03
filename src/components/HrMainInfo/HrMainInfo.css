@@ -1,0 +1,44 @@
+.main{
+    background-color: #222324;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    color: #f7f7f7;
+    font-size: 20px;
+}
+
+.info-header {
+    background-color: #292A2B;
+    line-height: 60px;
+    padding: 0 26px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info-body {
+    color: #88888d;
+    font-size: 20px;
+    min-height: 100px;
+    align-items: center;
+    padding: 0 26px;
+    display: flex;
+}
+
+
+.student-reserved{
+    color: red;
+    line-height: 70px;
+    padding: 0 26px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.students-available{
+    color: green;
+    line-height: 70px;
+    padding: 0 26px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

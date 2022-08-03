@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
 import {schemaForgotPassword} from "../../Validations/UserValidation";
-import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import {MainButton} from "../../common/MainButton/MainButton";
 import {MiniLogoMegaK} from "../../common/MiniLogoMegaK/MiniLogoMegaK";
 import SimpleDialog from "@mui/material/Dialog";
 import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
@@ -44,9 +44,6 @@ export const ForgotPassword = () => {
             });
             const result = await res.json();
 
-            //informacje jako string z backendu wyświetlane w modalu
-            //error: result.message
-            //success: result
             setOpenModal(true)
             setFeedbackError(result.message)
             setFeedbackSuccess(result)
@@ -98,8 +95,8 @@ export const ForgotPassword = () => {
                         {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
                     </SimpleDialog>
                 }
-                <AnimatedSecondaryButton type="submit">Wyślij hasło</AnimatedSecondaryButton>
+                <MainButton type="submit">Wyślij hasło</MainButton>
             </form>
         </div>
-    );
+    )
 };
