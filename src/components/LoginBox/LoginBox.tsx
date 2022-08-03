@@ -87,14 +87,15 @@ export const LoginBox = () => {
           password,
         }),
       });
-
       const result = await res.json();
-      const decoded = jwtDecode<AccessToken>(result.accessToken);
-      dispatch(setId(result.id));
-      dispatch(setAccessToken(result.accessToken));
-      dispatch(setExpirationTime(decoded.exp));
-      dispatch(setRole(result.role));
 
+      if (result.accessToken) {
+        const decoded = jwtDecode<AccessToken>(result.accessToken);
+        dispatch(setId(result.id));
+        dispatch(setAccessToken(result.accessToken));
+        dispatch(setExpirationTime(decoded.exp));
+        dispatch(setRole(result.role));
+      }
       setOpenModal(true);
       setFeedbackSuccess(result);
       setFeedbackError(result.message);

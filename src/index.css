@@ -29,3 +29,14 @@ code {
   min-height: 100vh;
   background: #222224;
 }
+
+.displayCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageWithHeader {
+  padding-top: 80px;
+}

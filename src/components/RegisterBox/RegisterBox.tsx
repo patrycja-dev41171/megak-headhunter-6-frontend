@@ -99,7 +99,7 @@ export const RegisterBox = () => {
   };
 
   return (
-    <div className="main-container ">
+    <div className="main-container">
       <MiniLogoMegaK />
       <h1 className="formView_header">Utwórz hasło</h1>
       <p className="formView_header_instruction">

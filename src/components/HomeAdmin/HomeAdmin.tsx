@@ -1,15 +1,18 @@
 import React from 'react';
-import { StudentImport } from '../StudentImport/StudentImport';
-import { AddHR } from '../AddHR/AddHR';
-import { Header } from '../Header/Header';
-import "./HomeAdmin.css"
+import {StudentImport} from '../StudentImport/StudentImport';
+import {AddHR} from '../AddHR/AddHR';
+import {Header} from '../Header/Header';
 
 export const HomeAdmin = () => {
-  return (
-    <div className="main-container homeAdmin-container">
-      <Header />
-      <StudentImport />
-      <AddHR />
-    </div>
-  );
+    return (
+        <>
+            <Header/>
+            <div className="main-container pageWithHeader">
+                <div className="displayCenter">
+                    <StudentImport/>
+                    <AddHR/>
+                </div>
+            </div>
+        </>
+    );
 };
