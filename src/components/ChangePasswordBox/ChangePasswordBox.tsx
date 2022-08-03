@@ -9,7 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
-import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
+import { MainButton } from '../../common/MainButton/MainButton';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import '../../styles/stylesForForms.css';
@@ -164,7 +164,7 @@ export const ChangePasswordBox = () => {
             }}
           />
         </div>
-        <AnimatedSecondaryButton type="submit">Zmień hasło</AnimatedSecondaryButton>
+        <MainButton type="submit">Zmień hasło</MainButton>
       </form>
       {openModal && (
         <SimpleDialog

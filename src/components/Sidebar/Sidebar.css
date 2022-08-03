@@ -1,30 +1,26 @@
 .sidebar_container {
-    width: 250px;
-    max-width: 250px;
-    height: 75vh;
-    min-height: 560px;
-    max-height: 700px;
     background-color: #292A2B;
-    padding: 30px 20px 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     font-family: Roboto;
     color: #F7F7F7;
 }
 
-.sidebar_fullName{
-font-size: 24px;
+.sidebar_fullName {
+    font-size: 24px;
     margin: 5px auto;
 }
 
 .sidebar_githubName {
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
 }
 
-.sidebar_githubName>p{
-    margin: auto 8px;
+.sidebar_githubName > p {
+    padding-left: 8px;
     color: #0B8BD4;
 }
 
@@ -40,22 +36,28 @@ font-size: 24px;
     margin: 5px;
 }
 
-.sidebar_phoneNumber>p, .sidebar_email >p {
+.sidebar_phoneNumber > p, .sidebar_email > p {
     margin: auto auto auto 8px;
 }
 
-.sidebar_about_p{
+.sidebar_about_p {
     margin: 15px auto 5px 0;
     color: #4D4D4D;
 }
 
 .sidebar_about {
-    margin: 0 auto 15px;
-    flex: 1;
+    height: 190px;
+    line-height: 22px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding: 2px;
     overflow: auto;
     overflow-x: hidden;
-    line-height: 27px;
-    -webkit-mask-image: -webkit-gradient(linear,left 50%,left bottom,from(black),to(rgba(0,0,0,0)))
+    -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(black), to(rgba(0, 0, 0, 0)))
+}
+
+.sidebar_about > p {
+    max-height: 190px;
 }
 
 ::-webkit-scrollbar {
@@ -72,16 +74,3 @@ font-size: 24px;
     border-radius: 5px;
 }
 
-.sidebar_btn {
-    font-size: 16px;
-    margin: 15px auto 0;
-    width: 210px;
-    height: 40px;
-}
-
-.sidebar_div_about{
-    width: 210px;
-    height: 100%;
-    background-color: #4D4D4D;
-    border-radius: 4px;
-}
