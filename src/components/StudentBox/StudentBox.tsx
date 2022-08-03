@@ -2,6 +2,7 @@ import React from "react"
 import {Header} from "../Header/Header";
 import "./StudentBox.css";
 import {Box, Container} from "@mui/material";
+import {SidebarStudent} from "../Sidebar/Sidebar";
 
 export const StudentBox = () => {
     return (
@@ -17,20 +18,9 @@ export const StudentBox = () => {
                             maxWidth: '1430px',
                         }
                     }}>
-                    <Box
-                        sx={{
-                            backgroundColor: '#292A2B',
-                            minWidth: '250px',
-                            height: '400px',
-                            marginRight: '4px',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            color: '#88888d',
-                        }}
-                    >
-                        <p>Tutaj będzie kontener Patrycji :)</p>
-                    </Box>
+                    <div className="sidebarBox">
+                        <SidebarStudent email="j.kowalski@op.pl"/>
+                    </div>
                     <Box
                         sx={{
                             backgroundColor: '#222224',

@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
 import {StructureFileModal} from "../../common/StructureFileModal/StructureFileModal";
 import {SelectFileButton} from "../../common/SelectFileBtn/SelectFileBtn";
-import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import {MainButton} from "../../common/MainButton/MainButton";
 import SimpleDialog from "@mui/material/Dialog";
 import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
 import './StudentImport.css';
@@ -60,7 +60,7 @@ export const StudentImport = () => {
             <main className="studentImport_main">
                 <SelectFileButton handleChange={changeHandlerFiles}/>
                 <p>{displayFileName(fileName)}</p>
-                <AnimatedSecondaryButton onClick={submitForm}>Wyślij plik</AnimatedSecondaryButton>
+                <MainButton onClick={submitForm}>Wyślij plik</MainButton>
             </main>
             {
                 openModal && <SimpleDialog

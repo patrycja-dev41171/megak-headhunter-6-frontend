@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {schemaAddHr} from "../../Validations/UserValidation";
-import {AnimatedSecondaryButton} from "../../common/AnimatedSecondaryButton/AnimatedSecondaryButton";
+import {MainButton} from "../../common/MainButton/MainButton";
 import SimpleDialog from "@mui/material/Dialog";
 import {AddHrStyledTextField} from "../StyledComponents/AddHrStyledTextField";
 import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
@@ -120,7 +120,7 @@ export const AddHR = () => {
                             {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
                         </SimpleDialog>
                     }
-                    <AnimatedSecondaryButton type="submit">Dodaj HR</AnimatedSecondaryButton>
+                    <MainButton type="submit">Dodaj HR</MainButton>
                 </form>
 
         </>

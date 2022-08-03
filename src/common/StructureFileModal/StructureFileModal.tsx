@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import DialogTitle from '@mui/material/DialogTitle';
-import {AnimatedSecondaryButton} from "../AnimatedSecondaryButton/AnimatedSecondaryButton";
+import {MainButton} from "../MainButton/MainButton";
 import './StructureFileModal.css';
 
 export function StructureFileModal() {
@@ -23,13 +23,13 @@ export function StructureFileModal() {
 
     return (
         <div>
-            <AnimatedSecondaryButton
+            <MainButton
                 variant="contained"
                 size="small"
                 onClick={handleClickOpen}
             >
                 Zobacz strukturę pliku
-            </AnimatedSecondaryButton>
+            </MainButton>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
@@ -89,7 +89,7 @@ export function StructureFileModal() {
 
                 </DialogContent>
                 <DialogActions>
-                    <AnimatedSecondaryButton
+                    <MainButton
                         onClick={handleClose}
                         autoFocus
                         sx={{
@@ -97,7 +97,7 @@ export function StructureFileModal() {
                         }}
                     >
                         Zamknij
-                    </AnimatedSecondaryButton>
+                    </MainButton>
                 </DialogActions>
             </Dialog>
         </div>

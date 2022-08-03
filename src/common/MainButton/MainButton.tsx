@@ -1,7 +1,7 @@
 import {styled} from '@mui/material/styles';
 import Button, {ButtonProps} from '@mui/material/Button';
 
-export const AnimatedSecondaryButton = styled(Button)<ButtonProps>(() => ({
+export const MainButton = styled(Button)<ButtonProps>(() => ({
     textTransform: 'none',
     color: "#ffffff",
     backgroundColor: '#d92330',
