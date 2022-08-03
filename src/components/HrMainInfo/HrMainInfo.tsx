@@ -1,12 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './HrMainInfo.css';
-
-function AnimatedSecondaryButton() {
-  return null;
-}
+import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
 
 export const HrMainInfo = () => {
+  const navigate = useNavigate();
+
+  const toHome = () => {
+    navigate('/login');
+  };
+
   return (
     <div className="main">
       <div className="info-header">Dane profilowe:</div>
@@ -16,11 +20,13 @@ export const HrMainInfo = () => {
       <div className="info-header">Firma</div>
       <div className="info-body">MegaK Software House</div>
       <div className="info-header">Studenci</div>
-      <div className="info-body">
-        <p className="student-reserved">Zarezerwowani: 3</p>
-        <p className="students-available">Dostępne miejsca: 2</p>
+      <div className="student-reserved">Zarezerwowani: 3</div>
+      <div className="students-available">
+        <div>Dostępne miejsca: 2</div>
+        <div>
+          <AnimatedSecondaryButton onClick={toHome}>Strona główna</AnimatedSecondaryButton>
+        </div>
       </div>
-      <AnimatedSecondaryButton />
     </div>
   );
 };

@@ -25,6 +25,7 @@
     display: flex;
 }
 
+
 .student-reserved{
     color: red;
     line-height: 70px;
@@ -39,4 +40,5 @@
     padding: 0 26px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
