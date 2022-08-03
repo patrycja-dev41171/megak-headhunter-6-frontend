@@ -2,7 +2,7 @@ import React, { MouseEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaCreatePassword } from '../../Validations/UserValidation';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
@@ -34,6 +34,8 @@ export const RegisterBox = () => {
     confirmPassword: '',
     showConfirmPassword: false,
   });
+
+  let navigate = useNavigate();
 
   const ClickShowRegPass = () => {
     setValues({
@@ -92,7 +94,9 @@ export const RegisterBox = () => {
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
-
+      if(!result.message){
+        navigate('/login')
+      }
     } catch (err) {
       console.log(err);
     }
