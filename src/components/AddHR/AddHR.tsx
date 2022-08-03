@@ -61,67 +61,68 @@ export const AddHR = () => {
     return (
         <>
             <h2 className="addHrFormView_header r">Add HR:</h2>
+
             <form onSubmit={handleSubmit(submitForm)} className="addHrFormView_form">
-
                 <div className="formView_input">
-                    <AddHrStyledTextField
-                        fullWidth
-                        type="text"
-                        {...register('fullName')}
-                        variant="filled"
-                        error={!!errors.fullName}
-                        label="Imię i nazwisko"
-                        helperText={errors.fullName ? errors.fullName?.message : ''}
-                    />
-                </div>
+                        <AddHrStyledTextField
+                            fullWidth
+                            type="text"
+                            {...register('fullName')}
+                            variant="filled"
+                            error={!!errors.fullName}
+                            label="Imię i nazwisko"
+                            helperText={errors.fullName ? errors.fullName?.message : ''}
+                        />
+                    </div>
 
-                <div className="formView_input">
-                    <AddHrStyledTextField
-                        fullWidth
-                        type="email"
-                        {...register('hrEmail')}
-                        variant="filled"
-                        error={!!errors.hrEmail}
-                        label="Email"
-                        helperText={errors.hrEmail ? errors.hrEmail?.message : ''}
-                    />
-                </div>
+                    <div className="formView_input">
+                        <AddHrStyledTextField
+                            fullWidth
+                            type="email"
+                            {...register('hrEmail')}
+                            variant="filled"
+                            error={!!errors.hrEmail}
+                            label="Email"
+                            helperText={errors.hrEmail ? errors.hrEmail?.message : ''}
+                        />
+                    </div>
 
-                <div className="formView_input">
-                    <AddHrStyledTextField
-                        fullWidth
-                        type="text"
-                        {...register('company')}
-                        variant="filled"
-                        error={!!errors.company}
-                        label="Nazwa firmy"
-                        helperText={errors.company ? errors.company?.message : ''}
-                    />
-                </div>
+                    <div className="formView_input">
+                        <AddHrStyledTextField
+                            fullWidth
+                            type="text"
+                            {...register('company')}
+                            variant="filled"
+                            error={!!errors.company}
+                            label="Nazwa firmy"
+                            helperText={errors.company ? errors.company?.message : ''}
+                        />
+                    </div>
 
-                <div className="formView_input">
-                    <AddHrStyledTextField
-                        fullWidth
-                        type="number"
-                        defaultValue={10}
-                        {...register('maxReservedStudents')}
-                        InputProps={{inputProps: {min: 1, max: 999},}}
-                        variant="filled"
-                        error={!!errors.maxReservedStudents}
-                        label="Liczba studentów"
-                        helperText={errors.maxReservedStudents ? errors.maxReservedStudents?.message : ''}
-                    />
-                </div>
-                {
-                    openModal && <SimpleDialog
-                        open={openModal}
-                        onClose={handleClose}
-                    >
-                        {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
-                    </SimpleDialog>
-                }
-                <AnimatedSecondaryButton type="submit">Dodaj HR</AnimatedSecondaryButton>
-            </form>
+                    <div className="formView_input">
+                        <AddHrStyledTextField
+                            fullWidth
+                            type="number"
+                            defaultValue={10}
+                            {...register('maxReservedStudents')}
+                            InputProps={{inputProps: {min: 1, max: 999},}}
+                            variant="filled"
+                            error={!!errors.maxReservedStudents}
+                            label="Liczba studentów"
+                            helperText={errors.maxReservedStudents ? errors.maxReservedStudents?.message : ''}
+                        />
+                    </div>
+                    {
+                        openModal && <SimpleDialog
+                            open={openModal}
+                            onClose={handleClose}
+                        >
+                            {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                        </SimpleDialog>
+                    }
+                    <AnimatedSecondaryButton type="submit">Dodaj HR</AnimatedSecondaryButton>
+                </form>
+
         </>
     )
 }

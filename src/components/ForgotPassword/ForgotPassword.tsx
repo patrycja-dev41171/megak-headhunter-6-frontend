@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
@@ -44,9 +44,6 @@ export const ForgotPassword = () => {
             });
             const result = await res.json();
 
-            //informacje jako string z backendu wyświetlane w modalu
-            //error: result.message
-            //success: result
             setOpenModal(true)
             setFeedbackError(result.message)
             setFeedbackSuccess(result)
@@ -101,5 +98,5 @@ export const ForgotPassword = () => {
                 <AnimatedSecondaryButton type="submit">Wyślij hasło</AnimatedSecondaryButton>
             </form>
         </div>
-    );
+    )
 };
