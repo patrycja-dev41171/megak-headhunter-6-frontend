@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import {MainButton} from "../../common/MainButton/MainButton";
 import './HrMainInfo.css';
-import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
+
 
 export const HrMainInfo = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const HrMainInfo = () => {
       <div className="students-available">
         <div>Dostępne miejsca: 2</div>
         <div>
-          <AnimatedSecondaryButton onClick={toHome}>Strona główna</AnimatedSecondaryButton>
+          <MainButton onClick={toHome}>Strona główna</MainButton>
         </div>
       </div>
     </div>
