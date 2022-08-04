@@ -51,7 +51,11 @@ export const schemaAddHr = yup
 export const schemaLogin = yup
   .object()
   .shape({
-    loginEmail: yup.string().min(1, 'Pole nie może być puste').required('Podaj email'),
+    loginEmail: yup
+      .string()
+      .min(1, 'Pole nie może być puste')
+      .max(255, 'Email nie może być dłuższy niż 255 znaków')
+      .required('Podaj email'),
     loginPassword: yup.string().min(1, 'Pole nie może być puste'),
   })
   .required();
@@ -62,8 +66,7 @@ export const schemaCreatePassword = yup.object().shape({
     .min(1, 'Pole nie może być puste')
     .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
     .required('Podaj hasło')
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
-
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])(?=.{8,})/, 'Hasło nie spełnia wszystkich wymagań.'),
   confirmPassword: yup.string().oneOf([yup.ref('registerPassword'), null]),
 });
 
@@ -73,7 +76,7 @@ export const schemaChangedPassword = yup.object().shape({
     .min(1, 'Pole nie może być puste')
     .max(255, 'Hasło nie może być dłuższe niż 255 znaków')
     .required('Podaj hasło')
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Hasło nie spełnia wszystkich wymagań.'),
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])(?=.{8,})/, 'Hasło nie spełnia wszystkich wymagań.'),
 
   confirmChangedPassword: yup.string().oneOf([yup.ref('changedPassword'), null]),
 });
