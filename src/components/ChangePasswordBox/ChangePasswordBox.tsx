@@ -2,7 +2,7 @@ import React, { MouseEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaChangedPassword } from '../../Validations/UserValidation';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -63,6 +63,8 @@ export const ChangePasswordBox = () => {
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
+  let navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -92,7 +94,9 @@ export const ChangePasswordBox = () => {
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
-
+      if(!result.message) {
+        navigate('/login')
+      }
     } catch (err) {
       console.log(err);
     }

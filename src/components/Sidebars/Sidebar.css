@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     font-family: Roboto;
+    max-height: 83vh;
     color: #F7F7F7;
 }
 
