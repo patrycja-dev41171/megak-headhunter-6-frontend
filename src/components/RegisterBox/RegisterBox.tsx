@@ -2,10 +2,10 @@ import React, { MouseEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaCreatePassword } from '../../Validations/UserValidation';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
-import { AnimatedSecondaryButton } from '../../common/AnimatedSecondaryButton/AnimatedSecondaryButton';
+import { MainButton } from '../../common/MainButton/MainButton';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -34,6 +34,8 @@ export const RegisterBox = () => {
     confirmPassword: '',
     showConfirmPassword: false,
   });
+
+  let navigate = useNavigate();
 
   const ClickShowRegPass = () => {
     setValues({
@@ -92,7 +94,9 @@ export const RegisterBox = () => {
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
-
+      if(!result.message){
+        navigate('/login')
+      }
     } catch (err) {
       console.log(err);
     }
@@ -165,7 +169,7 @@ export const RegisterBox = () => {
           />
         </div>
 
-        <AnimatedSecondaryButton type="submit">Utwórz hasło</AnimatedSecondaryButton>
+        <MainButton type="submit">Utwórz hasło</MainButton>
       </form>
       {openModal && (
         <SimpleDialog
