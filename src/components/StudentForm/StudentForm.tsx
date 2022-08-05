@@ -147,11 +147,14 @@ export const StudentForm = () => {
                     <FormControl fullWidth>
                         <FormLabel
                             sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                            id="demo-row-radio-buttons-group-label">Zgoda na odbycie praktyk</FormLabel>
+                            // id="demo-row-radio-buttons-group-label"
+                        >
+                            Zgoda na odbycie praktyk
+                        </FormLabel>
                         <RadioGroup
                             row
                             defaultValue="1"
-                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            // aria-labelledby="demo-row-radio-buttons-group-label"
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
@@ -363,7 +366,7 @@ export const StudentForm = () => {
                     <MainStyledTextField
                         fullWidth
                         type="text"
-                        {...register('expectedTypeWork')}
+                        {...register('targetWorkCity')}
                         variant="filled"
                         label="Docelowe miasto gdzie chcesz pracować"
                     />
@@ -468,19 +471,20 @@ export const StudentForm = () => {
                     <FormControl fullWidth>
                         <FormLabel
                             sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                            id="demo-row-radio-workPlace">Wybór preferowanego miejsca pracy</FormLabel>
+                        >
+                            Wybór preferowanego miejsca pracy
+                        </FormLabel>
                         <RadioGroup
-                            aria-labelledby="demo-row-radio-workPlace"
-                            defaultValue="5"
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
                             {...register('expectedTypeWork')}
+                            defaultValue="Bez znaczenia"
                         >
                             <FormControlLabel
-                                value="1"
+                                value="Na miejscu"
                                 control={
                                     <Radio
                                         sx={{
@@ -492,7 +496,7 @@ export const StudentForm = () => {
                                 label="Na miejscu"
                             />
                             <FormControlLabel
-                                value="2"
+                                value="Gotowość do przeprowadzki"
                                 control={
                                     <Radio
                                         sx={{
@@ -504,7 +508,7 @@ export const StudentForm = () => {
                                 label="Gotowość do przeprowadzki"
                             />
                             <FormControlLabel
-                                value="3"
+                                value="Wyłącznie zdalnie"
                                 control={
                                     <Radio
                                         sx={{
@@ -516,7 +520,7 @@ export const StudentForm = () => {
                                 label="Wyłącznie zdalnie"
                             />
                             <FormControlLabel
-                                value="4"
+                                value="Hybrydowo"
                                 control={
                                     <Radio
                                         sx={{
@@ -528,7 +532,7 @@ export const StudentForm = () => {
                                 label="Hybrydowo"
                             />
                             <FormControlLabel
-                                value="5"
+                                value="Bez znaczenia"
                                 control={
                                     <Radio
                                         sx={{
@@ -548,19 +552,20 @@ export const StudentForm = () => {
                     <FormControl fullWidth>
                         <FormLabel
                             sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                            id="demo-row-radio-contractType">Oczekiwany typ kontraktu</FormLabel>
+                        >
+                            Oczekiwany typ kontraktu
+                        </FormLabel>
                         <RadioGroup
-                            aria-labelledby="demo-row-radio-contractType"
-                            defaultValue="4"
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
                             {...register('expectedContractType')}
+                            defaultValue="Brak preferencji"
                         >
                             <FormControlLabel
-                                value="1"
+                                value="Tylko UoP"
                                 control={
                                     <Radio
                                         sx={{
@@ -572,7 +577,7 @@ export const StudentForm = () => {
                                 label="Tylko UoP"
                             />
                             <FormControlLabel
-                                value="2"
+                                value="Możliwe B2B"
                                 control={
                                     <Radio
                                         sx={{
@@ -584,7 +589,7 @@ export const StudentForm = () => {
                                 label="Możliwe B2B"
                             />
                             <FormControlLabel
-                                value="3"
+                                value="Możliwe UZ/UoD"
                                 control={
                                     <Radio
                                         sx={{
@@ -596,7 +601,7 @@ export const StudentForm = () => {
                                 label="Możliwe UZ/UoD"
                             />
                             <FormControlLabel
-                                value="4"
+                                value="Brak preferencji"
                                 control={
                                     <Radio
                                         sx={{
