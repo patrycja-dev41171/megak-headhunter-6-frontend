@@ -3,6 +3,7 @@ import {Header} from "../Header/Header";
 import "./StudentBox.css";
 import {Box, Container} from "@mui/material";
 import {SidebarStudent} from "../Sidebar/Sidebar";
+import {StudentForm} from "../StudentForm/StudentForm";
 
 export const StudentBox = () => {
     return (
@@ -44,9 +45,7 @@ export const StudentBox = () => {
                         </div>
 
                         <div className="studentView_line">
-                            <form className="studentView_form displayCenter">
-                                <p>Tutaj będzie formularz</p>
-                            </form>
+                            <StudentForm/>
                         </div>
                     </Box>
                 </Container>
