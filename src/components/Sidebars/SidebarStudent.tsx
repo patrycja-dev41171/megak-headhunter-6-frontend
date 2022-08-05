@@ -118,11 +118,11 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
       )}
       <div className="sidebar_githubName">
         <GitHubIcon sx={{ color: '#0B8BD4' }} />
-        {githubUsername ? <p>{githubUsername}</p> : <p>J.Kowalski</p>}
+        {githubUsername ? <p>{githubUsername}</p> : <p>_____________________</p>}
       </div>
       <div className="sidebar_phoneNumber">
         <CallIcon sx={{ color: '#4D4D4D', height: '20px', width: '20px' }} />
-        {tel ? <p>+48 {tel}</p> : <p>123456789</p>}
+        {tel ? <p>+48 {tel}</p> : <p>_____________________</p>}
       </div>
       <div className="sidebar_email">
         <EmailIcon sx={{ color: '#4D4D4D', height: '20px', width: '20px' }} />
