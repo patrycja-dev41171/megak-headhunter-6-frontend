@@ -1,8 +1,9 @@
-import React from 'react';
-import { Header } from '../Header/Header';
-import './StudentBox.css';
-import { Box, Container } from '@mui/material';
-import { SidebarStudent } from '../Sidebar/Sidebar';
+import React from "react"
+import {Header} from "../Header/Header";
+import "./StudentBox.css";
+import {Box, Container} from "@mui/material";
+import {StudentForm} from "../StudentForm/StudentForm";
+import { SidebarStudent } from '../Sidebars/SidebarStudent';
 import { StudentGrades } from '../StudentGrades/StudentGrades';
 
 export const StudentBox = () => {
@@ -20,7 +21,12 @@ export const StudentBox = () => {
             },
           }}>
           <div className="sidebarBox">
-            <SidebarStudent email="j.kowalski@op.pl" />
+
+            <SidebarStudent
+              email="j.kowalski@op.pl"
+              secondBtn={false}
+            />
+
           </div>
           <Box
             sx={{
@@ -29,6 +35,7 @@ export const StudentBox = () => {
             }}>
             <h3 className="studentView_subtitle">Oceny</h3>
             <div className="studentView_line">
+
               <div className="studentView_gradesContent displayCenter">
                 <StudentGrades />
               </div>
@@ -40,13 +47,11 @@ export const StudentBox = () => {
             </div>
 
             <div className="studentView_line">
-              <form className="studentView_form displayCenter">
-                <p>Tutaj będzie formularz</p>
-              </form>
+              <StudentForm/>
             </div>
           </Box>
         </Container>
-      </div>
+</div>
     </>
   );
 };

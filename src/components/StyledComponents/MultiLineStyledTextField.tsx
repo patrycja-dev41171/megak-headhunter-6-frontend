@@ -1,8 +1,8 @@
 import {styled} from "@mui/system";
 import {TextField} from "@mui/material";
 
-export const AddHrStyledTextField = styled(TextField, {
-    name: "StyledTextField",
+export const MultiLineStyledTextField = styled(TextField, {
+    name: "MultiLineStyledTextField",
 })({
     input: {
         '&:-webkit-autofill': {
@@ -11,17 +11,13 @@ export const AddHrStyledTextField = styled(TextField, {
             borderRadius: '0',
         },
     },
+    backgroundColor: '#292a2b',
     '& .MuiInputLabel-root': {
         color: '#7E7E7E',
+        padding: '10px',
     },
     '& .MuiInputBase-input': {
         color: '#7E7E7E',
-        backgroundColor: '#292a2b',
-    },
-    "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-        display: "none",
-    },
-    "& input[type=number]": {
-        MozAppearance: "textfield",
+        padding: '10px',
     },
 });
