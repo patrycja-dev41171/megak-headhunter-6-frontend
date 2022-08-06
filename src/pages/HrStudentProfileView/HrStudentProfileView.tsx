@@ -1,11 +1,8 @@
 import React from 'react';
+import {HrStudentProfileBox} from "../../components/HrStudentProfileBox/HrStudentProfileBox";
 
 export const HrStudentProfileView = () => {
   return (
-    <>
-      <h1>Hr Student Profile View</h1>
-      <p>Strona z widokiem cv kursanta. Makieta numer 6.</p>
-      <p>Dostęp: Zalogowany hr</p>
-    </>
+      <HrStudentProfileBox/>
   );
 };
