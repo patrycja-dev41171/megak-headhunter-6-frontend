@@ -21,7 +21,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import "./StudentForm.css";
 import {StoreState} from "../../redux-toolkit/store";
 import {useSelector} from "react-redux";
-
+import {ExpectedTypeWork, ExpectedContractType} from 'types';
 
 
 export const StudentForm = () => {
@@ -289,13 +289,15 @@ export const StudentForm = () => {
                                         <Tooltip sx={{fontSize: '20px'}}
                                                  title={
                                                      <>
-                                                         <p style={{fontSize: '14px', color: '#b2b2b2'}}>Wklej kompletny link URL np:</p>
-                                                         <p style={{fontSize: '14px', textAlign: 'center'}}>https://www.megak.pl/</p>
+                                                         <p style={{color: '#bcbcc5', fontSize:'14px'}}>Wklej kompletny link URL np:</p>
+                                                         <p style={{textAlign: 'center', fontSize: '16px'}}>https://www.megak.pl/</p>
                                                      </>
                                                  }
                                                  arrow
                                         >
-                                            <InfoOutlinedIcon sx={{color: '#7E7E7E', marginRight: '20px'}}/>
+                                            <IconButton>
+                                                <InfoOutlinedIcon sx={{color: '#7E7E7E', cursor: 'help'}}/>
+                                            </IconButton>
                                         </Tooltip>
                                         <IconButton
                                             sx={{
@@ -392,13 +394,15 @@ export const StudentForm = () => {
                                         <Tooltip sx={{fontSize: '20px'}}
                                                  title={
                                                      <>
-                                                         <p style={{fontSize: '14px', color: '#b2b2b2'}}>Wklej kompletny link URL np:</p>
-                                                         <p style={{fontSize: '14px', textAlign: 'center'}}>https://www.megak.pl/</p>
+                                                         <p style={{color: '#bcbcc5', fontSize:'14px'}}>Wklej kompletny link URL np:</p>
+                                                         <p style={{textAlign: 'center', fontSize: '16px'}}>https://www.megak.pl/</p>
                                                      </>
                                                  }
                                                  arrow
                                         >
-                                            <InfoOutlinedIcon sx={{color: '#7E7E7E', marginRight: '20px'}}/>
+                                            <IconButton>
+                                                <InfoOutlinedIcon sx={{color: '#7E7E7E', cursor: 'help'}}/>
+                                            </IconButton>
                                         </Tooltip>
                                         <IconButton
                                             sx={{
@@ -516,11 +520,11 @@ export const StudentForm = () => {
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
-                            defaultValue="Bez znaczenia"
+                            defaultValue={ExpectedTypeWork.DoesNotMatter}
                         >
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
-                                value="Na miejscu"
+                                value={ExpectedTypeWork.OnPlace}
                                 control={
                                     <Radio
                                         sx={{
@@ -533,7 +537,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
-                                value="Gotowość do przeprowadzki"
+                                value={ExpectedTypeWork.ReadyToMove}
                                 control={
                                     <Radio
                                         sx={{
@@ -546,7 +550,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
-                                value="Wyłącznie zdalnie"
+                                value={ExpectedTypeWork.OnlyRemote}
                                 control={
                                     <Radio
                                         sx={{
@@ -559,7 +563,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
-                                value="Hybrydowo"
+                                value={ExpectedTypeWork.Hybrid}
                                 control={
                                     <Radio
                                         sx={{
@@ -572,7 +576,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
-                                value="Bez znaczenia"
+                                value={ExpectedTypeWork.DoesNotMatter}
                                 control={
                                     <Radio
                                         sx={{
@@ -601,11 +605,11 @@ export const StudentForm = () => {
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
-                            defaultValue="Brak preferencji"
+                            defaultValue={ExpectedContractType.DoesNotMatter}
                         >
                             <FormControlLabel
                                 {...register('expectedContractType')}
-                                value="Tylko UoP"
+                                value={ExpectedContractType.EmploymentContract}
                                 control={
                                     <Radio
                                         sx={{
@@ -618,7 +622,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedContractType')}
-                                value="Możliwe B2B"
+                                value={ExpectedContractType.B2B}
                                 control={
                                     <Radio
                                         sx={{
@@ -631,7 +635,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedContractType')}
-                                value="Możliwe UZ/UoD"
+                                value={ExpectedContractType.ContractOfServices}
                                 control={
                                     <Radio
                                         sx={{
@@ -644,7 +648,7 @@ export const StudentForm = () => {
                             />
                             <FormControlLabel
                                 {...register('expectedContractType')}
-                                value="Brak preferencji"
+                                value={ExpectedContractType.DoesNotMatter}
                                 control={
                                     <Radio
                                         sx={{
