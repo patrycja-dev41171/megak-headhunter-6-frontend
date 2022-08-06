@@ -2,7 +2,7 @@ import {styled} from "@mui/system";
 import {TextField} from "@mui/material";
 
 export const MainStyledTextField = styled(TextField, {
-    name: "StyledTextField",
+    name: "MainStyledTextField",
 })({
     input: {
         '&:-webkit-autofill': {

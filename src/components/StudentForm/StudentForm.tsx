@@ -9,12 +9,14 @@ import {
     FormLabel,
     Radio,
     RadioGroup,
-    TextField,
 } from "@mui/material";
 import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import AddCardIcon from '@mui/icons-material/AddCard';
+import {MultiLineStyledTextField} from "../StyledComponents/MultiLineStyledTextField";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import "./StudentForm.css";
 
 
@@ -49,6 +51,11 @@ export const StudentForm = () => {
         control,
         name: 'projectUrls'
     })
+
+    //openLinkInNweTab
+    const openInNewTab = (url: string) => {
+        window.open(url, '_blank' );
+    };
 
     const handleClickOnePortfolio = (e: any) => {
         e.preventDefault();
@@ -147,44 +154,43 @@ export const StudentForm = () => {
                     <FormControl fullWidth>
                         <FormLabel
                             sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                            // id="demo-row-radio-buttons-group-label"
                         >
                             Zgoda na odbycie praktyk
                         </FormLabel>
                         <RadioGroup
-                            row
                             defaultValue="1"
-                            // aria-labelledby="demo-row-radio-buttons-group-label"
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
-                            {...register('canTakeApprenticeship')}
                         >
                             <FormControlLabel
+                                {...register('canTakeApprenticeship')}
                                 value="1"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Tak"
                             />
                             <FormControlLabel
+                                {...register('canTakeApprenticeship')}
                                 value="0"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
-                                label="Nie"/>
+                                label="Nie"
+                            />
                         </RadioGroup>
                     </FormControl>
                 </div>
@@ -221,6 +227,20 @@ export const StudentForm = () => {
                                                         cursor: 'pointer',
                                                         transition: '0.3s',
                                                         '&:hover': {
+                                                            color: '#146DA0',
+                                                        }
+                                                    }}
+                                                    onClick={() => openInNewTab(oneProject.value)}
+                                                >
+                                                    <OpenInNewIcon/>
+                                                </IconButton>
+
+                                                <IconButton
+                                                    sx={{
+                                                        color: '#7E7E7E',
+                                                        cursor: 'pointer',
+                                                        transition: '0.3s',
+                                                        '&:hover': {
                                                             color: '#d93535',
                                                         }
                                                     }}
@@ -245,23 +265,27 @@ export const StudentForm = () => {
                             name="projectInput"
                             onChange={(e) => setOneProject(e.target.value)}
                             label="Dodaj link do projektu"
+                            InputProps={{
+                                style: {backgroundColor: '#292a2b'},
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            sx={{
+                                                color: '#7E7E7E',
+                                                cursor: 'pointer',
+                                                transition: '0.3s',
+                                                '&:hover': {
+                                                    color: '#146DA0',
+                                                }
+                                            }}
+                                            onClick={handleClickOneProject}
+                                        >
+                                            <AddCardIcon/>
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
-                        <div>
-                            <MainButton
-                                type="button"
-                                sx={{
-                                    backgroundColor: '#3B3E3FFF',
-                                    '&:hover': {
-                                        backgroundColor: '#3B3E3FFF',
-                                        color: '#0B8BD4',
-                                    }
-                                }}
-                                onClick={handleClickOneProject}
-                            >
-                                Dodaj link do projektu
-                            </MainButton>
-                        </div>
-
                     </div>
                 </div>
 
@@ -320,44 +344,38 @@ export const StudentForm = () => {
                             name="portfolioInput"
                             onChange={(e) => setOnePortfolio(e.target.value)}
                             label="Dodaj link do portfolio"
+                            InputProps={{
+                                style: {backgroundColor: '#292a2b'},
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            sx={{
+                                                color: '#7E7E7E',
+                                                cursor: 'pointer',
+                                                transition: '0.3s',
+                                                '&:hover': {
+                                                    color: '#146DA0',
+                                                }
+                                            }}
+                                            onClick={handleClickOnePortfolio}
+                                        >
+                                            <AddCardIcon/>
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
-                        <div>
-                            <MainButton
-                                type="button"
-                                sx={{
-                                    backgroundColor: '#3B3E3FFF',
-                                    '&:hover': {
-                                        backgroundColor: '#3B3E3FFF',
-                                        color: '#0B8BD4',
-                                    }
-                                }}
-                                onClick={handleClickOnePortfolio}
-                            >
-                                Dodaj link do portfolio
-                            </MainButton>
-                        </div>
                     </div>
                 </div>
                 {/*---------------------------------BIO--------------------------------------*/}
                 <div className="formView_input">
-                    <TextField
+                    <MultiLineStyledTextField
                         fullWidth
                         {...register('bio')}
                         label="Napisz coś o sobie"
                         multiline
-                        minRows={3}
+                        minRows={2}
                         variant="standard"
-                        sx={{
-                            backgroundColor: '#292a2b',
-                            '& .MuiInputLabel-root': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                            '& .MuiInputBase-input': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                        }}
                     />
                 </div>
 
@@ -390,8 +408,7 @@ export const StudentForm = () => {
                         fullWidth
                         type="number"
                         {...register('monthsOfCommercialExp')}
-                        InputProps={{inputProps: {min: 0, max: 9999},}}
-                        defaultValue={0}
+                        InputProps={{inputProps: {min: 0, max: 9999}}}
                         variant="filled"
                         label="Ilość miesięcy doświadczenia komercyjnego w programowaniu"
                     />
@@ -399,70 +416,37 @@ export const StudentForm = () => {
 
                 {/*------------------------------EDUKACJA----------------------------------*/}
                 <div className="formView_input">
-                    <TextField
+                    <MultiLineStyledTextField
                         fullWidth
                         {...register('education')}
                         label="Przebieg edukacji"
                         multiline
                         minRows={3}
                         variant="standard"
-                        sx={{
-                            backgroundColor: '#292a2b',
-                            '& .MuiInputLabel-root': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                            '& .MuiInputBase-input': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                        }}
                     />
                 </div>
 
                 {/*------------------------------PRZEBIEG DOŚWIADCZENIA ZAWODOWEGO-----------------------------*/}
                 <div className="formView_input">
-                    <TextField
+                    <MultiLineStyledTextField
                         fullWidth
                         {...register('workExperience')}
                         label="Doświadczenie zawodowe"
                         multiline
                         minRows={3}
                         variant="standard"
-                        sx={{
-                            backgroundColor: '#292a2b',
-                            '& .MuiInputLabel-root': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                            '& .MuiInputBase-input': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                        }}
                     />
                 </div>
 
                 {/*------------------------------KURSY I CERTYFIKATY ZWIĄZANE Z PROGRAMOWANIEM-----------------------------*/}
                 <div className="formView_input">
-                    <TextField
+                    <MultiLineStyledTextField
                         fullWidth
                         {...register('courses')}
                         label="Kursy i certyfikaty związane z programowaniem"
                         multiline
                         minRows={3}
                         variant="standard"
-                        sx={{
-                            backgroundColor: '#292a2b',
-                            '& .MuiInputLabel-root': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                            '& .MuiInputBase-input': {
-                                color: '#7E7E7E',
-                                padding: '10px',
-                            },
-                        }}
                     />
                 </div>
 
@@ -480,64 +464,68 @@ export const StudentForm = () => {
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
-                            {...register('expectedTypeWork')}
                             defaultValue="Bez znaczenia"
                         >
                             <FormControlLabel
+                                {...register('expectedTypeWork')}
                                 value="Na miejscu"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Na miejscu"
                             />
                             <FormControlLabel
+                                {...register('expectedTypeWork')}
                                 value="Gotowość do przeprowadzki"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Gotowość do przeprowadzki"
                             />
                             <FormControlLabel
+                                {...register('expectedTypeWork')}
                                 value="Wyłącznie zdalnie"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Wyłącznie zdalnie"
                             />
                             <FormControlLabel
+                                {...register('expectedTypeWork')}
                                 value="Hybrydowo"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Hybrydowo"
                             />
                             <FormControlLabel
+                                {...register('expectedTypeWork')}
                                 value="Bez znaczenia"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
@@ -561,52 +549,55 @@ export const StudentForm = () => {
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px'
                             }}
-                            {...register('expectedContractType')}
                             defaultValue="Brak preferencji"
                         >
                             <FormControlLabel
+                                {...register('expectedContractType')}
                                 value="Tylko UoP"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Tylko UoP"
                             />
                             <FormControlLabel
+                                {...register('expectedContractType')}
                                 value="Możliwe B2B"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Możliwe B2B"
                             />
                             <FormControlLabel
+                                {...register('expectedContractType')}
                                 value="Możliwe UZ/UoD"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
                                 label="Możliwe UZ/UoD"
                             />
                             <FormControlLabel
+                                {...register('expectedContractType')}
                                 value="Brak preferencji"
                                 control={
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 20,}
+                                            '& .MuiSvgIcon-root': {fontSize: 14}
                                         }}
                                     />
                                 }
@@ -625,7 +616,7 @@ export const StudentForm = () => {
                     </SimpleDialog>
                 }
                 <div style={{marginTop: '50px'}}>
-                    <MainButton type="submit">Wyślij dane</MainButton>
+                    <MainButton type="submit">Zapisz dane z formularza</MainButton>
                 </div>
             </form>
         </>
