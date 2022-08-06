@@ -1,7 +1,8 @@
-import React from 'react';
-import { Header } from '../Header/Header';
-import './StudentBox.css';
-import { Box, Container } from '@mui/material';
+import React from "react"
+import {Header} from "../Header/Header";
+import "./StudentBox.css";
+import {Box, Container} from "@mui/material";
+import {StudentForm} from "../StudentForm/StudentForm";
 import { SidebarStudent } from '../Sidebars/SidebarStudent';
 
 export const StudentBox = () => {
@@ -33,19 +34,27 @@ export const StudentBox = () => {
             <div className="studentView_line">
               <div className="studentView_gradesContent displayCenter">Tu będzie kontener z gwiazdkami</div>
             </div>
-
+            
             <div className="studentView_subtitle">
-              <h3>Uzupełnij swój profil</h3>
-              <span className="studentView_subtitleInstruction">Jesteś niewidoczny dla HR. Uzupełnij dane</span>
-            </div>
+                            <h3>Uzupełnij swój profil</h3>
+                            <span
+                                className="studentView_subtitleInstruction"
+                            >
+                            Jesteś niewidoczny dla HR. Uzupełnij dane
+                        </span>
+                        </div>
 
-            <div className="studentView_line">
-              <form className="studentView_form displayCenter">
-                <p>Tutaj będzie formularz</p>
-              </form>
-            </div>
-          </Box>
-        </Container>
+
+                       
+                       
+                      <div className="studentView_line">
+                            <StudentForm/>
+                        </div>
+                    </Box>
+                </Container>
+
+
+           
       </div>
     </>
   );
