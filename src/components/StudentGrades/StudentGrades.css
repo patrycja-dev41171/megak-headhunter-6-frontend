@@ -1,0 +1,28 @@
+.student-grades {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 26px;
+    padding-right: 195px;
+    height: 110px;
+    width: 1176px;
+    background-color: #222324;
+}
+.student-grades__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 163px;
+    height: 90px;
+    color: #CFCFCF;
+}
+.student-grades__typography {
+    display: flex;
+    align-items: flex-end;
+    text-align: left;
+    height: 41px;
+}
+.student-grades__rating {
+    display: flex;
+    justify-content: space-around;
+}
