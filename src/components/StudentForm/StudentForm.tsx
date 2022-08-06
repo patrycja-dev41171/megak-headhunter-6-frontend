@@ -8,7 +8,7 @@ import {
     FormControlLabel,
     FormLabel,
     Radio,
-    RadioGroup,
+    RadioGroup, Tooltip,
 } from "@mui/material";
 import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -17,10 +17,16 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import AddCardIcon from '@mui/icons-material/AddCard';
 import {MultiLineStyledTextField} from "../StyledComponents/MultiLineStyledTextField";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import "./StudentForm.css";
+import {StoreState} from "../../redux-toolkit/store";
+import {useSelector} from "react-redux";
+
 
 
 export const StudentForm = () => {
+    //redux
+    const { id } = useSelector((store: StoreState) => store.user);
 
     const [onePortfolio, setOnePortfolio] = useState<string>('')
     const [oneProject, setOneProject] = useState<string>('')
@@ -54,7 +60,7 @@ export const StudentForm = () => {
 
     //openLinkInNweTab
     const openInNewTab = (url: string) => {
-        window.open(url, '_blank' );
+        window.open(url, '_blank');
     };
 
     const handleClickOnePortfolio = (e: any) => {
@@ -75,7 +81,7 @@ export const StudentForm = () => {
         console.log(data)
 
         try {
-            const res = await fetch('http://localhost:8080/student/data', {
+            const res = await fetch(`http://localhost:8080/student/data/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,6 +103,17 @@ export const StudentForm = () => {
     return (
         <>
             <form onSubmit={handleSubmit(submitForm)} className="studentForm_form">
+                {/*---------------------------------EMAIL----------------------------------*/}
+                <div className="formView_input">
+                    <MainStyledTextField
+                        fullWidth
+                        type="email"
+                        {...register('email')}
+                        variant="filled"
+                        label="Email"
+                    />
+                </div>
+
                 {/*---------------------------------IMIE--------------------------------------*/}
                 <div className="formView_input">
                     <MainStyledTextField
@@ -269,6 +286,17 @@ export const StudentForm = () => {
                                 style: {backgroundColor: '#292a2b'},
                                 endAdornment: (
                                     <InputAdornment position="end">
+                                        <Tooltip sx={{fontSize: '20px'}}
+                                                 title={
+                                                     <>
+                                                         <p style={{fontSize: '14px', color: '#b2b2b2'}}>Wklej kompletny link URL np:</p>
+                                                         <p style={{fontSize: '14px', textAlign: 'center'}}>https://www.megak.pl/</p>
+                                                     </>
+                                                 }
+                                                 arrow
+                                        >
+                                            <InfoOutlinedIcon sx={{color: '#7E7E7E', marginRight: '20px'}}/>
+                                        </Tooltip>
                                         <IconButton
                                             sx={{
                                                 color: '#7E7E7E',
@@ -321,6 +349,19 @@ export const StudentForm = () => {
                                                         cursor: 'pointer',
                                                         transition: '0.3s',
                                                         '&:hover': {
+                                                            color: '#146DA0',
+                                                        }
+                                                    }}
+                                                    onClick={() => openInNewTab(onePortfolio.value)}
+                                                >
+                                                    <OpenInNewIcon/>
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{
+                                                        color: '#7E7E7E',
+                                                        cursor: 'pointer',
+                                                        transition: '0.3s',
+                                                        '&:hover': {
                                                             color: '#d93535',
                                                         }
                                                     }}
@@ -336,7 +377,7 @@ export const StudentForm = () => {
                         </FormControl>
                     </div>
 
-                    {/*-------------------------------------DODAJ PORTFOLIO------------------------------------------------*/}
+                    {/*-------------------------------------DODAJ LINK DO PORTFOLIO------------------------------------------------*/}
                     <div className="studentForm_add">
                         <MainStyledTextField
                             value={onePortfolio}
@@ -348,6 +389,17 @@ export const StudentForm = () => {
                                 style: {backgroundColor: '#292a2b'},
                                 endAdornment: (
                                     <InputAdornment position="end">
+                                        <Tooltip sx={{fontSize: '20px'}}
+                                                 title={
+                                                     <>
+                                                         <p style={{fontSize: '14px', color: '#b2b2b2'}}>Wklej kompletny link URL np:</p>
+                                                         <p style={{fontSize: '14px', textAlign: 'center'}}>https://www.megak.pl/</p>
+                                                     </>
+                                                 }
+                                                 arrow
+                                        >
+                                            <InfoOutlinedIcon sx={{color: '#7E7E7E', marginRight: '20px'}}/>
+                                        </Tooltip>
                                         <IconButton
                                             sx={{
                                                 color: '#7E7E7E',
