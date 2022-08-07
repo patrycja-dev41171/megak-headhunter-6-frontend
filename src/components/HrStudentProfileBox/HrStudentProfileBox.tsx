@@ -5,6 +5,7 @@ import { StudentExpectations } from '../StudentExpectations/StudentExpectations'
 import './HrStudentProfileBox.css';
 import '../../styles/stylesForLayouts.css';
 import { SidebarStudent } from '../Sidebars/SidebarStudent';
+import { StudentGrades } from '../StudentGrades/StudentGrades';
 
 export const HrStudentProfileBox = () => {
   return (
@@ -36,7 +37,9 @@ export const HrStudentProfileBox = () => {
             }}>
             <h3 className="layouts_subtitle">Oceny</h3>
             <div className="layouts_line">
-              <div className="layouts_gradesContent displayCenter">Kontener z ocenami</div>
+              <div className="layouts_gradesContent displayCenter">
+                <StudentGrades />
+              </div>
             </div>
             <h3 className="layouts_subtitle">Oczekiwanie w stosunku do zatrudnienia</h3>
             <div className="layouts_line">
