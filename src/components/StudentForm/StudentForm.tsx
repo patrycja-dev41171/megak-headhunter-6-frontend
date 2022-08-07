@@ -47,9 +47,9 @@ export const StudentForm = () => {
     })
 
     //portfolioURLS
-    const {fields: portfolioURLSFields, append: portfolioURLSAppend, remove: portfolioURLSRemove} = useFieldArray({
+    const {fields: portfolioUrlsFields, append: portfolioUrlsAppend, remove: portfolioUrlsRemove} = useFieldArray({
         control,
-        name: 'portfolioURLS',
+        name: 'portfolioUrls',
     })
 
     //projectsURLS
@@ -66,7 +66,7 @@ export const StudentForm = () => {
     const handleClickOnePortfolio = (e: any) => {
         e.preventDefault();
         if (!onePortfolio) return null
-        portfolioURLSAppend({id: Date.now(), value: onePortfolio});
+        portfolioUrlsAppend({id: Date.now(), value: onePortfolio});
         setOnePortfolio('');
     }
 
@@ -329,7 +329,7 @@ export const StudentForm = () => {
                                 Linki do portfolio
                             </FormLabel>
 
-                            {portfolioURLSFields.map((onePortfolio: any, index: number) => (
+                            {portfolioUrlsFields.map((onePortfolio: any, index: number) => (
                                 <MainStyledTextField
                                     sx={{
                                         '& .MuiInputBase-input': {
@@ -339,7 +339,7 @@ export const StudentForm = () => {
                                     fullWidth
                                     variant="filled"
                                     key={onePortfolio.id}
-                                    {...register(`portfolioURLS.${index}.value` as const)}
+                                    {...register(`portfolioUrls.${index}.value` as const)}
                                     defaultValue={onePortfolio.value}
                                     InputProps={{
                                         style: {backgroundColor: '#292a2b'},
@@ -367,7 +367,7 @@ export const StudentForm = () => {
                                                             color: '#d93535',
                                                         }
                                                     }}
-                                                    onClick={() => portfolioURLSRemove(index)}
+                                                    onClick={() => portfolioUrlsRemove(index)}
                                                 >
                                                     <DeleteForeverOutlinedIcon/>
                                                 </IconButton>
