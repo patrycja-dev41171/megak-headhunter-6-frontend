@@ -11,37 +11,15 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 import './Sidebar.css';
 import { useParams } from 'react-router-dom';
 
-//Wyświetlenie komponentu na sztywno:
-// const telNum = String(546343000);
-// const tel = `${telNum[0]}${telNum[1]}${telNum[2]} ${telNum[3]}${telNum[4]}${telNum[5]} ${telNum[6]}${telNum[7]}${telNum[8]}`
-
-// return (
-//     <>S
-//         <header />
-//         <SidebarStudent
-//             email="jan.kowalski@gmail.com"
-//             firstName="Jan"
-//             lastName="Kowalski"
-//             githubUsername="jan.kowalski245"
-//             img_alt="Jak kowalski"
-//             img_src="https://media.istockphoto.com/photos/portrait-of-handsome-smiling-young-man-with-crossed-arms-picture-id1200677760?k=20&m=1200677760&s=612x612&w=0&h=JCqytPoHb6bQqU9bq6gsWT2EX1G5chlW5aNK81Kh4Lg="
-//             tel={tel}
-//             bio="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-//          erat, sed diam voluptua. At vero eos et accusam et justo duo."
-//         />
-
-//Wyświetlenie komponentu z propsami:
-// <SidebarStudent email="jan.kowalski@gmail.com" />
-
 interface SidebarStudentProps {
-  img_alt?: string;
-  img_src?: string;
-  firstName?: string;
-  lastName?: string;
-  githubUsername?: string;
-  tel?: string;
+  img_alt?: string | undefined;
+  img_src?: string | undefined;
+  firstName?: string | null;
+  lastName?: string | null;
+  githubUsername?: string | null;
+  tel?: number | null;
   email: string;
-  bio?: string;
+  bio?: string | null;
   secondBtn: boolean;
 }
 
@@ -101,6 +79,14 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
     }
   };
 
+  const telNumber = () => {
+    if (tel !== null) {
+      const telNum = String(tel);
+      const number = `${telNum[0]}${telNum[1]}${telNum[2]} ${telNum[3]}${telNum[4]}${telNum[5]} ${telNum[6]}${telNum[7]}${telNum[8]}`;
+      return <p>+48 {number}</p>;
+    } else return <p>_____________________</p>
+  };
+
   return (
     <div className="sidebar_container">
       <Avatar
@@ -122,7 +108,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
       </div>
       <div className="sidebar_phoneNumber">
         <CallIcon sx={{ color: '#4D4D4D', height: '20px', width: '20px' }} />
-        {tel ? <p>+48 {tel}</p> : <p>_____________________</p>}
+        {telNumber()}
       </div>
       <div className="sidebar_email">
         <EmailIcon sx={{ color: '#4D4D4D', height: '20px', width: '20px' }} />

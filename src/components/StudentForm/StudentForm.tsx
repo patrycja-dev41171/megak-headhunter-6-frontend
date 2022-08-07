@@ -1,35 +1,66 @@
 import React, {useState} from 'react';
-import {SubmitHandler, useFieldArray, useForm} from "react-hook-form";
-import SimpleDialog from "@mui/material/Dialog";
-import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
-import {MainButton} from "../../common/MainButton/MainButton";
-import {
-    FormControl,
-    FormControlLabel,
-    FormLabel,
-    Radio,
-    RadioGroup, Tooltip,
-} from "@mui/material";
-import {MainStyledTextField} from "../StyledComponents/MainStyledTextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import {SubmitHandler, useFieldArray, useForm} from 'react-hook-form';
+import SimpleDialog from '@mui/material/Dialog';
+import {DisplayAlertModals} from '../../common/DisplayAlertModals/DisplayAlertModals';
+import {MainButton} from '../../common/MainButton/MainButton';
+import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Tooltip} from '@mui/material';
+import {MainStyledTextField} from '../StyledComponents/MainStyledTextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import AddCardIcon from '@mui/icons-material/AddCard';
-import {MultiLineStyledTextField} from "../StyledComponents/MultiLineStyledTextField";
+import {MultiLineStyledTextField} from '../StyledComponents/MultiLineStyledTextField';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import "./StudentForm.css";
-import {StoreState} from "../../redux-toolkit/store";
-import {useSelector} from "react-redux";
+import './StudentForm.css';
+import {StoreState} from '../../redux-toolkit/store';
+import {useSelector} from 'react-redux';
 import {ExpectedTypeWork, ExpectedContractType} from 'types';
 
+interface StudentFormProps {
+    email: string;
+    tel: number | null;
+    firstName: string | null;
+    lastName: string | null;
+    githubUserName: string | null;
+    portfolioUrls?: string | null;
+    projectUrls: string | null;
+    bio: string | null;
+    expectedTypeWork: ExpectedTypeWork | null;
+    targetWorkCity: string | null;
+    expectedContractType: ExpectedContractType | null;
+    expectedSalary: number | null;
+    canTakeApprenticeship: number | null;
+    monthsOfCommercialExp: number | null;
+    education: string | null;
+    workExperience: string | null;
+    courses: string | null;
+}
 
-export const StudentForm = () => {
-    //redux
-    const { id } = useSelector((store: StoreState) => store.user);
+export const StudentForm = (props: StudentFormProps) => {
+    const {
+        email,
+        tel,
+        firstName,
+        lastName,
+        githubUserName,
+        portfolioUrls,
+        projectUrls,
+        bio,
+        expectedTypeWork,
+        targetWorkCity,
+        expectedContractType,
+        expectedSalary,
+        canTakeApprenticeship,
+        monthsOfCommercialExp,
+        education,
+        workExperience,
+        courses,
+    } = props;
+    const {id} = useSelector((store: StoreState) => store.user);
 
-    const [onePortfolio, setOnePortfolio] = useState<string>('')
-    const [oneProject, setOneProject] = useState<string>('')
+    const [onePortfolio, setOnePortfolio] = useState<string>('');
+    const [oneProject, setOneProject] = useState<string>('');
 
     //modal
     const [openModal, setOpenModal] = useState(false);
@@ -43,8 +74,8 @@ export const StudentForm = () => {
 
     const {control, register, handleSubmit} = useForm<any>({
         // resolver: yupResolver(schemaAddHr),
-        mode: "onChange",
-    })
+        mode: 'onChange',
+    });
 
     //portfolioURLS
     const {fields: portfolioUrlsFields, append: portfolioUrlsAppend, remove: portfolioUrlsRemove} = useFieldArray({
@@ -72,13 +103,13 @@ export const StudentForm = () => {
 
     const handleClickOneProject = (e: any) => {
         e.preventDefault();
-        if (!oneProject) return null
+        if (!oneProject) return null;
         projectUrlsAppend({id: Date.now(), value: oneProject});
         setOneProject('');
-    }
+    };
 
-    const submitForm: SubmitHandler<any> = async (data) => {
-        console.log(data)
+    const submitForm: SubmitHandler<any> = async data => {
+        console.log(data);
 
         try {
             const res = await fetch(`http://localhost:8080/student/data/${id}`, {
@@ -90,11 +121,10 @@ export const StudentForm = () => {
             });
 
             const result = await res.json();
-            console.log({result})
-            setOpenModal(true)
-            setFeedbackSuccess(result)
-            setFeedbackError(result.message)
-
+            console.log({result});
+            setOpenModal(true);
+            setFeedbackSuccess(result);
+            setFeedbackError(result.message);
         } catch (err) {
             console.log(err);
         }
@@ -102,12 +132,15 @@ export const StudentForm = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit(submitForm)} className="studentForm_form">
+            <form
+                onSubmit={handleSubmit(submitForm)}
+                className="studentForm_form">
                 {/*---------------------------------EMAIL----------------------------------*/}
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
                         type="email"
+                        defaultValue={email}
                         {...register('email')}
                         variant="filled"
                         label="Email"
@@ -119,6 +152,7 @@ export const StudentForm = () => {
                     <MainStyledTextField
                         fullWidth
                         type="text"
+                        defaultValue={firstName}
                         {...register('firstName')}
                         variant="filled"
                         label="Imię"
@@ -130,6 +164,7 @@ export const StudentForm = () => {
                     <MainStyledTextField
                         fullWidth
                         type="text"
+                        defaultValue={lastName}
                         {...register('lastName')}
                         variant="filled"
                         label="Nazwisko"
@@ -140,15 +175,16 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MainStyledTextField
                         sx={{
-                            "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                                display: "none",
+                            '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                                display: 'none',
                             },
-                            "& input[type=number]": {
-                                MozAppearance: "textfield",
+                            '& input[type=number]': {
+                                MozAppearance: 'textfield',
                             },
                         }}
                         fullWidth
                         type="number"
+                        defaultValue={tel}
                         {...register('tel')}
                         variant="filled"
                         label="Numer telefonu"
@@ -160,6 +196,7 @@ export const StudentForm = () => {
                     <MainStyledTextField
                         fullWidth
                         type="text"
+                        defaultValue={githubUserName}
                         {...register('githubUserName')}
                         variant="filled"
                         label="Podaj login z GitHub"
@@ -169,19 +206,21 @@ export const StudentForm = () => {
                 {/*----------------------------ZGODA NA ODBYCIE PRAKTYK-------------------------------------------------------*/}
                 <div className="formView_input">
                     <FormControl fullWidth>
-                        <FormLabel
-                            sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                        >
+                        <FormLabel sx={{
+                            backgroundColor: '#292a2b',
+                            color: '#7E7E7E',
+                            padding: '5px 12px',
+                            textAlign: 'left'
+                        }}>
                             Zgoda na odbycie praktyk
                         </FormLabel>
                         <RadioGroup
-                            defaultValue="1"
+                            defaultValue={canTakeApprenticeship !== null ? canTakeApprenticeship : '1'}
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
-                                padding: '0 12px'
-                            }}
-                        >
+                                padding: '0 12px',
+                            }}>
                             <FormControlLabel
                                 {...register('canTakeApprenticeship')}
                                 value="1"
@@ -189,7 +228,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -202,7 +241,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -216,11 +255,8 @@ export const StudentForm = () => {
                 <div className="studentForm_links">
                     <div className="formView_input">
                         <FormControl fullWidth>
-                            <FormLabel
-                                sx={{backgroundColor: '#292a2b', color: '#7E7E7E', paddingTop: "5px"}}
-                            >
-                                Linki do projektów
-                            </FormLabel>
+                            <FormLabel sx={{backgroundColor: '#292a2b', color: '#7E7E7E', paddingTop: '5px'}}>Linki
+                                do projektów</FormLabel>
 
                             {projectUrlsFields.map((oneProject: any, index: number) => (
                                 <MainStyledTextField
@@ -245,10 +281,9 @@ export const StudentForm = () => {
                                                         transition: '0.3s',
                                                         '&:hover': {
                                                             color: '#146DA0',
-                                                        }
+                                                        },
                                                     }}
-                                                    onClick={() => openInNewTab(oneProject.value)}
-                                                >
+                                                    onClick={() => openInNewTab(oneProject.value)}>
                                                     <OpenInNewIcon/>
                                                 </IconButton>
 
@@ -259,10 +294,9 @@ export const StudentForm = () => {
                                                         transition: '0.3s',
                                                         '&:hover': {
                                                             color: '#d93535',
-                                                        }
+                                                        },
                                                     }}
-                                                    onClick={() => projectUrlsRemove(index)}
-                                                >
+                                                    onClick={() => projectUrlsRemove(index)}>
                                                     <DeleteForeverOutlinedIcon/>
                                                 </IconButton>
                                             </InputAdornment>
@@ -273,14 +307,13 @@ export const StudentForm = () => {
                         </FormControl>
                     </div>
 
-
                     {/*-------------------------------------DODAJ PROJEKT------------------------------------------------*/}
                     <div className="studentForm_add">
                         <MainStyledTextField
                             value={oneProject}
                             variant="filled"
                             name="projectInput"
-                            onChange={(e) => setOneProject(e.target.value)}
+                            onChange={e => setOneProject(e.target.value)}
                             label="Dodaj link do projektu"
                             InputProps={{
                                 style: {backgroundColor: '#292a2b'},
@@ -289,8 +322,12 @@ export const StudentForm = () => {
                                         <Tooltip sx={{fontSize: '20px'}}
                                                  title={
                                                      <>
-                                                         <p style={{color: '#bcbcc5', fontSize:'14px'}}>Wklej kompletny link URL np:</p>
-                                                         <p style={{textAlign: 'center', fontSize: '16px'}}>https://www.megak.pl/</p>
+                                                         <p style={{color: '#bcbcc5', fontSize: '14px'}}>Wklej
+                                                             kompletny link URL np:</p>
+                                                         <p style={{
+                                                             textAlign: 'center',
+                                                             fontSize: '16px'
+                                                         }}>https://www.megak.pl/</p>
                                                      </>
                                                  }
                                                  arrow
@@ -306,10 +343,9 @@ export const StudentForm = () => {
                                                 transition: '0.3s',
                                                 '&:hover': {
                                                     color: '#146DA0',
-                                                }
+                                                },
                                             }}
-                                            onClick={handleClickOneProject}
-                                        >
+                                            onClick={handleClickOneProject}>
                                             <AddCardIcon/>
                                         </IconButton>
                                     </InputAdornment>
@@ -394,8 +430,12 @@ export const StudentForm = () => {
                                         <Tooltip sx={{fontSize: '20px'}}
                                                  title={
                                                      <>
-                                                         <p style={{color: '#bcbcc5', fontSize:'14px'}}>Wklej kompletny link URL np:</p>
-                                                         <p style={{textAlign: 'center', fontSize: '16px'}}>https://www.megak.pl/</p>
+                                                         <p style={{color: '#bcbcc5', fontSize: '14px'}}>Wklej
+                                                             kompletny link URL np:</p>
+                                                         <p style={{
+                                                             textAlign: 'center',
+                                                             fontSize: '16px'
+                                                         }}>https://www.megak.pl/</p>
                                                      </>
                                                  }
                                                  arrow
@@ -427,6 +467,7 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MultiLineStyledTextField
                         fullWidth
+                        defaultValue={bio}
                         {...register('bio')}
                         label="Napisz coś o sobie"
                         multiline
@@ -439,6 +480,7 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
+                        defaultValue={targetWorkCity}
                         type="text"
                         {...register('targetWorkCity')}
                         variant="filled"
@@ -450,9 +492,10 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
+                        defaultValue={expectedSalary}
                         type="number"
                         {...register('expectedSalary')}
-                        InputProps={{inputProps: {min: 0, max: 999999},}}
+                        InputProps={{inputProps: {min: 0, max: 999999}}}
                         variant="filled"
                         label="Oczekiwane miesięczne wynagrodzenie w PLN"
                     />
@@ -462,6 +505,7 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
+                        defaultValue={monthsOfCommercialExp}
                         type="number"
                         {...register('monthsOfCommercialExp')}
                         InputProps={{inputProps: {min: 0, max: 9999}}}
@@ -474,6 +518,7 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MultiLineStyledTextField
                         fullWidth
+                        defaultValue={education}
                         {...register('education')}
                         label="Przebieg edukacji"
                         multiline
@@ -486,6 +531,7 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MultiLineStyledTextField
                         fullWidth
+                        defaultValue={workExperience}
                         {...register('workExperience')}
                         label="Doświadczenie zawodowe"
                         multiline
@@ -498,6 +544,7 @@ export const StudentForm = () => {
                 <div className="formView_input">
                     <MultiLineStyledTextField
                         fullWidth
+                        defaultValue={courses}
                         {...register('courses')}
                         label="Kursy i certyfikaty związane z programowaniem"
                         multiline
@@ -509,18 +556,21 @@ export const StudentForm = () => {
                 {/*---------------------------------WYBÓR PREFEROWANEGO MIEJSCA PRACY-----------------------------------------*/}
                 <div className="formView_input">
                     <FormControl fullWidth>
-                        <FormLabel
-                            sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                        >
+                        <FormLabel sx={{
+                            backgroundColor: '#292a2b',
+                            color: '#7E7E7E',
+                            padding: '5px 12px',
+                            textAlign: 'left'
+                        }}>
                             Wybór preferowanego miejsca pracy
                         </FormLabel>
                         <RadioGroup
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
-                                padding: '0 12px'
+                                padding: '0 12px',
                             }}
-                            defaultValue={ExpectedTypeWork.DoesNotMatter}
+                            defaultValue={expectedTypeWork !== null ? expectedTypeWork : ExpectedTypeWork.DoesNotMatter}
                         >
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
@@ -529,7 +579,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -542,7 +592,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -555,7 +605,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -568,7 +618,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -581,7 +631,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -594,19 +644,21 @@ export const StudentForm = () => {
                 {/*--------------------------------OCZEKIWANY TYP KONTRAKTU-----------------------------------------*/}
                 <div className="formView_input">
                     <FormControl fullWidth>
-                        <FormLabel
-                            sx={{backgroundColor: '#292a2b', color: '#7E7E7E', padding: "5px 12px", textAlign: 'left'}}
-                        >
+                        <FormLabel sx={{
+                            backgroundColor: '#292a2b',
+                            color: '#7E7E7E',
+                            padding: '5px 12px',
+                            textAlign: 'left'
+                        }}>
                             Oczekiwany typ kontraktu
                         </FormLabel>
                         <RadioGroup
                             sx={{
                                 color: '#7E7E7E',
                                 backgroundColor: '#292a2b',
-                                padding: '0 12px'
+                                padding: '0 12px',
                             }}
-                            defaultValue={ExpectedContractType.DoesNotMatter}
-                        >
+                            defaultValue={expectedContractType !== null ? expectedContractType : ExpectedContractType.DoesNotMatter}>
                             <FormControlLabel
                                 {...register('expectedContractType')}
                                 value={ExpectedContractType.EmploymentContract}
@@ -614,7 +666,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -627,7 +679,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -640,7 +692,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -653,7 +705,7 @@ export const StudentForm = () => {
                                     <Radio
                                         sx={{
                                             color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14}
+                                            '& .MuiSvgIcon-root': {fontSize: 14},
                                         }}
                                     />
                                 }
@@ -662,7 +714,6 @@ export const StudentForm = () => {
                         </RadioGroup>
                     </FormControl>
                 </div>
-                {/*---------------------------------------------------------------------------------*/}
                 {
                     openModal && <SimpleDialog
                         open={openModal}
@@ -679,31 +730,3 @@ export const StudentForm = () => {
     )
 };
 
-/*
-* this.id = obj.id ?? null;
-    this.email = obj.email ?? null;
-    this.courseEngagement = obj.courseEngagement ?? null;     TAK
-    this.projectDegree = obj.projectDegree ?? null;
-    this.courseCompletion = obj.courseCompletion ?? null;
-    this.teamProjectDegree = obj.teamProjectDegree ?? null;
-    this.bonusProjectUrls = obj.bonusProjectUrls ?? null;
-    this.tel = obj.tel ?? null;
-    this.firstName = obj.firstName ?? null;
-    this.lastName = obj.lastName ?? null;
-    this.githubUserName = obj.githubUserName ?? null;
-    this.portfolioUrls = obj.portfolioUrls ?? null;
-    this.projectUrls = obj.projectUrls ?? null;
-    this.bio = obj.bio ?? null;
-    this.expectedTypeWork = obj.expectedTypeWork ?? null;
-    this.targetWorkCity = obj.targetWorkCity ?? null;
-    this.expectedContractType = obj.expectedContractType ?? null;
-    this.expectedSalary = obj.expectedSalary ?? null;
-    this.canTakeApprenticeship = obj.canTakeApprenticeship ?? null;
-    this.monthsOfCommercialExp = obj.monthsOfCommercialExp ?? null;
-    this.education = obj.education ?? null;
-    this.workExperience = obj.workExperience ?? null;
-    this.courses = obj.courses ?? null;
-    this.status = obj.status ?? null;
-    this.user_id = obj.user_id ?? null;
-    this.hr_id = obj.hr_id ?? null;
-* */

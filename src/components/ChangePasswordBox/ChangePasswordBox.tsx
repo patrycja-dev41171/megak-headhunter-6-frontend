@@ -2,7 +2,7 @@ import React, { MouseEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaChangedPassword } from '../../Validations/UserValidation';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -13,6 +13,8 @@ import { MainButton } from '../../common/MainButton/MainButton';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import '../../styles/stylesForForms.css';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../redux-toolkit/store';
 
 type FormValues = {
   changedPassword: string;
@@ -27,6 +29,8 @@ interface InputNumber {
 }
 
 export const ChangePasswordBox = () => {
+  const { role } = useSelector((store: StoreState) => store.user);
+
   //eye visible-hidden handle
   const [values, setValues] = useState<InputNumber>({
     changedPassword: '',
@@ -94,8 +98,23 @@ export const ChangePasswordBox = () => {
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
-      if(!result.message) {
-        navigate('/login')
+      navigate('/login');
+
+      if (!result.message) {
+        switch (role) {
+          case 'admin':
+            return navigate('/home-admin');
+            break;
+          case 'hr':
+            return navigate('/hr/profile');
+            break;
+          case 'student':
+            return navigate('/student');
+            break;
+          case '':
+            return navigate('/login');
+            break;
+        }
       }
     } catch (err) {
       console.log(err);

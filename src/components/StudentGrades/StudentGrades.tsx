@@ -2,19 +2,18 @@ import * as React from 'react';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
-import { useState } from 'react';
 import { Typography } from '@mui/material';
 
 import './StudentGrades.css';
 
-interface GradesValues {
-  overallEvaluation: number;
-  engagementEvaluation: number;
-  codeEvaluation: number;
-  teamWorkEvaluation: number;
+interface GradesValuesProps {
+  courseCompletion: number;
+  courseEngagement: number;
+  projectDegree: number;
+  teamProjectDegree: number;
 }
 
-export const StudentGrades = () => {
+export const StudentGrades = (props: GradesValuesProps) => {
   const labels: { [index: string]: string } = {
     0: '0',
     1: '1',
@@ -23,15 +22,6 @@ export const StudentGrades = () => {
     4: '4',
     5: '5',
   };
-
-  const [value, setValue] = useState<GradesValues>({
-    overallEvaluation: 2,
-    engagementEvaluation: 3,
-    codeEvaluation: 5,
-    teamWorkEvaluation: 4,
-  });
-
-  //here we have to fetch data from BE to change state
 
   return (
     <Box
@@ -48,15 +38,15 @@ export const StudentGrades = () => {
           Ocena przejścia kursu
         </Typography>
         <div className="student-grades__rating">
-          {value.overallEvaluation !== null && (
+          {props.courseCompletion !== null && (
             <Box sx={{ mr: 2, color: '#9E9E9E' }}>
-              <span style={{ color: '#F7F7F7' }}>{labels[value.overallEvaluation]}</span>
+              <span style={{ color: '#F7F7F7' }}>{labels[props.courseCompletion]}</span>
               /5
             </Box>
           )}
           <Rating
             name="overall-evaluation"
-            value={value.overallEvaluation}
+            value={props.courseCompletion}
             readOnly
             emptyIcon={
               <StarIcon
@@ -82,16 +72,16 @@ export const StudentGrades = () => {
           Ocena aktywności i zaangażowania na kursie
         </Typography>
         <div className="student-grades__rating">
-          {value.engagementEvaluation !== null && (
+          {props.courseEngagement !== null && (
             <Box sx={{ mr: 2, color: '#9E9E9E' }}>
-              <span style={{ color: '#F7F7F7' }}>{labels[value.engagementEvaluation]}</span>
+              <span style={{ color: '#F7F7F7' }}>{labels[props.courseEngagement]}</span>
               /5
             </Box>
           )}
 
           <Rating
             name="engagement-evaluation"
-            value={value.engagementEvaluation}
+            value={props.courseEngagement}
             readOnly
             emptyIcon={
               <StarIcon
@@ -117,15 +107,15 @@ export const StudentGrades = () => {
           Ocena kodu w projekcie własnym
         </Typography>
         <div className="student-grades__rating">
-          {value.codeEvaluation !== null && (
+          {props.projectDegree !== null && (
             <Box sx={{ mr: 2, color: '#9E9E9E' }}>
-              <span style={{ color: '#F7F7F7' }}>{labels[value.codeEvaluation]}</span>
+              <span style={{ color: '#F7F7F7' }}>{labels[props.projectDegree]}</span>
               /5
             </Box>
           )}
           <Rating
             name="code-evaluation"
-            value={value.codeEvaluation}
+            value={props.projectDegree}
             readOnly
             emptyIcon={
               <StarIcon
@@ -151,15 +141,15 @@ export const StudentGrades = () => {
           Ocena pracy w zespole w Scrum
         </Typography>
         <div className="student-grades__rating">
-          {value.teamWorkEvaluation !== null && (
+          {props.teamProjectDegree !== null && (
             <Box sx={{ mr: 2, color: '#9E9E9E' }}>
-              <span style={{ color: '#F7F7F7' }}>{labels[value.teamWorkEvaluation]}</span>
+              <span style={{ color: '#F7F7F7' }}>{labels[props.teamProjectDegree]}</span>
               /5
             </Box>
           )}
           <Rating
             name="team-work-evaluation"
-            value={value.teamWorkEvaluation}
+            value={props.teamProjectDegree}
             readOnly
             emptyIcon={
               <StarIcon
