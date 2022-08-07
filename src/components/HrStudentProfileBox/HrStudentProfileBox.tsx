@@ -2,7 +2,6 @@ import React from 'react';
 import { Header } from '../Header/Header';
 import { Box, Container } from '@mui/material';
 import { StudentExpectations } from '../StudentExpectations/StudentExpectations';
-import './HrStudentProfileBox.css';
 import '../../styles/stylesForLayouts.css';
 import { SidebarStudent } from '../Sidebars/SidebarStudent';
 import { StudentGrades } from '../StudentGrades/StudentGrades';
@@ -23,7 +22,6 @@ export const HrStudentProfileBox = () => {
               left: '-70px',
             },
           }}>
-          <div className="hrStudentProfileView_button">Wróć</div>
           <div className="sidebarBox">
             <SidebarStudent
               email="j.kowalski@op.pl"
