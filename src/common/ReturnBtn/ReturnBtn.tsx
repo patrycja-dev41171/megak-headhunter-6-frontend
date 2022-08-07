@@ -1,23 +1,12 @@
-import React, { MouseEventHandler } from 'react';
-
-import './ReturnBtn.css';
+import React from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import './ReturnBtn.css';
 
-interface Props {
-  onClick: MouseEventHandler;
-}
-
-export const ReturnBtn = (props: Props) => {
-  return (
-    <div className="hrStudentProfileView_button">
-      <div>
-        <button className="return_btn">
-          <div className="return_btn_icon">
-            <ArrowBackIosIcon />
-          </div>
-          <div className="return_btn_text">Wróć</div>
-        </button>
-      </div>
-    </div>
-  );
+export const ReturnBtn = () => {
+    return (
+        <div className="return_btn">
+            <ArrowBackIosIcon sx={{color: '#666666'}}/>
+            <div className="return_btn_text">Wróć</div>
+        </div>
+    );
 };
