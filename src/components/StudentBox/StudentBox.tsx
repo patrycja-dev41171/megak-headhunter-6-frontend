@@ -104,10 +104,9 @@ export const StudentBox = () => {
                         </div>
 
                         <div className="studentView_line">
-                            {studentData.email !== '' ? (
+                            {/*{studentData.email !== '' ? (*/}
                             <StudentForm
-                                // email={studentData.email}
-                                email={"Patrycja@interia.pl"}
+                                email={studentData.email}
                                 tel={studentData.tel}
                                 firstName={studentData.firstName}
                                 lastName={studentData.lastName}
@@ -124,7 +123,7 @@ export const StudentBox = () => {
                                 courses={studentData.courses}
                                 expectedContractType={studentData.expectedContractType}
                                 targetWorkCity={studentData.targetWorkCity}/>
-                            ) : null}
+                            {/*) : null}*/}
                         </div>
                     </Box>
                 </Container>
