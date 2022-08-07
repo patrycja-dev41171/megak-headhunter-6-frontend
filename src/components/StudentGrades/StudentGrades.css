@@ -2,11 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     padding-left: 26px;
-    padding-right: 195px;
-    height: 110px;
-    width: 1176px;
-    background-color: #222324;
+    max-width: 955px;
+    min-height: 110px;
+    color: #88888d;
 }
 .student-grades__item {
     display: flex;

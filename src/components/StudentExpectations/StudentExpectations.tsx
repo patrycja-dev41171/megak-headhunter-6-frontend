@@ -31,7 +31,7 @@ export const StudentExpectations = (props: StudentExpectationsProps) => {
 
   return (
     <div className="student-expectations__wrapper">
-      <div className="student-expectations__item">
+      <div className="student-expectations__item student-expectations__item-first">
         <p className="student-expectations__item-title">Preferowane miejsce pracy</p>
         {expectedTypeWork ? (
           <p className="student-expectations__item-description">{expectedTypeWork}</p>
