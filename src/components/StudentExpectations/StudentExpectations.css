@@ -1,17 +1,22 @@
 .student-expectations__wrapper {
-  width: 1176px;
   display: flex;
   align-items: center;
-  height: 110px;
+  flex-wrap: wrap;
+  min-height: 110px;
   background-color: #222324;
-  padding-left: 10px;
+  padding-left: 26px;
 }
 
 .student-expectations__item {
   max-width: 196px;
-  flex: 1 1 0px;
+  flex: 1 1 0;
   padding: 10px;
   border-right: 1px solid #292a2b;
+  text-align: left;
+}
+
+.student-expectations__item-first {
+  padding-left: 0;
 }
 
 .student-expectations__item:last-child {

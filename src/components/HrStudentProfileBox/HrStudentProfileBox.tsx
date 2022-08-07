@@ -2,7 +2,6 @@ import React from 'react';
 import {Header} from '../Header/Header';
 import {Box, Container} from '@mui/material';
 import {StudentExpectations} from '../StudentExpectations/StudentExpectations';
-import '../../styles/stylesForLayouts.css';
 import {SidebarStudent} from '../Sidebars/SidebarStudent';
 import {StudentGrades} from '../StudentGrades/StudentGrades';
 import {StudentInfoBoxEducation} from "../StudentInfoBoxes/StudentInfoBoxEducation";
@@ -11,11 +10,13 @@ import {StudentInfoBoxWorkExperience} from "../StudentInfoBoxes/StudentInfoBoxWo
 import {StudentInfoBoxLinksPortfolio} from "../StudentInfoBoxesLinks/StudentInfoBoxLinksPortfolio";
 import {StudentInfoBoxLinksGroupProject} from "../StudentInfoBoxesLinks/StudentInfoBoxLinksGroupProject";
 import {StudentInfoBoxLinksPassingProject} from "../StudentInfoBoxesLinks/StudentInfoBoxLinksPassingProject";
+import '../../styles/stylesForLayouts.css';
 
 export const HrStudentProfileBox = () => {
     return (
         <>
-            {/*<Header/>*/}
+            {/*wstawilem dane do Header na sztywno zeby wyswietlic*/}
+            <Header role="student" id="7462376423764523746"/>
             <div className="main-container pageWithHeader">
                 <Container
                     sx={{
@@ -39,15 +40,12 @@ export const HrStudentProfileBox = () => {
                         }}>
                         <h3 className="layouts_subtitle">Oceny</h3>
                         <div className="layouts_line">
-                            <div className="layouts_gradesContent displayCenter">
-                                {/*<StudentGrades/>*/}
-                            </div>
+                            {/*wstawilem dane do StudentGrades na sztywno zeby wyswietlic*/}
+                            <StudentGrades courseCompletion={3} courseEngagement={3} projectDegree={3} teamProjectDegree={3}/>
                         </div>
                         <h3 className="layouts_subtitle">Oczekiwanie w stosunku do zatrudnienia</h3>
                         <div className="layouts_line">
-                            <div className="layouts_gradesContent displayCenter">
-                                <StudentExpectations/>
-                            </div>
+                            <StudentExpectations/>
                         </div>
                         <h3 className="layouts_subtitle">Edukacja</h3>
                         <div className="layouts_line">

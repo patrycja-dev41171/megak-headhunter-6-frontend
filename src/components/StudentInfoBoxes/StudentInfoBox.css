@@ -1,7 +1,6 @@
 .student-info-box__wrapper {
   display: flex;
   align-items: center;
-  width: 1176px;
   min-height: 90px;
   background-color: #222324;
   padding: 10px 26px;
