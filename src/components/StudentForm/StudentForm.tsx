@@ -319,20 +319,22 @@ export const StudentForm = (props: StudentFormProps) => {
                                 style: {backgroundColor: '#292a2b'},
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <Tooltip
-                                            sx={{fontSize: '20px'}}
-                                            title={
-                                                <>
-                                                    <p style={{fontSize: '14px', color: '#b2b2b2'}}>Wklej kompletny
-                                                        link URL np:</p>
-                                                    <p style={{
-                                                        fontSize: '14px',
-                                                        textAlign: 'center'
-                                                    }}>https://www.megak.pl/</p>
-                                                </>
-                                            }
-                                            arrow>
-                                            <InfoOutlinedIcon sx={{color: '#7E7E7E', marginRight: '20px'}}/>
+                                        <Tooltip sx={{fontSize: '20px'}}
+                                                 title={
+                                                     <>
+                                                         <p style={{color: '#bcbcc5', fontSize: '14px'}}>Wklej
+                                                             kompletny link URL np:</p>
+                                                         <p style={{
+                                                             textAlign: 'center',
+                                                             fontSize: '16px'
+                                                         }}>https://www.megak.pl/</p>
+                                                     </>
+                                                 }
+                                                 arrow
+                                        >
+                                            <IconButton>
+                                                <InfoOutlinedIcon sx={{color: '#7E7E7E', cursor: 'help'}}/>
+                                            </IconButton>
                                         </Tooltip>
                                         <IconButton
                                             sx={{
@@ -568,7 +570,7 @@ export const StudentForm = (props: StudentFormProps) => {
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px',
                             }}
-                            defaultValue={expectedTypeWork !== null ? expectedTypeWork : 'Bez znaczenia'}
+                            defaultValue={expectedTypeWork !== null ? expectedTypeWork : ExpectedTypeWork.DoesNotMatter}
                         >
                             <FormControlLabel
                                 {...register('expectedTypeWork')}
@@ -656,7 +658,7 @@ export const StudentForm = (props: StudentFormProps) => {
                                 backgroundColor: '#292a2b',
                                 padding: '0 12px',
                             }}
-                            defaultValue={expectedContractType !== null ? expectedContractType : 'Brak preferencji'}>
+                            defaultValue={expectedContractType !== null ? expectedContractType : ExpectedContractType.DoesNotMatter}>
                             <FormControlLabel
                                 {...register('expectedContractType')}
                                 value={ExpectedContractType.EmploymentContract}

@@ -15,7 +15,7 @@ import {StudentInfoBoxLinksPassingProject} from "../StudentInfoBoxesLinks/Studen
 export const HrStudentProfileBox = () => {
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <div className="main-container pageWithHeader">
                 <Container
                     sx={{
@@ -40,7 +40,7 @@ export const HrStudentProfileBox = () => {
                         <h3 className="layouts_subtitle">Oceny</h3>
                         <div className="layouts_line">
                             <div className="layouts_gradesContent displayCenter">
-                                <StudentGrades/>
+                                {/*<StudentGrades/>*/}
                             </div>
                         </div>
                         <h3 className="layouts_subtitle">Oczekiwanie w stosunku do zatrudnienia</h3>
