@@ -3,6 +3,7 @@
 # Don't track content of these folders
 /.history
 .idea
+tsconfig.paths.json
 
 # dependencies
 /node_modules

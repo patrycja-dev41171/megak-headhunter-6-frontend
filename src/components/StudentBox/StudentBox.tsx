@@ -99,32 +99,31 @@ export const StudentBox = () => {
               </div>
             </div>
 
-            <div className="studentView_subtitle">
-              <h3>Uzupełnij swój profil</h3>
-              <span className="studentView_subtitleInstruction">Jesteś niewidoczny dla HR. Uzupełnij dane</span>
-            </div>
+<div className="studentView_subtitle">
+  <h3>Uzupełnij swój profil</h3>
+  <span className="studentView_subtitleInstruction">Jesteś niewidoczny dla HR. Uzupełnij dane</span>
+</div>
 
-            <div className="studentView_line">
-              {studentData.email !== '' ? (
-                <StudentForm
-                  email={studentData.email}
-                  tel={studentData.tel}
-                  firstName={studentData.firstName}
-                  lastName={studentData.lastName}
-                  githubUserName={studentData.githubUserName}
-                  portfolioUrls={studentData.portfolioUrls}
-                  projectUrls={studentData.projectUrls}
-                  bio={studentData.bio}
-                  expectedTypeWork={studentData.expectedTypeWork}
-                  expectedSalary={studentData.expectedSalary}
-                  canTakeApprenticeship={studentData.canTakeApprenticeship}
-                  monthsOfCommercialExp={studentData.monthsOfCommercialExp}
-                  education={studentData.education}
-                  workExperience={studentData.workExperience}
-                  courses={studentData.courses}
-                  expectedContractType={studentData.expectedContractType}
-                  targetWorkCity={studentData.targetWorkCity}
-                />
+<div className="studentView_line">
+    {studentData.email !== '' ? (
+      <StudentForm
+        email={studentData.email}
+        tel={studentData.tel}
+        firstName={studentData.firstName}
+        lastName={studentData.lastName}
+        githubUserName={studentData.githubUserName}
+        portfolioUrls={studentData.portfolioUrls}
+        projectUrls={studentData.projectUrls}
+        bio={studentData.bio}
+        expectedTypeWork={studentData.expectedTypeWork}
+        expectedSalary={studentData.expectedSalary}
+        canTakeApprenticeship={studentData.canTakeApprenticeship}
+        monthsOfCommercialExp={studentData.monthsOfCommercialExp}
+        education={studentData.education}
+        workExperience={studentData.workExperience}
+        courses={studentData.courses}
+        expectedContractType={studentData.expectedContractType}
+        targetWorkCity={studentData.targetWorkCity} />
               ) : null}
             </div>
           </Box>

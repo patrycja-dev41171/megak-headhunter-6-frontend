@@ -77,37 +77,29 @@ export const StudentForm = (props: StudentFormProps) => {
     mode: 'onChange',
   });
 
-  //portfolioURLS
-  const {
-    fields: portfolioURLSFields,
-    append: portfolioURLSAppend,
-    remove: portfolioURLSRemove,
-  } = useFieldArray({
-    control,
-    name: 'portfolioURLS',
-  });
+ //portfolioURLS
+    const {fields: portfolioUrlsFields, append: portfolioUrlsAppend, remove: portfolioUrlsRemove} = useFieldArray({
+        control,
+        name: 'portfolioUrls',
+    })
 
-  //projectsURLS
-  const {
-    fields: projectUrlsFields,
-    append: projectUrlsAppend,
-    remove: projectUrlsRemove,
-  } = useFieldArray({
-    control,
-    name: 'projectUrls',
-  });
+    //projectsURLS
+    const {fields: projectUrlsFields, append: projectUrlsAppend, remove: projectUrlsRemove} = useFieldArray({
+        control,
+        name: 'projectUrls'
+    })
 
-  //openLinkInNweTab
-  const openInNewTab = (url: string) => {
-    window.open(url, '_blank');
-  };
+    //openLinkInNweTab
+    const openInNewTab = (url: string) => {
+        window.open(url, '_blank');
+    };
 
-  const handleClickOnePortfolio = (e: any) => {
-    e.preventDefault();
-    if (!onePortfolio) return null;
-    portfolioURLSAppend({ id: Date.now(), value: onePortfolio });
-    setOnePortfolio('');
-  };
+    const handleClickOnePortfolio = (e: any) => {
+        e.preventDefault();
+        if (!onePortfolio) return null
+        portfolioUrlsAppend({id: Date.now(), value: onePortfolio});
+        setOnePortfolio('');
+        
 
   const handleClickOneProject = (e: any) => {
     e.preventDefault();
@@ -352,100 +344,109 @@ export const StudentForm = (props: StudentFormProps) => {
         </div>
 
         {/*----------------------------LINKI DO PORTFOLIO--------------------------------*/}
-        <div className="studentForm_links">
-          <div className="formView_input">
-            <FormControl fullWidth>
-              <FormLabel sx={{ backgroundColor: '#292a2b', color: '#7E7E7E', paddingTop: '5px' }}>Linki do portfolio</FormLabel>
+                <div className="studentForm_links">
+                    <div className="formView_input">
+                        <FormControl fullWidth>
+                            <FormLabel
+                                sx={{backgroundColor: '#292a2b', color: '#7E7E7E', paddingTop: "5px"}}
+                            >
+                                Linki do portfolio
+                            </FormLabel>
 
-              {portfolioURLSFields.map((onePortfolio: any, index: number) => (
-                <MainStyledTextField
-                  sx={{
-                    '& .MuiInputBase-input': {
-                      color: '#146DA0',
-                    },
-                  }}
-                  fullWidth
-                  variant="filled"
-                  key={onePortfolio.id}
-                  {...register(`portfolioURLS.${index}.value` as const)}
-                  defaultValue={onePortfolio.value}
-                  InputProps={{
-                    style: { backgroundColor: '#292a2b' },
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          sx={{
-                            color: '#7E7E7E',
-                            cursor: 'pointer',
-                            transition: '0.3s',
-                            '&:hover': {
-                              color: '#146DA0',
-                            },
-                          }}
-                          onClick={() => openInNewTab(onePortfolio.value)}>
-                          <OpenInNewIcon />
-                        </IconButton>
-                        <IconButton
-                          sx={{
-                            color: '#7E7E7E',
-                            cursor: 'pointer',
-                            transition: '0.3s',
-                            '&:hover': {
-                              color: '#d93535',
-                            },
-                          }}
-                          onClick={() => portfolioURLSRemove(index)}>
-                          <DeleteForeverOutlinedIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              ))}
-            </FormControl>
-          </div>
+                            {portfolioUrlsFields.map((onePortfolio: any, index: number) => (
+                                <MainStyledTextField
+                                    sx={{
+                                        '& .MuiInputBase-input': {
+                                            color: '#146DA0',
+                                        },
+                                    }}
+                                    fullWidth
+                                    variant="filled"
+                                    key={onePortfolio.id}
+                                    {...register(`portfolioUrls.${index}.value` as const)}
+                                    defaultValue={onePortfolio.value}
+                                    InputProps={{
+                                        style: {backgroundColor: '#292a2b'},
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    sx={{
+                                                        color: '#7E7E7E',
+                                                        cursor: 'pointer',
+                                                        transition: '0.3s',
+                                                        '&:hover': {
+                                                            color: '#146DA0',
+                                                        }
+                                                    }}
+                                                    onClick={() => openInNewTab(onePortfolio.value)}
+                                                >
+                                                    <OpenInNewIcon/>
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{
+                                                        color: '#7E7E7E',
+                                                        cursor: 'pointer',
+                                                        transition: '0.3s',
+                                                        '&:hover': {
+                                                            color: '#d93535',
+                                                        }
+                                                    }}
+                                                    onClick={() => portfolioUrlsRemove(index)}
+                                                >
+                                                    <DeleteForeverOutlinedIcon/>
+                                                </IconButton>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            ))}
+                        </FormControl>
+                    </div>
 
-          {/*-------------------------------------DODAJ LINK DO PORTFOLIO------------------------------------------------*/}
-          <div className="studentForm_add">
-            <MainStyledTextField
-              value={onePortfolio}
-              variant="filled"
-              name="portfolioInput"
-              onChange={e => setOnePortfolio(e.target.value)}
-              label="Dodaj link do portfolio"
-              InputProps={{
-                style: { backgroundColor: '#292a2b' },
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Tooltip
-                      sx={{ fontSize: '20px' }}
-                      title={
-                        <>
-                          <p style={{ fontSize: '14px', color: '#b2b2b2' }}>Wklej kompletny link URL np:</p>
-                          <p style={{ fontSize: '14px', textAlign: 'center' }}>https://www.megak.pl/</p>
-                        </>
-                      }
-                      arrow>
-                      <InfoOutlinedIcon sx={{ color: '#7E7E7E', marginRight: '20px' }} />
-                    </Tooltip>
-                    <IconButton
-                      sx={{
-                        color: '#7E7E7E',
-                        cursor: 'pointer',
-                        transition: '0.3s',
-                        '&:hover': {
-                          color: '#146DA0',
-                        },
-                      }}
-                      onClick={handleClickOnePortfolio}>
-                      <AddCardIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </div>
-        </div>
+                    {/*-------------------------------------DODAJ LINK DO PORTFOLIO------------------------------------------------*/}
+                    <div className="studentForm_add">
+                        <MainStyledTextField
+                            value={onePortfolio}
+                            variant="filled"
+                            name="portfolioInput"
+                            onChange={(e) => setOnePortfolio(e.target.value)}
+                            label="Dodaj link do portfolio"
+                            InputProps={{
+                                style: {backgroundColor: '#292a2b'},
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <Tooltip sx={{fontSize: '20px'}}
+                                                 title={
+                                                     <>
+                                                         <p style={{color: '#bcbcc5', fontSize:'14px'}}>Wklej kompletny link URL np:</p>
+                                                         <p style={{textAlign: 'center', fontSize: '16px'}}>https://www.megak.pl/</p>
+                                                     </>
+                                                 }
+                                                 arrow
+                                        >
+                                            <IconButton>
+                                                <InfoOutlinedIcon sx={{color: '#7E7E7E', cursor: 'help'}}/>
+                                            </IconButton>
+                                        </Tooltip>
+                                        <IconButton
+                                            sx={{
+                                                color: '#7E7E7E',
+                                                cursor: 'pointer',
+                                                transition: '0.3s',
+                                                '&:hover': {
+                                                    color: '#146DA0',
+                                                }
+                                            }}
+                                            onClick={handleClickOnePortfolio}
+                                        >
+                                            <AddCardIcon/>
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </div>
+                </div>
         {/*---------------------------------BIO--------------------------------------*/}
         <div className="formView_input">
           <MultiLineStyledTextField
@@ -680,24 +681,19 @@ export const StudentForm = (props: StudentFormProps) => {
                       '& .MuiSvgIcon-root': { fontSize: 14 },
                     }}
                   />
-                }
-                label="Brak preferencji"
+                  }
+                   label="Brak preferencji"
               />
             </RadioGroup>
           </FormControl>
         </div>
-        {/*---------------------------------------------------------------------------------*/}
-        {openModal && (
-          <SimpleDialog
-            open={openModal}
-            onClose={handleClose}>
-            {openModal && (
-              <DisplayAlertModals
-                error={feedbackError}
-                success={feedbackSuccess}
-              />
-            )}
-          </SimpleDialog>
+                {
+                    openModal && <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}
+                    >
+                        {openModal && <DisplayAlertModals error={feedbackError} success={feedbackSuccess}/>}
+                    </SimpleDialog>
         )}
         <div style={{ marginTop: '50px' }}>
           <MainButton type="submit">Zapisz dane z formularza</MainButton>
