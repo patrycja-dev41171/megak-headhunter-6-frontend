@@ -1,0 +1,26 @@
+.numberOfStudents_line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 26px 0 30px 26px;
+}
+
+.numberOfStudents_line-info {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.numberOfStudents_reserved {
+    color: #438013;
+}
+
+.numberOfStudents_availablePlaces {
+    color: #DB2735;
+}
+
+.numberOfStudentsNum {
+    font-size: 23px;
+    padding-left: 10px;
+}

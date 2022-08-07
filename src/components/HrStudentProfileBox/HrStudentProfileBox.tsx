@@ -21,7 +21,6 @@ export const HrStudentProfileBox = () => {
                 <Container
                     sx={{
                         display: 'flex',
-                        justifyContent: 'space-between',
                         marginTop: '26px',
                         '&.MuiContainer-root': {
                             maxWidth: '1430px',
