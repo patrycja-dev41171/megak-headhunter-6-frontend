@@ -40,11 +40,13 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-interface Props {
+interface HeaderMenuProps {
   className: string;
+  userRole: string;
+  userId: string;
 }
 
-export const HeaderMenu = (props: Props) => {
+export const HeaderMenu = (props: HeaderMenuProps) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -74,6 +76,25 @@ export const HeaderMenu = (props: Props) => {
     }
   };
 
+  const setMenuOptions = () => {
+    switch (props.userRole) {
+      case 'admin':
+        return null;
+        break;
+      case 'student':
+        return null;
+        break;
+      case 'hr':
+        return (
+          <MenuBtn
+            text="Konto"
+            to="/hr/profile"
+          />
+        );
+        break;
+    }
+  };
+
   return (
     <div className={props.className}>
       <ShowMenuBtn onClick={handleClick} />
@@ -81,12 +102,15 @@ export const HeaderMenu = (props: Props) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}>
+        {setMenuOptions()}
         <MenuBtn
-          text="Konto"
-          to="/hr/profile"></MenuBtn>
+          text="Zmień hasło"
+          to={`/change-password/${props.userId}`}
+        />
         <MenuBtn
           text="Wyloguj"
-          onClick={handleLogout}></MenuBtn>
+          onClick={handleLogout}
+        />
       </StyledMenu>
     </div>
   );
