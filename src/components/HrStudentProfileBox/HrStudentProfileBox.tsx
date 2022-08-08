@@ -10,6 +10,7 @@ import {StudentInfoBoxWorkExperience} from "../StudentInfoBoxes/StudentInfoBoxWo
 import {StudentInfoBoxLinksPortfolio} from "../StudentInfoBoxesLinks/StudentInfoBoxLinksPortfolio";
 import {StudentInfoBoxLinksGroupProject} from "../StudentInfoBoxesLinks/StudentInfoBoxLinksGroupProject";
 import {StudentInfoBoxLinksPassingProject} from "../StudentInfoBoxesLinks/StudentInfoBoxLinksPassingProject";
+import {ReturnBtn} from "../../common/ReturnBtn/ReturnBtn";
 import '../../styles/stylesForLayouts.css';
 
 export const HrStudentProfileBox = () => {
@@ -27,6 +28,7 @@ export const HrStudentProfileBox = () => {
                         },
                     }}>
                     <div className="sidebarBox">
+                        <ReturnBtn/>
                         <SidebarStudent
                             email="j.kowalski@op.pl"
                             secondBtn

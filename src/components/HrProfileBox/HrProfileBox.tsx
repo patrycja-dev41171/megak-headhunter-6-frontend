@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {MainButton} from "../../common/MainButton/MainButton";
 import '../../styles/stylesForLayouts.css';
 import "./HrProfileBox.css";
+import {ReturnBtn} from "../../common/ReturnBtn/ReturnBtn";
 
 export const HrProfileBox = () => {
     return (
@@ -22,6 +23,7 @@ export const HrProfileBox = () => {
                         },
                     }}>
                     <div className="sidebarBox">
+                        <ReturnBtn/>
                         <SidebarHr email="testowy@test.pl" fullName="Test Testowy" img_src="fotka"/>
                     </div>
                     <Box

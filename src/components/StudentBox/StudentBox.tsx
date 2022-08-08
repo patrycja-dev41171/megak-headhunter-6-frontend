@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from '../Header/Header';
-import './StudentBox.css';
 import {Box, Container} from '@mui/material';
 import {StudentForm} from '../StudentForm/StudentForm';
 import {SidebarStudent} from '../Sidebars/SidebarStudent';
@@ -8,6 +7,8 @@ import {StudentGrades} from '../StudentGrades/StudentGrades';
 import {useSelector} from 'react-redux';
 import {StoreState} from '../../redux-toolkit/store';
 import {studentEntityFront} from 'types';
+import {ReturnBtn} from "../../common/ReturnBtn/ReturnBtn";
+import './StudentBox.css';
 
 export const StudentBox = () => {
     const {id} = useSelector((store: StoreState) => store.user);
@@ -70,6 +71,7 @@ export const StudentBox = () => {
                         },
                     }}>
                     <div className="sidebarBox">
+                        <ReturnBtn/>
                         <SidebarStudent
                             email={studentData.email}
                             bio={studentData.bio}
