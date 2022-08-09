@@ -102,7 +102,10 @@ export const StudentBox = () => {
                         <div className="studentView_subtitle">
                             <h3>Uzupełnij swój profil</h3>
                             <span
-                                className="studentView_subtitleInstruction">Jesteś niewidoczny dla HR. Uzupełnij dane</span>
+                                className="studentView_subtitleInstruction"
+                            >
+                                Jesteś niewidoczny dla HR. Uzupełnij dane
+                            </span>
                         </div>
 
                         <div className="studentView_line">

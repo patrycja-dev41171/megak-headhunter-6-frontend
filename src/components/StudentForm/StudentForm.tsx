@@ -11,11 +11,12 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import AddCardIcon from '@mui/icons-material/AddCard';
 import {MultiLineStyledTextField} from '../StyledComponents/MultiLineStyledTextField';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import './StudentForm.css';
 import {StoreState} from '../../redux-toolkit/store';
 import {useSelector} from 'react-redux';
 import {ExpectedTypeWork, ExpectedContractType} from 'types';
+import './StudentForm.css';
+import {yupResolver} from "@hookform/resolvers/yup";
+import {StudentValidation} from "../../Validations/StudentValidation";
 
 interface StudentFormProps {
     email: string;
@@ -23,8 +24,10 @@ interface StudentFormProps {
     firstName: string | null;
     lastName: string | null;
     githubUserName: string | null;
-    portfolioUrls?: string | null;
-    projectUrls: string | null;
+    // portfolioUrls?: string | null;
+    portfolioUrls?: any;
+    // projectUrls: string | null;
+    projectUrls: any;
     bio: string | null;
     expectedTypeWork: ExpectedTypeWork | null;
     targetWorkCity: string | null;
@@ -36,6 +39,12 @@ interface StudentFormProps {
     workExperience: string | null;
     courses: string | null;
 }
+
+interface StudentValidateValues extends StudentFormProps {
+    projectInput?: string;
+    portfolioInput?: string;
+}
+
 
 export const StudentForm = (props: StudentFormProps) => {
     const {
@@ -59,9 +68,6 @@ export const StudentForm = (props: StudentFormProps) => {
     } = props;
     const {id} = useSelector((store: StoreState) => store.user);
 
-    const [onePortfolio, setOnePortfolio] = useState<string>('');
-    const [oneProject, setOneProject] = useState<string>('');
-
     //modal
     const [openModal, setOpenModal] = useState(false);
     const handleClose = () => {
@@ -72,10 +78,19 @@ export const StudentForm = (props: StudentFormProps) => {
     const [feedbackError, setFeedbackError] = useState('');
     const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
-    const {control, register, handleSubmit} = useForm<any>({
-        // resolver: yupResolver(schemaAddHr),
+    const {
+        control,
+        register,
+        handleSubmit,
+        formState: {errors},
+        getValues,
+        trigger,
+        setValue
+    } = useForm<StudentValidateValues>({
+        resolver: yupResolver(StudentValidation),
         mode: 'onChange',
     });
+
 
     //portfolioURLS
     const {fields: portfolioUrlsFields, append: portfolioUrlsAppend, remove: portfolioUrlsRemove} = useFieldArray({
@@ -89,26 +104,29 @@ export const StudentForm = (props: StudentFormProps) => {
         name: 'projectUrls'
     })
 
-    //openLinkInNweTab
-    const openInNewTab = (url: string) => {
-        window.open(url, '_blank');
+    //correct display url address
+    const checkUrl = (url: string) => {
+        if (url.substring(0, 4) !== 'http') {
+            return `//${url}`
+        }
+        return url
     };
 
-    const handleClickOnePortfolio = (e: any) => {
-        e.preventDefault();
-        if (!onePortfolio) return null
-        portfolioUrlsAppend({id: Date.now(), value: onePortfolio});
-        setOnePortfolio('');
-    }
-
-    const handleClickOneProject = (e: any) => {
-        e.preventDefault();
-        if (!oneProject) return null;
-        projectUrlsAppend({id: Date.now(), value: oneProject});
-        setOneProject('');
+    const handleClickOnePortfolio = async () => {
+        if (await trigger('portfolioInput') && (getValues('portfolioInput')) !== '') {
+            portfolioUrlsAppend({id: Date.now(), value: getValues('portfolioInput')});
+            setValue('portfolioInput', '')
+        }
     };
 
-    const submitForm: SubmitHandler<any> = async data => {
+    const handleClickOneProject = async () => {
+        if (await trigger('projectInput') && (getValues('projectInput')) !== '') {
+            projectUrlsAppend({id: Date.now(), value: getValues('projectInput')});
+            setValue('projectInput', '')
+        }
+    };
+
+    const submitForm: SubmitHandler<any> = async ({projectInput, portfolioInput, ...data}) => {
         console.log(data);
 
         try {
@@ -139,11 +157,13 @@ export const StudentForm = (props: StudentFormProps) => {
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
+                        variant="filled"
+                        label="Email"
                         type="email"
                         defaultValue={email}
                         {...register('email')}
-                        variant="filled"
-                        label="Email"
+                        error={!!errors.email}
+                        helperText={errors.email ? errors.email?.message : ''}
                     />
                 </div>
 
@@ -156,6 +176,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         {...register('firstName')}
                         variant="filled"
                         label="Imię"
+                        error={!!errors.firstName}
+                        helperText={errors.firstName ? errors.firstName?.message : ''}
                     />
                 </div>
 
@@ -168,6 +190,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         {...register('lastName')}
                         variant="filled"
                         label="Nazwisko"
+                        error={!!errors.lastName}
+                        helperText={errors.lastName ? errors.lastName?.message : ''}
                     />
                 </div>
 
@@ -182,12 +206,30 @@ export const StudentForm = (props: StudentFormProps) => {
                                 MozAppearance: 'textfield',
                             },
                         }}
+
                         fullWidth
                         type="number"
                         defaultValue={tel}
                         {...register('tel')}
                         variant="filled"
                         label="Numer telefonu"
+                        error={!!errors.tel}
+                        helperText={errors.tel ? errors.tel?.message : ''}
+                        InputProps={{
+                            style: {backgroundColor: '#292a2b'},
+                            startAdornment: (
+                                <InputAdornment
+                                    position="start"
+                                sx={{
+                                    '.MuiTypography-root': {
+                                        color: '#7E7E7E'
+                                    }
+                                }}
+                                >
+                                    +48
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </div>
 
@@ -200,6 +242,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         {...register('githubUserName')}
                         variant="filled"
                         label="Podaj login z GitHub"
+                        error={!!errors.githubUserName}
+                        helperText={errors.githubUserName ? errors.githubUserName?.message : ''}
                     />
                 </div>
 
@@ -261,10 +305,11 @@ export const StudentForm = (props: StudentFormProps) => {
                             {projectUrlsFields.map((oneProject: any, index: number) => (
                                 <MainStyledTextField
                                     sx={{
-                                        '& .MuiInputBase-input': {
-                                            color: '#146DA0',
+                                        '& .MuiInputBase-input.Mui-disabled': {
+                                            WebkitTextFillColor: '#146DA0',
                                         },
                                     }}
+                                    disabled
                                     fullWidth
                                     variant="filled"
                                     key={oneProject.id}
@@ -274,19 +319,23 @@ export const StudentForm = (props: StudentFormProps) => {
                                         style: {backgroundColor: '#292a2b'},
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                <IconButton
-                                                    sx={{
-                                                        color: '#7E7E7E',
-                                                        cursor: 'pointer',
-                                                        transition: '0.3s',
-                                                        '&:hover': {
-                                                            color: '#146DA0',
-                                                        },
-                                                    }}
-                                                    onClick={() => openInNewTab(oneProject.value)}>
-                                                    <OpenInNewIcon/>
-                                                </IconButton>
-
+                                                <a target="_blank" rel="noopener noreferrer"
+                                                   href={checkUrl(oneProject.value)}>
+                                                    <IconButton
+                                                        sx={{
+                                                            color: '#7E7E7E',
+                                                            cursor: 'pointer',
+                                                            transition: '0.3s',
+                                                            '&:hover': {
+                                                                color: '#146DA0',
+                                                            },
+                                                        }}
+                                                    >
+                                                        <Tooltip title="Otwórz link w nowym oknie">
+                                                            <OpenInNewIcon/>
+                                                        </Tooltip>
+                                                    </IconButton>
+                                                </a>
                                                 <IconButton
                                                     sx={{
                                                         color: '#7E7E7E',
@@ -297,7 +346,9 @@ export const StudentForm = (props: StudentFormProps) => {
                                                         },
                                                     }}
                                                     onClick={() => projectUrlsRemove(index)}>
-                                                    <DeleteForeverOutlinedIcon/>
+                                                    <Tooltip title="Usuń link">
+                                                        <DeleteForeverOutlinedIcon/>
+                                                    </Tooltip>
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
@@ -307,47 +358,33 @@ export const StudentForm = (props: StudentFormProps) => {
                         </FormControl>
                     </div>
 
-                    {/*-------------------------------------DODAJ PROJEKT------------------------------------------------*/}
+                    {/*-------------------------------------DODAJ LINK DO PROJEKTU------------------------------------------------*/}
                     <div className="studentForm_add">
                         <MainStyledTextField
-                            value={oneProject}
                             variant="filled"
-                            name="projectInput"
-                            onChange={e => setOneProject(e.target.value)}
+                            {...register('projectInput')}
+                            defaultValue=""
                             label="Dodaj link do projektu"
+                            error={!!errors.projectInput}
+                            helperText={errors.projectInput ? errors.projectInput?.message : ''}
                             InputProps={{
                                 style: {backgroundColor: '#292a2b'},
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <Tooltip sx={{fontSize: '20px'}}
-                                                 title={
-                                                     <>
-                                                         <p style={{color: '#bcbcc5', fontSize: '14px'}}>Wklej
-                                                             kompletny link URL np:</p>
-                                                         <p style={{
-                                                             textAlign: 'center',
-                                                             fontSize: '16px'
-                                                         }}>https://www.megak.pl/</p>
-                                                     </>
-                                                 }
-                                                 arrow
-                                        >
-                                            <IconButton>
-                                                <InfoOutlinedIcon sx={{color: '#7E7E7E', cursor: 'help'}}/>
+                                        <Tooltip title="Dodaj link">
+                                            <IconButton
+                                                sx={{
+                                                    color: '#7E7E7E',
+                                                    cursor: 'pointer',
+                                                    transition: '0.3s',
+                                                    '&:hover': {
+                                                        color: '#146DA0',
+                                                    },
+                                                }}
+                                                onClick={handleClickOneProject}>
+                                                <AddCardIcon/>
                                             </IconButton>
                                         </Tooltip>
-                                        <IconButton
-                                            sx={{
-                                                color: '#7E7E7E',
-                                                cursor: 'pointer',
-                                                transition: '0.3s',
-                                                '&:hover': {
-                                                    color: '#146DA0',
-                                                },
-                                            }}
-                                            onClick={handleClickOneProject}>
-                                            <AddCardIcon/>
-                                        </IconButton>
                                     </InputAdornment>
                                 ),
                             }}
@@ -364,14 +401,14 @@ export const StudentForm = (props: StudentFormProps) => {
                             >
                                 Linki do portfolio
                             </FormLabel>
-
                             {portfolioUrlsFields.map((onePortfolio: any, index: number) => (
                                 <MainStyledTextField
                                     sx={{
-                                        '& .MuiInputBase-input': {
-                                            color: '#146DA0',
+                                        '& .MuiInputBase-input.Mui-disabled': {
+                                            WebkitTextFillColor: '#146DA0',
                                         },
                                     }}
+                                    disabled
                                     fullWidth
                                     variant="filled"
                                     key={onePortfolio.id}
@@ -381,19 +418,23 @@ export const StudentForm = (props: StudentFormProps) => {
                                         style: {backgroundColor: '#292a2b'},
                                         endAdornment: (
                                             <InputAdornment position="end">
-                                                <IconButton
-                                                    sx={{
-                                                        color: '#7E7E7E',
-                                                        cursor: 'pointer',
-                                                        transition: '0.3s',
-                                                        '&:hover': {
-                                                            color: '#146DA0',
-                                                        }
-                                                    }}
-                                                    onClick={() => openInNewTab(onePortfolio.value)}
-                                                >
-                                                    <OpenInNewIcon/>
-                                                </IconButton>
+                                                <a target="_blank" rel="noopener noreferrer"
+                                                   href={checkUrl(onePortfolio.value)}>
+                                                    <IconButton
+                                                        sx={{
+                                                            color: '#7E7E7E',
+                                                            cursor: 'pointer',
+                                                            transition: '0.3s',
+                                                            '&:hover': {
+                                                                color: '#146DA0',
+                                                            }
+                                                        }}
+                                                    >
+                                                        <Tooltip title="Otwórz link w nowym oknie">
+                                                            <OpenInNewIcon/>
+                                                        </Tooltip>
+                                                    </IconButton>
+                                                </a>
                                                 <IconButton
                                                     sx={{
                                                         color: '#7E7E7E',
@@ -405,7 +446,9 @@ export const StudentForm = (props: StudentFormProps) => {
                                                     }}
                                                     onClick={() => portfolioUrlsRemove(index)}
                                                 >
-                                                    <DeleteForeverOutlinedIcon/>
+                                                    <Tooltip title="Usuń link">
+                                                        <DeleteForeverOutlinedIcon/>
+                                                    </Tooltip>
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
@@ -418,45 +461,31 @@ export const StudentForm = (props: StudentFormProps) => {
                     {/*-------------------------------------DODAJ LINK DO PORTFOLIO------------------------------------------------*/}
                     <div className="studentForm_add">
                         <MainStyledTextField
-                            value={onePortfolio}
+                            {...register('portfolioInput')}
+                            defaultValue=""
                             variant="filled"
-                            name="portfolioInput"
-                            onChange={(e) => setOnePortfolio(e.target.value)}
                             label="Dodaj link do portfolio"
+                            error={!!errors.portfolioInput}
+                            helperText={errors.portfolioInput ? errors.portfolioInput?.message : ''}
                             InputProps={{
                                 style: {backgroundColor: '#292a2b'},
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <Tooltip sx={{fontSize: '20px'}}
-                                                 title={
-                                                     <>
-                                                         <p style={{color: '#bcbcc5', fontSize: '14px'}}>Wklej
-                                                             kompletny link URL np:</p>
-                                                         <p style={{
-                                                             textAlign: 'center',
-                                                             fontSize: '16px'
-                                                         }}>https://www.megak.pl/</p>
-                                                     </>
-                                                 }
-                                                 arrow
-                                        >
-                                            <IconButton>
-                                                <InfoOutlinedIcon sx={{color: '#7E7E7E', cursor: 'help'}}/>
+                                        <Tooltip title="Dodaj link">
+                                            <IconButton
+                                                sx={{
+                                                    color: '#7E7E7E',
+                                                    cursor: 'pointer',
+                                                    transition: '0.3s',
+                                                    '&:hover': {
+                                                        color: '#146DA0',
+                                                    }
+                                                }}
+                                                onClick={handleClickOnePortfolio}
+                                            >
+                                                <AddCardIcon/>
                                             </IconButton>
                                         </Tooltip>
-                                        <IconButton
-                                            sx={{
-                                                color: '#7E7E7E',
-                                                cursor: 'pointer',
-                                                transition: '0.3s',
-                                                '&:hover': {
-                                                    color: '#146DA0',
-                                                }
-                                            }}
-                                            onClick={handleClickOnePortfolio}
-                                        >
-                                            <AddCardIcon/>
-                                        </IconButton>
                                     </InputAdornment>
                                 ),
                             }}
@@ -473,6 +502,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         multiline
                         minRows={2}
                         variant="standard"
+                        error={!!errors.bio}
+                        helperText={errors.bio ? errors.bio?.message : ''}
                     />
                 </div>
 
@@ -485,6 +516,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         {...register('targetWorkCity')}
                         variant="filled"
                         label="Docelowe miasto gdzie chcesz pracować"
+                        error={!!errors.targetWorkCity}
+                        helperText={errors.targetWorkCity ? errors.targetWorkCity?.message : ''}
                     />
                 </div>
 
@@ -492,12 +525,14 @@ export const StudentForm = (props: StudentFormProps) => {
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
-                        defaultValue={expectedSalary}
+                        defaultValue={expectedSalary ? expectedSalary : 0}
                         type="number"
                         {...register('expectedSalary')}
                         InputProps={{inputProps: {min: 0, max: 999999}}}
                         variant="filled"
                         label="Oczekiwane miesięczne wynagrodzenie w PLN"
+                        error={!!errors.expectedSalary}
+                        helperText={errors.expectedSalary ? errors.expectedSalary?.message : ''}
                     />
                 </div>
 
@@ -505,12 +540,14 @@ export const StudentForm = (props: StudentFormProps) => {
                 <div className="formView_input">
                     <MainStyledTextField
                         fullWidth
-                        defaultValue={monthsOfCommercialExp}
+                        defaultValue={monthsOfCommercialExp ? monthsOfCommercialExp : 0}
                         type="number"
                         {...register('monthsOfCommercialExp')}
-                        InputProps={{inputProps: {min: 0, max: 9999}}}
+                        InputProps={{inputProps: {min: 0, max: 999}}}
                         variant="filled"
                         label="Ilość miesięcy doświadczenia komercyjnego w programowaniu"
+                        error={!!errors.monthsOfCommercialExp}
+                        helperText={errors.monthsOfCommercialExp ? errors.monthsOfCommercialExp?.message : ''}
                     />
                 </div>
 
@@ -524,6 +561,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         multiline
                         minRows={3}
                         variant="standard"
+                        error={!!errors.education}
+                        helperText={errors.education ? errors.education?.message : ''}
                     />
                 </div>
 
@@ -537,6 +576,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         multiline
                         minRows={3}
                         variant="standard"
+                        error={!!errors.workExperience}
+                        helperText={errors.workExperience ? errors.workExperience?.message : ''}
                     />
                 </div>
 
@@ -550,6 +591,8 @@ export const StudentForm = (props: StudentFormProps) => {
                         multiline
                         minRows={3}
                         variant="standard"
+                        error={!!errors.courses}
+                        helperText={errors.courses ? errors.courses?.message : ''}
                     />
                 </div>
 
