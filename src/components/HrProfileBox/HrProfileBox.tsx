@@ -25,7 +25,7 @@ export const HrProfileBox = () => {
     fullName: '',
     company: '',
     maxReservedStudents: 0,
-    users_id_list: '',
+    users_id_list: [],
     img_src: null,
     studentsNum: 0,
   });
