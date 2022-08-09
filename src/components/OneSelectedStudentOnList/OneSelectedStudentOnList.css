@@ -1,0 +1,40 @@
+.student_container{
+    background-color: #292a2b;
+    color: #f7f7f7;
+    line-height: 70px;
+    max-height: 70px;
+    min-width: 1390px;
+    /*to delete*/
+    max-width: 1390px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reserved_box{
+    width: 149px;
+    border: 1px solid #e70d0d;
+    display: flex;
+    justify-content: center;
+}
+
+.student_info{
+    width: 805px;
+    border: 1px solid #e70d0d;
+    display: flex;
+    align-items: center;
+}
+
+.buttons_box{
+    width: 392px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show_details_btn{
+    width: 54px;
+    border: 1px solid #e70d0d;
+    display: flex;
+    justify-content: center;
+}
