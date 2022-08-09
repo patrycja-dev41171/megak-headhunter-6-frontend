@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {Header} from '../Header/Header';
-import {Box, Container} from '@mui/material';
-import {StudentForm} from '../StudentForm/StudentForm';
-import {SidebarStudent} from '../Sidebars/SidebarStudent';
-import {StudentGrades} from '../StudentGrades/StudentGrades';
-import {useSelector} from 'react-redux';
-import {StoreState} from '../../redux-toolkit/store';
-import {studentEntityFront} from 'types';
-import {ReturnBtn} from "../../common/ReturnBtn/ReturnBtn";
+import React, { useEffect, useState } from 'react';
+import { Header } from '../Header/Header';
+import { Box, Container } from '@mui/material';
+import { StudentForm } from '../StudentForm/StudentForm';
+import { SidebarStudent } from '../Sidebars/SidebarStudent';
+import { StudentGrades } from '../StudentGrades/StudentGrades';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../redux-toolkit/store';
+import { studentEntityFront } from 'types';
 import './StudentBox.css';
+import SimpleDialog from '@mui/material/Dialog';
+import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 
 export const StudentBox = () => {
-    const {id} = useSelector((store: StoreState) => store.user);
+    const { id } = useSelector((store: StoreState) => store.user);
     const [studentData, setStudentData] = useState<studentEntityFront>({
         email: '',
         courseCompletion: 0,
@@ -39,13 +40,29 @@ export const StudentBox = () => {
         reservedTo: null,
     });
 
+    //modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => {
+        setOpenModal(false);
+    };
+
+    //infoFromBackendStatus
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
+
     useEffect(() => {
         const getData = async () => {
-            const res = await fetch(`http://localhost:8080/oneStudent/${id}`, {
-                method: 'GET',
-            });
-            const data = await res.json();
-            await setStudentData(data);
+            try {
+                const res = await fetch(`http://localhost:8080/oneStudent/${id}`, {
+                    method: 'GET',
+                });
+                const data = await res.json();
+                setFeedbackError(data.message);
+                await setStudentData(data);
+                setOpenModal(true);
+            } catch (err) {
+                console.log(err);
+            }
         };
         getData();
     }, []);
@@ -71,7 +88,6 @@ export const StudentBox = () => {
                         },
                     }}>
                     <div className="sidebarBox">
-                        <ReturnBtn/>
                         <SidebarStudent
                             email={studentData.email}
                             bio={studentData.bio}
@@ -101,35 +117,48 @@ export const StudentBox = () => {
 
                         <div className="studentView_subtitle">
                             <h3>Uzupełnij swój profil</h3>
-                            <span
-                                className="studentView_subtitleInstruction"
-                            >
-                                Jesteś niewidoczny dla HR. Uzupełnij dane
-                            </span>
+                            {studentData.status === null ? (
+                                <span className="studentView_subtitleInstruction">Jesteś niewidoczny dla HR. Uzupełnij dane w formularzu.</span>
+                            ) : (
+                                <span className="studentView_subtitleInstruction studentView_subtitleInstruction_success">Twój profil jest widoczny.</span>
+                            )}
                         </div>
-
+                        
                         <div className="studentView_line">
-                            {/*{studentData.email !== '' ? (*/}
-                            <StudentForm
-                                email={studentData.email}
-                                tel={studentData.tel}
-                                firstName={studentData.firstName}
-                                lastName={studentData.lastName}
-                                githubUserName={studentData.githubUserName}
-                                portfolioUrls={studentData.portfolioUrls}
-                                projectUrls={studentData.projectUrls}
-                                bio={studentData.bio}
-                                expectedTypeWork={studentData.expectedTypeWork}
-                                expectedSalary={studentData.expectedSalary}
-                                canTakeApprenticeship={studentData.canTakeApprenticeship}
-                                monthsOfCommercialExp={studentData.monthsOfCommercialExp}
-                                education={studentData.education}
-                                workExperience={studentData.workExperience}
-                                courses={studentData.courses}
-                                expectedContractType={studentData.expectedContractType}
-                                targetWorkCity={studentData.targetWorkCity}/>
-                            {/*) : null}*/}
+                            {studentData.email !== '' ? (
+                                <StudentForm
+                                    email={studentData.email}
+                                    tel={studentData.tel}
+                                    firstName={studentData.firstName}
+                                    lastName={studentData.lastName}
+                                    githubUserName={studentData.githubUserName}
+                                    portfolioUrls={studentData.portfolioUrls}
+                                    projectUrls={studentData.projectUrls}
+                                    bio={studentData.bio}
+                                    expectedTypeWork={studentData.expectedTypeWork}
+                                    expectedSalary={studentData.expectedSalary}
+                                    canTakeApprenticeship={studentData.canTakeApprenticeship}
+                                    monthsOfCommercialExp={studentData.monthsOfCommercialExp}
+                                    education={studentData.education}
+                                    workExperience={studentData.workExperience}
+                                    courses={studentData.courses}
+                                    expectedContractType={studentData.expectedContractType}
+                                    targetWorkCity={studentData.targetWorkCity}
+                                />
+                            ) : null}
                         </div>
+                        {openModal && (
+                            <SimpleDialog
+                                open={openModal}
+                                onClose={handleClose}>
+                                {openModal && (
+                                    <DisplayAlertModals
+                                        error={feedbackError}
+                                        success={feedbackSuccess}
+                                    />
+                                )}
+                            </SimpleDialog>
+                        )}
                     </Box>
                 </Container>
             </div>

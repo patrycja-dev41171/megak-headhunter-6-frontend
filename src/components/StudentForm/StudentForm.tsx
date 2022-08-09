@@ -1,21 +1,22 @@
-import React, {useState} from 'react';
-import {SubmitHandler, useFieldArray, useForm} from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import SimpleDialog from '@mui/material/Dialog';
-import {DisplayAlertModals} from '../../common/DisplayAlertModals/DisplayAlertModals';
-import {MainButton} from '../../common/MainButton/MainButton';
-import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Tooltip} from '@mui/material';
-import {MainStyledTextField} from '../StyledComponents/MainStyledTextField';
+import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { MainButton } from '../../common/MainButton/MainButton';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Tooltip } from '@mui/material';
+import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import AddCardIcon from '@mui/icons-material/AddCard';
-import {MultiLineStyledTextField} from '../StyledComponents/MultiLineStyledTextField';
+import { MultiLineStyledTextField } from '../StyledComponents/MultiLineStyledTextField';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {StoreState} from '../../redux-toolkit/store';
 import {useSelector} from 'react-redux';
 import {ExpectedTypeWork, ExpectedContractType} from 'types';
 import './StudentForm.css';
 import {yupResolver} from "@hookform/resolvers/yup";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {StudentValidation} from "../../Validations/StudentValidation";
 
 interface StudentFormProps {
@@ -47,255 +48,277 @@ interface StudentValidateValues extends StudentFormProps {
 
 
 export const StudentForm = (props: StudentFormProps) => {
-    const {
-        email,
-        tel,
-        firstName,
-        lastName,
-        githubUserName,
-        portfolioUrls,
-        projectUrls,
-        bio,
-        expectedTypeWork,
-        targetWorkCity,
-        expectedContractType,
-        expectedSalary,
-        canTakeApprenticeship,
-        monthsOfCommercialExp,
-        education,
-        workExperience,
-        courses,
-    } = props;
-    const {id} = useSelector((store: StoreState) => store.user);
 
-    //modal
-    const [openModal, setOpenModal] = useState(false);
-    const handleClose = () => {
-        setOpenModal(false);
-    };
+const {
+    email,
+    tel,
+    firstName,
+    lastName,
+    githubUserName,
+    portfolioUrls,
+    projectUrls,
+    bio,
+    expectedTypeWork,
+    targetWorkCity,
+    expectedContractType,
+    expectedSalary,
+    canTakeApprenticeship,
+    monthsOfCommercialExp,
+    education,
+    workExperience,
+    courses,
+} = props;
+const {id} = useSelector((store: StoreState) => store.user);
 
-    //infoFromBackendStatus
-    const [feedbackError, setFeedbackError] = useState('');
-    const [feedbackSuccess, setFeedbackSuccess] = useState('');
+//modal
+const [openModal, setOpenModal] = useState(false);
+const handleClose = () => {
+    setOpenModal(false);
+};
 
-    const {
-        control,
-        register,
-        handleSubmit,
-        formState: {errors},
-        getValues,
-        trigger,
-        setValue
-    } = useForm<StudentValidateValues>({
-        resolver: yupResolver(StudentValidation),
-        mode: 'onChange',
-    });
+//infoFromBackendStatus
+const [feedbackError, setFeedbackError] = useState('');
+const [feedbackSuccess, setFeedbackSuccess] = useState('');
+
+const {
+    control,
+    register,
+    handleSubmit,
+    formState: {errors},
+    getValues,
+    trigger,
+    setValue
+} = useForm<StudentValidateValues>({
+    resolver: yupResolver(StudentValidation),
+    mode: 'onChange',
+});
 
 
-    //portfolioURLS
-    const {fields: portfolioUrlsFields, append: portfolioUrlsAppend, remove: portfolioUrlsRemove} = useFieldArray({
-        control,
-        name: 'portfolioUrls',
-    })
+//portfolioURLS
+const {fields: portfolioUrlsFields, append: portfolioUrlsAppend, remove: portfolioUrlsRemove} = useFieldArray({
+    control,
+    name: 'portfolioUrls',
+})
 
-    //projectsURLS
-    const {fields: projectUrlsFields, append: projectUrlsAppend, remove: projectUrlsRemove} = useFieldArray({
-        control,
-        name: 'projectUrls'
-    })
+//projectsURLS
+const {fields: projectUrlsFields, append: projectUrlsAppend, remove: projectUrlsRemove} = useFieldArray({
+    control,
+    name: 'projectUrls'
+})
 
-    //correct display url address
-    const checkUrl = (url: string) => {
-        if (url.substring(0, 4) !== 'http') {
-            return `//${url}`
+//correct display url address
+const checkUrl = (url: string) => {
+    if (url.substring(0, 4) !== 'http') {
+        return `//${url}`
+    }
+    return url
+};
+
+const handleClickOnePortfolio = async () => {
+    if (await trigger('portfolioInput') && (getValues('portfolioInput')) !== '') {
+        portfolioUrlsAppend({id: Date.now(), value: getValues('portfolioInput')});
+        setValue('portfolioInput', '')
+    }
+};
+
+const handleClickOneProject = async () => {
+    if (await trigger('projectInput') && (getValues('projectInput')) !== '') {
+        projectUrlsAppend({id: Date.now(), value: getValues('projectInput')});
+        setValue('projectInput', '')
+    }
+};
+
+const submitForm: SubmitHandler<any> = async ({projectInput, portfolioInput, ...data}) => {
+    console.log(data);
+
+    try {
+        const res = await fetch(`http://localhost:8080/student/data/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+        console.log({result});
+        setOpenModal(true);
+        setFeedbackSuccess(result);
+        setFeedbackError(result.message);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+useEffect(() => {
+    if (portfolioUrls !== null) {
+        if (portfolioUrls !== undefined) {
+            const portfolioUrlsArr = JSON.parse(portfolioUrls);
+            for (const portfolio of portfolioUrlsArr) {
+                portfolioUrlsAppend({ id: Date.now(), value: portfolio });
+            }
         }
-        return url
-    };
+    }
 
-    const handleClickOnePortfolio = async () => {
-        if (await trigger('portfolioInput') && (getValues('portfolioInput')) !== '') {
-            portfolioUrlsAppend({id: Date.now(), value: getValues('portfolioInput')});
-            setValue('portfolioInput', '')
+    if (projectUrls !== null) {
+        if (projectUrls !== undefined) {
+            const projectUrlsArr = JSON.parse(projectUrls);
+            for (const project of projectUrlsArr) {
+                projectUrlsAppend({ id: Date.now(), value: project });
+            }
         }
-    };
+    }
+}, []);
 
-    const handleClickOneProject = async () => {
-        if (await trigger('projectInput') && (getValues('projectInput')) !== '') {
-            projectUrlsAppend({id: Date.now(), value: getValues('projectInput')});
-            setValue('projectInput', '')
-        }
-    };
+return (
+    <>
+        <form
+            onSubmit={handleSubmit(submitForm)}
+            className="studentForm_form">
+            {/*---------------------------------EMAIL----------------------------------*/}
+            <div className="formView_input">
+                <MainStyledTextField
+                    fullWidth
+                    variant="filled"
+                    label="Email"
+                    type="email"
+                    defaultValue={email}
+                    {...register('email')}
+                    error={!!errors.email}
+                    helperText={errors.email ? errors.email?.message : ''}
+                />
+            </div>
 
-    const submitForm: SubmitHandler<any> = async ({projectInput, portfolioInput, ...data}) => {
-        console.log(data);
+            {/*---------------------------------IMIE--------------------------------------*/}
+            <div className="formView_input">
+                <MainStyledTextField
+                    fullWidth
+                    type="text"
+                    defaultValue={firstName}
+                    {...register('firstName')}
+                    variant="filled"
+                    label="Imię"
+                    error={!!errors.firstName}
+                    helperText={errors.firstName ? errors.firstName?.message : ''}
+                />
+            </div>
 
-        try {
-            const res = await fetch(`http://localhost:8080/student/data/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            {/*-----------------------------NAZWISKO---------------------------------------*/}
+            <div className="formView_input">
+                <MainStyledTextField
+                    fullWidth
+                    type="text"
+                    defaultValue={lastName}
+                    {...register('lastName')}
+                    variant="filled"
+                    label="Nazwisko"
+                    error={!!errors.lastName}
+                    helperText={errors.lastName ? errors.lastName?.message : ''}
+                />
+            </div>
 
-            const result = await res.json();
-            console.log({result});
-            setOpenModal(true);
-            setFeedbackSuccess(result);
-            setFeedbackError(result.message);
-        } catch (err) {
-            console.log(err);
-        }
-    };
+            {/*-----------------------------telefon---------------------------------------*/}
+            <div className="formView_input">
+                <MainStyledTextField
+                    sx={{
+                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                            display: 'none',
+                        },
+                        '& input[type=number]': {
+                            MozAppearance: 'textfield',
+                        },
+                    }}
 
-    return (
-        <>
-            <form
-                onSubmit={handleSubmit(submitForm)}
-                className="studentForm_form">
-                {/*---------------------------------EMAIL----------------------------------*/}
-                <div className="formView_input">
-                    <MainStyledTextField
-                        fullWidth
-                        variant="filled"
-                        label="Email"
-                        type="email"
-                        defaultValue={email}
-                        {...register('email')}
-                        error={!!errors.email}
-                        helperText={errors.email ? errors.email?.message : ''}
-                    />
-                </div>
-
-                {/*---------------------------------IMIE--------------------------------------*/}
-                <div className="formView_input">
-                    <MainStyledTextField
-                        fullWidth
-                        type="text"
-                        defaultValue={firstName}
-                        {...register('firstName')}
-                        variant="filled"
-                        label="Imię"
-                        error={!!errors.firstName}
-                        helperText={errors.firstName ? errors.firstName?.message : ''}
-                    />
-                </div>
-
-                {/*-----------------------------NAZWISKO---------------------------------------*/}
-                <div className="formView_input">
-                    <MainStyledTextField
-                        fullWidth
-                        type="text"
-                        defaultValue={lastName}
-                        {...register('lastName')}
-                        variant="filled"
-                        label="Nazwisko"
-                        error={!!errors.lastName}
-                        helperText={errors.lastName ? errors.lastName?.message : ''}
-                    />
-                </div>
-
-                {/*-----------------------------telefon---------------------------------------*/}
-                <div className="formView_input">
-                    <MainStyledTextField
-                        sx={{
-                            '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-                                display: 'none',
-                            },
-                            '& input[type=number]': {
-                                MozAppearance: 'textfield',
-                            },
-                        }}
-
-                        fullWidth
-                        type="number"
-                        defaultValue={tel}
-                        {...register('tel')}
-                        variant="filled"
-                        label="Numer telefonu"
-                        error={!!errors.tel}
-                        helperText={errors.tel ? errors.tel?.message : ''}
-                        InputProps={{
-                            style: {backgroundColor: '#292a2b'},
-                            startAdornment: (
-                                <InputAdornment
-                                    position="start"
+                    fullWidth
+                    type="number"
+                    defaultValue={tel}
+                    {...register('tel')}
+                    variant="filled"
+                    label="Numer telefonu"
+                    error={!!errors.tel}
+                    helperText={errors.tel ? errors.tel?.message : ''}
+                    InputProps={{
+                        style: {backgroundColor: '#292a2b'},
+                        startAdornment: (
+                            <InputAdornment
+                                position="start"
                                 sx={{
                                     '.MuiTypography-root': {
                                         color: '#7E7E7E'
                                     }
                                 }}
-                                >
-                                    +48
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </div>
+                            >
+                                +48
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+            </div>
 
-                {/*------------------------------GITHUB USERNAME--------------------------------------------*/}
-                <div className="formView_input">
-                    <MainStyledTextField
-                        fullWidth
-                        type="text"
-                        defaultValue={githubUserName}
-                        {...register('githubUserName')}
-                        variant="filled"
-                        label="Podaj login z GitHub"
-                        error={!!errors.githubUserName}
-                        helperText={errors.githubUserName ? errors.githubUserName?.message : ''}
-                    />
-                </div>
+            {/*------------------------------GITHUB USERNAME--------------------------------------------*/}
+            <div className="formView_input">
+                <MainStyledTextField
+                    fullWidth
+                    type="text"
+                    defaultValue={githubUserName}
+                    {...register('githubUserName')}
+                    variant="filled"
+                    label="Podaj login z GitHub"
+                    error={!!errors.githubUserName}
+                    helperText={errors.githubUserName ? errors.githubUserName?.message : ''}
+                />
+            </div>
 
-                {/*----------------------------ZGODA NA ODBYCIE PRAKTYK-------------------------------------------------------*/}
-                <div className="formView_input">
-                    <FormControl fullWidth>
-                        <FormLabel sx={{
+            {/*----------------------------ZGODA NA ODBYCIE PRAKTYK-------------------------------------------------------*/}
+            <div className="formView_input">
+                <FormControl fullWidth>
+                    <FormLabel
+                        sx={{
                             backgroundColor: '#292a2b',
                             color: '#7E7E7E',
                             padding: '5px 12px',
-                            textAlign: 'left'
+                            textAlign: 'left',
                         }}>
-                            Zgoda na odbycie praktyk
-                        </FormLabel>
-                        <RadioGroup
-                            defaultValue={canTakeApprenticeship !== null ? canTakeApprenticeship : '1'}
-                            sx={{
-                                color: '#7E7E7E',
-                                backgroundColor: '#292a2b',
-                                padding: '0 12px',
-                            }}>
-                            <FormControlLabel
-                                {...register('canTakeApprenticeship')}
-                                value="1"
-                                control={
-                                    <Radio
-                                        sx={{
-                                            color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14},
-                                        }}
-                                    />
-                                }
-                                label="Tak"
-                            />
-                            <FormControlLabel
-                                {...register('canTakeApprenticeship')}
-                                value="0"
-                                control={
-                                    <Radio
-                                        sx={{
-                                            color: '#7E7E7E',
-                                            '& .MuiSvgIcon-root': {fontSize: 14},
-                                        }}
-                                    />
-                                }
-                                label="Nie"
-                            />
-                        </RadioGroup>
-                    </FormControl>
-                </div>
-
-                {/*-----------------------------LINKI DO PROJEKTÓW----------------------------------------------*/}
+                        Zgoda na odbycie praktyk
+                    </FormLabel>
+                    <RadioGroup
+                        defaultValue={canTakeApprenticeship !== null ? canTakeApprenticeship : '1'}
+                        sx={{
+                            color: '#7E7E7E',
+                            backgroundColor: '#292a2b',
+                            padding: '0 12px',
+                        }}>
+                        <FormControlLabel
+                            {...register('canTakeApprenticeship')}
+                            value="1"
+                            control={
+                                <Radio
+                                    sx={{
+                                        color: '#7E7E7E',
+                                        '& .MuiSvgIcon-root': { fontSize: 14 },
+                                    }}
+                                />
+                            }
+                            label="Tak"
+                        />
+                        <FormControlLabel
+                            {...register('canTakeApprenticeship')}
+                            value="0"
+                            control={
+                                <Radio
+                                    sx={{
+                                        color: '#7E7E7E',
+                                        '& .MuiSvgIcon-root': { fontSize: 14 },
+                                    }}
+                                />
+                            }
+                            label="Nie"
+                        />
+                    </RadioGroup>
+                </FormControl>
+            </div>
+            
+            {/*-----------------------------LINKI DO PROJEKTÓW----------------------------------------------*/}
                 <div className="studentForm_links">
                     <div className="formView_input">
                         <FormControl fullWidth>
@@ -773,3 +796,5 @@ export const StudentForm = (props: StudentFormProps) => {
     )
 };
 
+
+            

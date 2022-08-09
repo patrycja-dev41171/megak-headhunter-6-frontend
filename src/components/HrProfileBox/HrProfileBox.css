@@ -24,3 +24,10 @@
     font-size: 23px;
     padding-left: 10px;
 }
+
+.layouts_line {
+    font-size: 18px;
+    padding: 20px 26px;
+    color: rgba(247, 247, 247, 0.5);
+    text-align: left;
+}
