@@ -1,4 +1,3 @@
-
 .studentView_subtitle {
     font-size: 20px;
     color: #f7f7f7;
@@ -19,7 +18,11 @@
 .studentView_subtitleInstruction {
     color: #d93535;
     margin-left: 40px;
-    font-size: 13px;
+    font-size: 14px;
+}
+
+.studentView_subtitleInstruction_success {
+    color: #1fd556;
 }
 
 .sidebarBox {
