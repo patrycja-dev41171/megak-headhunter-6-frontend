@@ -25,7 +25,7 @@ export const HrProfileBox = () => {
     fullName: '',
     company: '',
     maxReservedStudents: 0,
-    users_id_list: [],
+    users_id_list: '',
     img_src: null,
     studentsNum: 0,
   });
@@ -42,7 +42,7 @@ export const HrProfileBox = () => {
 
   useEffect(() => {
     const getData = async () => {
-      try{
+      try {
         const res = await fetch(`http://localhost:8080/hr/${id}`, {
           method: 'GET',
         });
@@ -54,8 +54,8 @@ export const HrProfileBox = () => {
           studentsNum: students,
         });
         setOpenModal(true);
-      } catch (err){
-        console.log(err)
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -115,16 +115,16 @@ export const HrProfileBox = () => {
               </Link>
             </div>
             {openModal && (
-                <SimpleDialog
-                    open={openModal}
-                    onClose={handleClose}>
-                  {openModal && (
-                      <DisplayAlertModals
-                          error={feedbackError}
-                          success={feedbackSuccess}
-                      />
-                  )}
-                </SimpleDialog>
+              <SimpleDialog
+                open={openModal}
+                onClose={handleClose}>
+                {openModal && (
+                  <DisplayAlertModals
+                    error={feedbackError}
+                    success={feedbackSuccess}
+                  />
+                )}
+              </SimpleDialog>
             )}
           </Box>
         </Container>
