@@ -3,7 +3,7 @@ import React from 'react';
 import './StudentInfoBox.css';
 
 interface StudentInfoBoxWorkExperienceProps {
-  workExperience?: string;
+  workExperience: string | null;
 }
 
 export const StudentInfoBoxWorkExperience = (props: StudentInfoBoxWorkExperienceProps) => {

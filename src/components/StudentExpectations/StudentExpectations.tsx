@@ -3,17 +3,16 @@ import React from 'react';
 import './StudentExpectations.css';
 
 interface StudentExpectationsProps {
-  expectedTypeWork?: string;
-  targetWorkCity?: string;
-  expectedContractType?: string;
-  expectedSalary?: number;
-  canTakeApprenticeship?: number;
-  monthsOfCommercialExp?: number;
+  expectedTypeWork: string | null;
+  targetWorkCity: string | null;
+  expectedContractType: string | null;
+  expectedSalary: number | null;
+  canTakeApprenticeship: number | null;
+  monthsOfCommercialExp: number | null;
 }
 
 export const StudentExpectations = (props: StudentExpectationsProps) => {
   const { expectedTypeWork, targetWorkCity, expectedContractType, expectedSalary, canTakeApprenticeship, monthsOfCommercialExp } = props;
-
   const switchMonths = (months: number) => {
     switch (months) {
       case 1:
@@ -65,7 +64,7 @@ export const StudentExpectations = (props: StudentExpectationsProps) => {
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Zgoda na odbycie bezpłatnych praktyk/stażu na początek</p>
-        {canTakeApprenticeship ? (
+        {typeof canTakeApprenticeship === 'number' ? (
           <p className="student-expectations__item-description">{canTakeApprenticeship ? 'TAK' : 'NIE'}</p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>
@@ -73,7 +72,7 @@ export const StudentExpectations = (props: StudentExpectationsProps) => {
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Komercyjne doświadczenie w programowaniu</p>
-        {monthsOfCommercialExp ? (
+        {typeof monthsOfCommercialExp === 'number' ? (
           <p className="student-expectations__item-description">
             {monthsOfCommercialExp} {switchMonths(monthsOfCommercialExp)}
           </p>

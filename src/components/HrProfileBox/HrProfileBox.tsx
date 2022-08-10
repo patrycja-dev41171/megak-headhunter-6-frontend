@@ -25,8 +25,8 @@ export const HrProfileBox = () => {
     fullName: '',
     company: '',
     maxReservedStudents: 0,
-    users_id_list: [],
-    img_src: null,
+    users_id_list: '',
+    img_src: '',
     studentsNum: 0,
   });
 
@@ -42,20 +42,22 @@ export const HrProfileBox = () => {
 
   useEffect(() => {
     const getData = async () => {
-      try{
+      try {
         const res = await fetch(`http://localhost:8080/hr/${id}`, {
           method: 'GET',
         });
         const data = await res.json();
-        setFeedbackError(data.message);
         const students = JSON.parse(data.users_id_list).length;
         await setHrData({
           ...data,
           studentsNum: students,
         });
-        setOpenModal(true);
-      } catch (err){
-        console.log(err)
+        if (data.message) {
+          setFeedbackError(data.message);
+          setOpenModal(true);
+        }
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -68,6 +70,8 @@ export const HrProfileBox = () => {
         role="hr"
         fullName={hrData.fullName}
         id={id}
+        img_src={hrData.img_src === null ? '' : hrData.img_src}
+        img_alt={hrData.fullName}
       />
       <div className="main-container pageWithHeader">
         <Container
@@ -115,16 +119,16 @@ export const HrProfileBox = () => {
               </Link>
             </div>
             {openModal && (
-                <SimpleDialog
-                    open={openModal}
-                    onClose={handleClose}>
-                  {openModal && (
-                      <DisplayAlertModals
-                          error={feedbackError}
-                          success={feedbackSuccess}
-                      />
-                  )}
-                </SimpleDialog>
+              <SimpleDialog
+                open={openModal}
+                onClose={handleClose}>
+                {openModal && (
+                  <DisplayAlertModals
+                    error={feedbackError}
+                    success={feedbackSuccess}
+                  />
+                )}
+              </SimpleDialog>
             )}
           </Box>
         </Container>
