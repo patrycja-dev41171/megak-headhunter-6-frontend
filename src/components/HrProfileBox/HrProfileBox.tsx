@@ -47,11 +47,11 @@ export const HrProfileBox = () => {
           method: 'GET',
         });
         const data = await res.json();
-        const students = JSON.parse(data.users_id_list).length;
-        await setHrData({
-          ...data,
-          studentsNum: students,
-        });
+          const students = JSON.parse(data.users_id_list).length;
+          await setHrData({
+            ...data,
+            studentsNum: students,
+          });
         if (data.message) {
           setFeedbackError(data.message);
           setOpenModal(true);
