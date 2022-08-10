@@ -1,0 +1,13 @@
+.show_details_btn{
+    color: #606060;
+    background-color: #292a2b;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    transform: scale(1.8);
+    cursor: pointer;
+}
+
+.show_details_btn:hover{
+    opacity: 0.7;
+}
