@@ -43,6 +43,10 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
       try {
         const data = await fetch('http://localhost:8080/student/status', {
           method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             id: studentId ? studentId : id,
             status: 'Zatrudniony',
@@ -64,6 +68,10 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
       try {
         const data = await fetch('http://localhost:8080/student/status', {
           method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             id: studentId ? studentId : id,
             status: 'Dostępny',
@@ -84,7 +92,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
       const telNum = String(tel);
       const number = `${telNum[0]}${telNum[1]}${telNum[2]} ${telNum[3]}${telNum[4]}${telNum[5]} ${telNum[6]}${telNum[7]}${telNum[8]}`;
       return <p>+48 {number}</p>;
-    } else return <p>_____________________</p>
+    } else return <p>_____________________</p>;
   };
 
   return (
