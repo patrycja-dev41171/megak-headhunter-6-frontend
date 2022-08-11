@@ -1,40 +1,20 @@
-.hr-home-single-student {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #292a2b;
-  color: #fff;
+.hr-home-single-student__wrapper {
   width: 1390px;
-  height: 70px;
-  font-size: 18px;
-  padding: 20px 20px;
 }
 
-.hr-home-single-student-right {
+.hr-home-single-student__wrapper button {
+  margin: 0;
+}
+
+.MuiAccordionSummary-content {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 }
 
-.hr-home-single-student-right svg {
-  transition: transform 0.3s ease-out;
+.MuiAccordionSummary-content > button {
+  margin-right: 20px;
 }
 
-.hr-home-single-student-right button {
-  margin: 0 20px;
-}
-
-.hr-home-single-student__icon--down {
-  transform: rotate(180deg);
-}
-
-.hr-home-single-student__icon-up {
-  transform: rotate(0deg);
-}
-
-.hr-home-single-student__description--hidden {
-  display: none;
-}
-
-.hr-home-single-student__description--show {
-  display: block;
+.MuiAccordionSummary-content > p {
+  font-size: 18px;
 }

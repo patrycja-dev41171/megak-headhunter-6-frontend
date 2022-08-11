@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
-import { MainButton } from '../../common/MainButton/MainButton';
+import React from 'react';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/material/styles';
+import { MainButton } from '../../common/MainButton/MainButton';
 
 import './HrHomeSingleStudent.css';
 
@@ -11,30 +16,61 @@ interface HrHomeSingleStudentProps {
 
 export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
   const { firstName, lastName } = props;
-  const [isActive, setActive] = useState(false);
 
-  const toggleClass = () => {
-    setActive(!isActive);
+  const handleBookCallWithStudent = (e: React.SyntheticEvent<EventTarget>) => {
+    e.stopPropagation();
+    // logika przycisku "Zarezerwuj rozmowę"
   };
 
+  const Accordion = styled((props: AccordionProps) => (
+    <MuiAccordion
+      disableGutters
+      elevation={0}
+      square
+      {...props}
+    />
+  ))(({ theme }) => ({
+    border: `1px solid ${theme.palette.divider}`,
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    backgroundColor: '#292a2b',
+    width: '1390px',
+    marginBottom: '20px',
+  }));
+
+  const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
+    '& .MuiAccordionSummary-content': {
+      marginLeft: theme.spacing(1),
+    },
+    color: '#f7f7f7',
+    minHeight: '70px',
+  }));
+
+  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+    padding: theme.spacing(3),
+    borderTop: '1px solid rgba(0, 0, 0, .125)',
+    color: '#f7f7f7',
+    backgroundColor: '#222324',
+  }));
+
   return (
-    <>
-      <div className="hr-home-single-student">
-        <p>
-          {firstName} {lastName.slice(0, 1)}.
-        </p>
-        <div className="hr-home-single-student-right">
-          <MainButton>Zarezerwuj rozmowę</MainButton>
-          <ExpandMoreIcon
-            onClick={toggleClass}
-            className={isActive ? 'hr-home-single-student__icon--down' : 'hr-home-single-student__icon--up'}
-            sx={{ color: '#666666', height: '30px', width: '30px' }}
-          />
-        </div>
-      </div>
-      <div className={isActive ? 'hr-home-single-student__description--hidden' : 'hr-home-single-student__description--show'}>
-        Test testu
-      </div>
-    </>
+    <div className="hr-home-single-student__wrapper">
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
+          aria-controls="panel1a-content"
+          id="panel1a-header">
+          <Typography>
+            {firstName} {lastName.slice(0, 1)}.
+          </Typography>
+          <MainButton onClick={handleBookCallWithStudent}>Zarezerwuj rozmowę</MainButton>
+        </AccordionSummary>
+        <AccordionDetails>Miejsce na komponent</AccordionDetails>
+      </Accordion>
+    </div>
   );
 };

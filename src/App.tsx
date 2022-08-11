@@ -11,7 +11,6 @@ import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProf
 import { StudentView } from './pages/StudentView/StudentView';
 import { HomeAdminView } from './pages/HomeAdminView/HomeAdminView';
 import { HrProfileView } from './pages/HrProfileView/HrProfileView';
-import { HrHomeSingleStudent } from './components/HrHomeSingleStudent/HrHomeSingleStudent';
 // import { StoreState } from './redux-toolkit/store';
 // import axios from 'axios';
 // import jwtDecode from 'jwt-decode';
@@ -79,12 +78,7 @@ export const App = () => {
     <Routes>
       <Route
         path="/"
-        element={
-          <HrHomeSingleStudent
-            firstName={'Zenek'}
-            lastName={'Bębenek'}
-          />
-        }
+        element={<LoginView />}
       />
       <Route
         path="/login"
