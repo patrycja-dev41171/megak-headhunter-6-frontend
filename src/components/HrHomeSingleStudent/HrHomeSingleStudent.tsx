@@ -18,18 +18,23 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
   };
 
   return (
-    <div className="hr-home-single-student">
-      <p>
-        {firstName} {lastName.slice(0, 1)}.
-      </p>
-      <div className="hr-home-single-student-right">
-        <MainButton>Zarezerwuj rozmowę</MainButton>
-        <ExpandMoreIcon
-          onClick={toggleClass}
-          className={isActive ? 'hr-home-single-student__icon--down' : 'hr-home-single-student__icon--up'}
-          sx={{ color: '#666666', height: '30px', width: '30px' }}
-        />
+    <>
+      <div className="hr-home-single-student">
+        <p>
+          {firstName} {lastName.slice(0, 1)}.
+        </p>
+        <div className="hr-home-single-student-right">
+          <MainButton>Zarezerwuj rozmowę</MainButton>
+          <ExpandMoreIcon
+            onClick={toggleClass}
+            className={isActive ? 'hr-home-single-student__icon--down' : 'hr-home-single-student__icon--up'}
+            sx={{ color: '#666666', height: '30px', width: '30px' }}
+          />
+        </div>
       </div>
-    </div>
+      <div className={isActive ? 'hr-home-single-student__description--hidden' : 'hr-home-single-student__description--show'}>
+        Test testu
+      </div>
+    </>
   );
 };
