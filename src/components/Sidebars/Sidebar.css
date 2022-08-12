@@ -56,7 +56,7 @@
 }
 
 .sidebar_about > p {
-    max-height: 190px;
+    max-width: 190px;
 }
 
 ::-webkit-scrollbar {

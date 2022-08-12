@@ -32,3 +32,71 @@
     margin: 5px;
     font-size: 20px;
 }
+
+.filterStudents_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterStudents_endButtons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filterStudents_subTitle {
+    color: #f7f7f7;
+    padding: 0 5px;
+    font-size: 14px;
+}
+
+.filterStudents_lineContentStars {
+    padding: 5px 5px 10px 5px;
+}
+
+.filterStudents_lineContent {
+    margin: 5px 5px 20px 5px;
+}
+
+.filterStudents_lineContent_practice {
+    margin: 5px 5px 15px 5px;
+}
+
+.filterStudents_starNumbersBox {
+    color: #f7f7f7;
+    position: relative;
+}
+
+.filterStudents_numberAtStar {
+    font-size: 15px;
+    position: absolute;
+    top: -1px;
+    width: 45px;
+    padding: 2px 30px 2px 10px;
+    background-color: #292A2B;
+}
+
+.filterStudents_inputsSalaryBox {
+    line-height: 37px;
+}
+
+.filterStudents_inputPrefix {
+    color: #f7f7f7;
+    padding: 0 10px 0 0;
+    font-size: 14px;
+}
+
+.starNumber2 {
+    left: 50px;
+}
+
+.starNumber3 {
+    left: 100px;
+}
+
+.starNumber4 {
+    left: 150px;
+}
+
+.starNumber5 {
+    left: 200px;
+}

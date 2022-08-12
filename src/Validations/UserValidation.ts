@@ -52,13 +52,13 @@ export const schemaLogin = yup
   .object()
   .shape({
     loginEmail: yup
-      .string()
-      .min(1, 'Pole nie może być puste')
-      .max(255, 'Email nie może być dłuższy niż 255 znaków')
-      .required('Podaj email'),
+        .string()
+        .min(5, 'Email musi posiadać przynajmniej 5 znaków')
+        .max(255, 'Email nie może być dłuższy niż 255 znaków')
+        .required('Podaj email'),
     loginPassword: yup.string().min(1, 'Pole nie może być puste'),
-  })
-  .required();
+  });
+  // .required();
 
 export const schemaCreatePassword = yup.object().shape({
   registerPassword: yup
