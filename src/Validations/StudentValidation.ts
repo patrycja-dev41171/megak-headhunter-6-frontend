@@ -26,8 +26,10 @@ export const StudentValidation = yup
             .max(255, 'Za długa nazwa'),
         bio: yup
             .string()
-            .nullable()
-            .max(500, "Za długi tekst"),
+            .max(500, "Za długi tekst")
+            .test('exclude lorem ipsum', "Tylko nie Lorem Ipsum....:) Napisz o sobie !!!",
+                (val) => val !== null && val !== undefined && !(val.includes('Lorem'))
+            ),
         targetWorkCity: yup
             .string()
             .nullable()
@@ -48,13 +50,22 @@ export const StudentValidation = yup
             .max(3, "Za długa wartość"),
         education: yup
             .string()
-            .max(10000, 'Za dugi tekst'),
+            .max(10000, 'Za dugi tekst')
+            .test('exclude lorem ipsum', "Tylko nie Lorem Ipsum....:) Napisz o sobie !!!",
+                (val) => val !== null && val !== undefined && !(val.includes('Lorem'))
+            ),
         workExperience: yup
             .string()
-            .max(10000, 'Za dugi tekst'),
+            .max(10000, 'Za dugi tekst')
+            .test('exclude lorem ipsum', "Tylko nie Lorem Ipsum....:) Napisz o sobie !!!",
+                (val) => val !== null && val !== undefined && !(val.includes('Lorem'))
+            ),
         courses: yup
             .string()
-            .max(10000, 'Za dugi tekst'),
+            .max(10000, 'Za dugi tekst')
+            .test('exclude lorem ipsum', "Tylko nie Lorem Ipsum....:) Napisz o sobie !!!",
+                (val) => val !== null && val !== undefined && !(val.includes('Lorem'))
+            ),
         projectInput: yup
             .string()
             .transform(value => !value ? null : value)
