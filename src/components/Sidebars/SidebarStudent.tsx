@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { Avatar } from '@mui/material';
 import { MainButton } from '../../common/MainButton/MainButton';
@@ -9,7 +9,12 @@ import EmailIcon from '@mui/icons-material/Email';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import './Sidebar.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  setAccessToken,
+  setExpirationTime,
+  setId, setRole
+} from "../../redux-toolkit/features/user/user-slice";
 
 interface SidebarStudentProps {
   img_alt?: string | undefined;
@@ -25,9 +30,12 @@ interface SidebarStudentProps {
 
 export const SidebarStudent = (props: SidebarStudentProps) => {
   const { img_alt, img_src, firstName, lastName, githubUsername, tel, email, bio, secondBtn } = props;
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, role } = useSelector((store: StoreState) => store.user);
 
   const { studentId } = useParams();
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
@@ -38,24 +46,51 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   const handleHired = async () => {
-    const isConfirm = window.confirm('Czy jesteś pewien, że ten kursant został zatrudniony?');
+    const isConfirm = window.confirm(
+      'Czy jesteś pewien, że chcesz zmienić status na' +
+        ' "zatrudniony"? Kursant utraci możliwość logowania, a jego profil przestanie być' +
+        ' widoczny.'
+    );
     if (isConfirm) {
       try {
-        const data = await fetch('http://localhost:8080/student/status', {
+        const data = await fetch('http://localhost:8080/student/hired', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: studentId ? studentId : id,
-            status: 'Zatrudniony',
+            user_id: studentId ?? id,
           }),
         });
         const result = await data.json();
         setFeedbackSuccess(result);
         setFeedbackError(result.message);
         setOpenModal(true);
+        if (result && role === 'student') {
+          try {
+            const res = await fetch('http://localhost:8080/login', {
+              method: 'DELETE',
+              credentials: 'include',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            });
+            const data = await res.json();
+            dispatch(setId(""));
+            dispatch(setAccessToken(""));
+            dispatch(setExpirationTime(0));
+            dispatch(setRole(''));
+            if (data) {
+              navigate('/login');
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        } else if(result) {
+          navigate('/hr/selected-students')
+        }
       } catch (err) {
         console.log(err);
       }
@@ -66,21 +101,24 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
     const isConfirm = window.confirm('Czy jesteś pewien, że chcesz odrzucić tego kursanta?');
     if (isConfirm) {
       try {
-        const data = await fetch('http://localhost:8080/student/status', {
+        const data = await fetch('http://localhost:8080/student/cancel/reservation', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: studentId ? studentId : id,
-            status: 'Dostępny',
+            hr_id: id,
+            student_id: studentId,
           }),
         });
         const result = await data.json();
         setFeedbackSuccess(result);
         setFeedbackError(result.message);
         setOpenModal(true);
+        if(result) {
+          navigate('/hr/selected-students')
+        }
       } catch (err) {
         console.log(err);
       }
