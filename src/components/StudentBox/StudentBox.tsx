@@ -37,7 +37,6 @@ export const StudentBox = () => {
     workExperience: null,
     courses: null,
     status: null,
-    reservedTo: null,
   });
 
   //modal

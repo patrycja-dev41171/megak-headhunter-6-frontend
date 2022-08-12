@@ -6,28 +6,23 @@ import { Link } from 'react-router-dom';
 import { MainButton } from '../../common/MainButton/MainButton';
 import '../../styles/stylesForLayouts.css';
 import './HrProfileBox.css';
-import { HrEntity } from 'types';
+import { HrFrontEntity } from 'types';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 
-interface HrData extends HrEntity {
-  studentsNum: number;
-}
-
 export const HrProfileBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
-  const [hrData, setHrData] = useState<HrData>({
+  const [hrData, setHrData] = useState<HrFrontEntity>({
     id: '',
     user_id: '',
     email: '',
     fullName: '',
     company: '',
     maxReservedStudents: 0,
-    users_id_list: '',
     img_src: '',
-    studentsNum: 0,
+    reservedStudents: 0,
   });
 
   //modal
@@ -47,11 +42,9 @@ export const HrProfileBox = () => {
           method: 'GET',
         });
         const data = await res.json();
-          const students = JSON.parse(data.users_id_list).length;
-          await setHrData({
-            ...data,
-            studentsNum: students,
-          });
+        await setHrData({
+          ...data,
+        });
         if (data.message) {
           setFeedbackError(data.message);
           setOpenModal(true);
@@ -105,11 +98,11 @@ export const HrProfileBox = () => {
               <div className="numberOfStudents_line-info">
                 <span className="numberOfStudents_reserved">
                   Zarezerwowani:
-                  <span className="numberOfStudentsNum">{hrData.studentsNum}</span>
+                  <span className="numberOfStudentsNum">{hrData.reservedStudents}</span>
                 </span>
                 <span className="numberOfStudents_availablePlaces">
                   Dostępne miejsca:
-                  <span className="numberOfStudentsNum">{hrData.maxReservedStudents - hrData.studentsNum}</span>
+                  <span className="numberOfStudentsNum">{hrData.maxReservedStudents - hrData.reservedStudents}</span>
                 </span>
               </div>
               <Link

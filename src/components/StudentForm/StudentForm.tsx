@@ -24,9 +24,7 @@ interface StudentFormProps {
   firstName: string | null;
   lastName: string | null;
   githubUserName: string | null;
-  // portfolioUrls?: string | null;
   portfolioUrls?: any;
-  // projectUrls: string | null;
   projectUrls: any;
   bio: string | null;
   expectedTypeWork: ExpectedTypeWork | null;

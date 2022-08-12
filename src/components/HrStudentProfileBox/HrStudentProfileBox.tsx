@@ -11,11 +11,11 @@ import { StudentInfoBoxLinksPortfolio } from '../StudentInfoBoxesLinks/StudentIn
 import { StudentInfoBoxLinksGroupProject } from '../StudentInfoBoxesLinks/StudentInfoBoxLinksGroupProject';
 import { StudentInfoBoxLinksPassingProject } from '../StudentInfoBoxesLinks/StudentInfoBoxLinksPassingProject';
 import { ReturnBtn } from '../../common/ReturnBtn/ReturnBtn';
-import '../../styles/stylesForLayouts.css';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { useParams } from 'react-router-dom';
 import { studentEntityFront } from 'types';
+import '../../styles/stylesForLayouts.css';
 
 interface hrData {
   fullName: string | null;
@@ -48,7 +48,6 @@ export const HrStudentProfileBox = () => {
     workExperience: null,
     courses: null,
     status: null,
-    reservedTo: null,
   });
 
   const [hrData, setHrData] = useState<hrData>({

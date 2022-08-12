@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import jwtDecode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,6 +42,9 @@ export const LoginBox = () => {
   });
   const { role } = useSelector((store: StoreState) => store.user);
 
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
   const showPassword = () => {
     setValues({
       ...values,
@@ -63,6 +66,20 @@ export const LoginBox = () => {
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
+  useEffect(() => {
+    switch (role) {
+      case 'admin':
+        navigate('/home-admin');
+        break;
+      case 'hr':
+        navigate('/hr/home');
+        break;
+      case 'student':
+        navigate('/student');
+        break;
+    }
+  }, [role]);
+
   const {
     register,
     handleSubmit,
@@ -71,9 +88,6 @@ export const LoginBox = () => {
     resolver: yupResolver(schemaLogin),
     mode: 'onChange',
   });
-
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
 
   const submitForm: SubmitHandler<FormValues> = async ({ loginEmail: email, loginPassword: password }) => {
     try {
@@ -116,20 +130,6 @@ export const LoginBox = () => {
       console.log(err);
     }
   };
-
-  if (role !== "") {
-    switch (role) {
-      case 'admin':
-        navigate('/home-admin');
-        break;
-      case 'hr':
-        navigate('/hr/home');
-        break;
-      case 'student':
-        navigate('/student');
-        break;
-    }
-  }
 
   return (
     <div className="main-container">
