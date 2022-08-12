@@ -28,18 +28,18 @@ export const StudentGrades = (props: GradesValuesProps) => {
       className="student-grades"
       sx={{
         fontSize: '14px',
-        fontFamily: 'Catamaran Regular',
+        fontFamily: 'Catamaran, sans-serif',
       }}>
       <div className="student-grades__item">
         <Typography
-          style={{ fontSize: '14px', fontFamily: 'Catamaran Regular', color: '#CFCFCF' }}
+          style={{ fontSize: '14px', fontFamily: 'Catamaran, sans-serif' , color: '#CFCFCF' }}
           component="legend"
           className="student-grades__typography">
           Ocena przejścia kursu
         </Typography>
         <div className="student-grades__rating">
           {props.courseCompletion !== null && (
-            <Box sx={{ mr: 2, color: '#9E9E9E' }}>
+            <Box sx={{ mr: 2, color: '#9E9E9E', fontSize: '18px' }}>
               <span style={{ color: '#F7F7F7' }}>{labels[props.courseCompletion]}</span>
               /5
             </Box>
@@ -66,15 +66,15 @@ export const StudentGrades = (props: GradesValuesProps) => {
 
       <div className="student-grades__item">
         <Typography
-          style={{ fontSize: '14px', fontFamily: 'Catamaran Regular' }}
+          style={{ fontSize: '14px', fontFamily:'Catamaran, sans-serif'  }}
           component="legend"
           className="student-grades__typography">
           Ocena aktywności i zaangażowania na kursie
         </Typography>
         <div className="student-grades__rating">
           {props.courseEngagement !== null && (
-            <Box sx={{ mr: 2, color: '#9E9E9E' }}>
-              <span style={{ color: '#F7F7F7' }}>{labels[props.courseEngagement]}</span>
+            <Box sx={{ mr: 2, color: '#9E9E9E', fontSize: '18px' }}>
+              <span style={{ color: '#F7F7F7'}}>{labels[props.courseEngagement]}</span>
               /5
             </Box>
           )}
@@ -101,14 +101,14 @@ export const StudentGrades = (props: GradesValuesProps) => {
 
       <div className="student-grades__item">
         <Typography
-          style={{ fontSize: '14px', fontFamily: 'Catamaran Regular' }}
+          style={{ fontSize: '14px', fontFamily: 'Catamaran, sans-serif'  }}
           component="legend"
           className="student-grades__typography">
           Ocena kodu w projekcie własnym
         </Typography>
         <div className="student-grades__rating">
           {props.projectDegree !== null && (
-            <Box sx={{ mr: 2, color: '#9E9E9E' }}>
+            <Box sx={{ mr: 2, color: '#9E9E9E', fontSize: '18px' }}>
               <span style={{ color: '#F7F7F7' }}>{labels[props.projectDegree]}</span>
               /5
             </Box>
@@ -135,14 +135,14 @@ export const StudentGrades = (props: GradesValuesProps) => {
 
       <div className="student-grades__item">
         <Typography
-          style={{ fontSize: '14px', fontFamily: 'Catamaran Regular' }}
+          style={{ fontSize: '14px', fontFamily: 'Catamaran, sans-serif' }}
           component="legend"
           className="student-grades__typography">
           Ocena pracy w zespole w Scrum
         </Typography>
         <div className="student-grades__rating">
           {props.teamProjectDegree !== null && (
-            <Box sx={{ mr: 2, color: '#9E9E9E' }}>
+            <Box sx={{ mr: 2, color: '#9E9E9E', fontSize: '18px'}}>
               <span style={{ color: '#F7F7F7' }}>{labels[props.teamProjectDegree]}</span>
               /5
             </Box>

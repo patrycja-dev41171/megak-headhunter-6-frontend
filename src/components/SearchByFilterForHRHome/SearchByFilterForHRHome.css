@@ -1,0 +1,28 @@
+.hr-home__searching {
+    width: 1430px;
+    height: 72px;
+    padding: 10px;
+    background-color: #292A2B;
+    color: #CFCFCF;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hr-home__searching__icon {
+    position: absolute;
+    top: 28px;
+    left: 25px;
+}
+
+.hr-home__searching__input {
+    background-color: #1E1E1F;
+    width: 365px;
+    height: 38px;
+    margin-left: 10px;
+    border: none;
+    padding-left: 30px;
+    color: #666666;
+}
+

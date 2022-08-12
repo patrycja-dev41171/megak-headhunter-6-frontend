@@ -6,28 +6,23 @@ import { Link } from 'react-router-dom';
 import { MainButton } from '../../common/MainButton/MainButton';
 import '../../styles/stylesForLayouts.css';
 import './HrProfileBox.css';
-import { HrEntity } from 'types';
+import { HrFrontEntity } from 'types';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 
-interface HrData extends HrEntity {
-  studentsNum: number;
-}
-
 export const HrProfileBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
-  const [hrData, setHrData] = useState<HrData>({
+const [hrData, setHrData] = useState<HrFrontEntity>({
     id: '',
     user_id: '',
     email: '',
     fullName: '',
     company: '',
     maxReservedStudents: 0,
-    users_id_list: '',
-    img_src: null,
-    studentsNum: 0,
+    img_src: '',
+    reservedStudents: 0,
   });
 
   //modal
@@ -42,20 +37,20 @@ export const HrProfileBox = () => {
 
   useEffect(() => {
     const getData = async () => {
-      try{
+      try {
         const res = await fetch(`http://localhost:8080/hr/${id}`, {
           method: 'GET',
         });
         const data = await res.json();
-        setFeedbackError(data.message);
-        const students = JSON.parse(data.users_id_list).length;
         await setHrData({
           ...data,
-          studentsNum: students,
         });
-        setOpenModal(true);
-      } catch (err){
-        console.log(err)
+        if (data.message) {
+          setFeedbackError(data.message);
+          setOpenModal(true);
+        }
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -68,6 +63,8 @@ export const HrProfileBox = () => {
         role="hr"
         fullName={hrData.fullName}
         id={id}
+        img_src={hrData.img_src === null ? '' : hrData.img_src}
+        img_alt={hrData.fullName}
       />
       <div className="main-container pageWithHeader">
         <Container
@@ -101,11 +98,11 @@ export const HrProfileBox = () => {
               <div className="numberOfStudents_line-info">
                 <span className="numberOfStudents_reserved">
                   Zarezerwowani:
-                  <span className="numberOfStudentsNum">{hrData.studentsNum}</span>
+                  <span className="numberOfStudentsNum">{hrData.reservedStudents}</span>
                 </span>
                 <span className="numberOfStudents_availablePlaces">
                   Dostępne miejsca:
-                  <span className="numberOfStudentsNum">{hrData.maxReservedStudents - hrData.studentsNum}</span>
+                  <span className="numberOfStudentsNum">{hrData.maxReservedStudents - hrData.reservedStudents}</span>
                 </span>
               </div>
               <Link
@@ -115,16 +112,16 @@ export const HrProfileBox = () => {
               </Link>
             </div>
             {openModal && (
-                <SimpleDialog
-                    open={openModal}
-                    onClose={handleClose}>
-                  {openModal && (
-                      <DisplayAlertModals
-                          error={feedbackError}
-                          success={feedbackSuccess}
-                      />
-                  )}
-                </SimpleDialog>
+              <SimpleDialog
+                open={openModal}
+                onClose={handleClose}>
+                {openModal && (
+                  <DisplayAlertModals
+                    error={feedbackError}
+                    success={feedbackSuccess}
+                  />
+                )}
+              </SimpleDialog>
             )}
           </Box>
         </Container>
