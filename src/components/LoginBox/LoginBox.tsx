@@ -1,7 +1,7 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import jwtDecode from 'jwt-decode';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaLogin } from '../../Validations/UserValidation';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import '../../styles/stylesForForms.css';
+import { StoreState } from '../../redux-toolkit/store';
 
 interface FormValues {
   loginEmail: string;
@@ -39,6 +40,10 @@ export const LoginBox = () => {
     loginPassword: '',
     showPassword: false,
   });
+  const { role } = useSelector((store: StoreState) => store.user);
+
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const showPassword = () => {
     setValues({
@@ -61,6 +66,20 @@ export const LoginBox = () => {
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
+  useEffect(() => {
+    switch (role) {
+      case 'admin':
+        navigate('/home-admin');
+        break;
+      case 'hr':
+        navigate('/hr/home');
+        break;
+      case 'student':
+        navigate('/student');
+        break;
+    }
+  }, [role]);
+
   const {
     register,
     handleSubmit,
@@ -69,9 +88,6 @@ export const LoginBox = () => {
     resolver: yupResolver(schemaLogin),
     mode: 'onChange',
   });
-
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
 
   const submitForm: SubmitHandler<FormValues> = async ({ loginEmail: email, loginPassword: password }) => {
     try {
@@ -88,7 +104,6 @@ export const LoginBox = () => {
         }),
       });
       const result = await res.json();
-
       if (result.accessToken) {
         const decoded = jwtDecode<AccessToken>(result.accessToken);
         dispatch(setId(result.id));

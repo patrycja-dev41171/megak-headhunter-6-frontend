@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 import './StudentInfoBoxLinks.css';
 
 interface StudentInfoBoxLinksPortfolioProps {
-  portfolioUrls?: [];
+  portfolioUrls: string | null;
 }
 
 export const StudentInfoBoxLinksPortfolio = (props: StudentInfoBoxLinksPortfolioProps) => {
-  const { portfolioUrls } = props;
+  const [portfolioUrls, setPortfolioUrls] = useState<string[]>([]);
+
+  const checkUrl = (url: string) => {
+    if (url.substring(0, 4) !== 'http') {
+      return `//${url}`
+    }
+    return url
+  };
+
+  useEffect(() => {
+    if (props.portfolioUrls !== null) {
+      const array: string[] = JSON.parse(props.portfolioUrls);
+      setPortfolioUrls(array);
+    }
+  }, []);
 
   return (
     <div className="student-info-box-links__wrapper">
-      {portfolioUrls ? (
+      {portfolioUrls !== [] ? (
         portfolioUrls.map((portfolioUrl, i) => (
-          <div className="student-info-box-links__item">
+          <div
+            className="student-info-box-links__item"
+            key={i}>
             <AttachFileIcon sx={{ color: '#0b8bd4', height: '30px', width: '30px' }} />
             <a
               key={i}
-              href={portfolioUrl}
+              href={checkUrl(portfolioUrl)}
               target="_blank"
               rel="noreferrer"
               className="student-info-box-links__item-link">

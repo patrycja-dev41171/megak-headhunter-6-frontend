@@ -3,7 +3,7 @@ import React from 'react';
 import './StudentInfoBox.css';
 
 interface StudentInfoBoxEducationProps {
-  education?: string;
+  education: string | null;
 }
 
 export const StudentInfoBoxEducation = (props: StudentInfoBoxEducationProps) => {

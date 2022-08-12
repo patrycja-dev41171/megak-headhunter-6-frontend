@@ -4,6 +4,9 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { MenuBtn } from '../../common/MenuBtn/MenuBtn';
 import { ShowMenuBtn } from '../../common/ShowMenuBtn/ShowMenuBtn';
+import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-toolkit/features/user/user-slice';
+import { useDispatch } from 'react-redux';
+
 import './HeaderMenu.css';
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -47,8 +50,9 @@ interface HeaderMenuProps {
 }
 
 export const HeaderMenu = (props: HeaderMenuProps) => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -69,6 +73,10 @@ export const HeaderMenu = (props: HeaderMenuProps) => {
         },
       });
       if (data.status === 200) {
+        dispatch(setId(''));
+        dispatch(setAccessToken(''));
+        dispatch(setExpirationTime(0));
+        dispatch(setRole(''));
         navigate('/login');
       }
     } catch (error) {

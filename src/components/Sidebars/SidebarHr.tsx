@@ -13,7 +13,7 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 interface SidebarHrProps {
   email: string;
   fullName: string;
-  img_src?: string;
+  img_src: string | null;
 }
 
 export const SidebarHr = (props: SidebarHrProps) => {

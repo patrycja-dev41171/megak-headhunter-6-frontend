@@ -60,7 +60,7 @@ export const AddHR = () => {
 
     return (
         <>
-            <h2 className="addHrFormView_header r">Add HR:</h2>
+            <h2 className="addHrFormView_header">Add HR:</h2>
 
             <form onSubmit={handleSubmit(submitForm)} className="addHrFormView_form">
                 <div className="formView_input">

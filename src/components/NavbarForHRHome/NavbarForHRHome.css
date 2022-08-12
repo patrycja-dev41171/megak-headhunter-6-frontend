@@ -1,0 +1,23 @@
+.hr-home__navbar {
+    display: flex;
+    width: 1430px;
+    height: 72px;
+    padding: 10px;
+    margin-bottom: 2px;
+    background-color: #292A2B;
+    color: #CFCFCF;
+}
+.hr-home__navbar-link {
+    border:none;
+    margin: 10px;
+    backgroundColor: #292A2B;
+    color: #CFCFCF;
+    font-size: 18px;
+    text-transform: none;
+    border-radius: 0;
+    border-bottom: #292A2B solid 3px;
+    font-family: Catamaran Regular;
+    text-decoration: none;
+}
+
+
