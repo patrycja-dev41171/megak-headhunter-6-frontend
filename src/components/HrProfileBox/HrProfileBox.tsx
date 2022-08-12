@@ -14,7 +14,7 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 
 export const HrProfileBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
-  const [hrData, setHrData] = useState<HrFrontEntity>({
+const [hrData, setHrData] = useState<HrFrontEntity>({
     id: '',
     user_id: '',
     email: '',
