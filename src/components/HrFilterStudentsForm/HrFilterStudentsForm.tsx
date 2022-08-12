@@ -21,24 +21,23 @@ import {FilteredStudentsInput} from "../StyledComponents/MainStyledTextField";
 import {StudentFilteredValidation} from "../../Validations/StudentFilteredValidation";
 
 interface StudentValues {
-    salaryFrom: string | null;
-    salaryTo: string | null;
+    minSalary: string | null;
+    maxSalary: string | null;
     canTakeApprenticeship: number | null;
     monthsOfCommercialExp: string | null;
-    passageCourse?: number | null;
-    activityOnCourse?: number | null;
-    codeInProject?: number | null;
-    teamWork?: number | null;
-    typesWork?: any;
-    contractTypes?: any;
+    courseCompletion?: number | null;
+    courseEngagement?: number | null;
+    projectDegree?: number | null;
+    teamProjectDegree?: number | null;
+    expectedTypeWork?: any;
+    expectedContractType?: any;
 }
 
 export const HrFilterStudentsForm = () => {
+    const [expectedTypesWork, setExpectedTypesWork] = useState<string[] | null>(() => null);
+    const [expectedContractTypes, setExpectedContractTypes] = useState<string[] | null>(() => null);
 
-    const [expectedTypesWork, setExpectedTypesWork] = useState<string[]>(() => []);
-    const [expectedContractTypes, setExpectedContractTypes] = useState<string[]>(() => []);
-
-    const customizeValue = (val: number | null ) => {
+    const customizeValue = (val: number | null) => {
         switch (val) {
             case 0:
                 return null;
@@ -75,25 +74,25 @@ export const HrFilterStudentsForm = () => {
 
     useFieldArray({
         control,
-        name: 'typesWork',
+        name: 'expectedTypeWork',
     })
 
     useFieldArray({
         control,
-        name: 'contractTypes',
+        name: 'expectedContractType',
     })
 
-    const {name: namePassCour, ref: refPassCour} = register('passageCourse');
-    const {name: nameActivity, ref: refActivity} = register('activityOnCourse');
-    const {name: nameCode, ref: refCode} = register('codeInProject');
-    const {name: nameTeamWork, ref: refTeamWork} = register('teamWork');
+    const {name: namePassCour, ref: refPassCour} = register('courseCompletion');
+    const {name: nameActivity, ref: refActivity} = register('courseEngagement');
+    const {name: nameCode, ref: refCode} = register('projectDegree');
+    const {name: nameTeamWork, ref: refTeamWork} = register('teamProjectDegree');
 
     const handleChangeTypesWork = (
         event: React.MouseEvent<HTMLElement>,
         newChoices: string[],
     ) => {
         setExpectedTypesWork(newChoices);
-        setValue('typesWork', newChoices)
+        setValue('expectedTypeWork', newChoices)
     }
 
     const handleChangeContractTypes = (
@@ -101,7 +100,7 @@ export const HrFilterStudentsForm = () => {
         newChoices: string[],
     ) => {
         setExpectedContractTypes(newChoices)
-        setValue('contractTypes', newChoices)
+        setValue('expectedContractType', newChoices)
     }
 
     //modal
@@ -118,7 +117,7 @@ export const HrFilterStudentsForm = () => {
             console.log(data)
 
             try {
-                const res = await fetch(`http://localhost:8080/hr/student`, {
+                const res = await fetch(`http://localhost:8080/hr/home/filterList`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -146,7 +145,7 @@ export const HrFilterStudentsForm = () => {
                     sx={{
                         padding: '26px',
                         '&.MuiContainer-root': {
-                            maxWidth: '700px',
+                            maxWidth: '600px',
                             background: '#0a0a0a',
                         },
                     }}>
@@ -437,26 +436,24 @@ export const HrFilterStudentsForm = () => {
                             <span className="filterStudents_inputPrefix">Od:</span>
                             <FilteredStudentsInput
                                 size="small"
-                                defaultValue={0}
                                 type="number"
-                                {...register('salaryFrom')}
+                                {...register('minSalary')}
                                 InputProps={{inputProps: {min: 0, max: 999999}}}
                                 variant="filled"
                                 label="PLN"
-                                error={!!errors.salaryFrom}
-                                helperText={errors.salaryFrom ? errors.salaryFrom?.message : ''}
+                                error={!!errors.minSalary}
+                                helperText={errors.minSalary ? errors.minSalary?.message : ''}
                             />
                             <span className="filterStudents_inputPrefix">Do:</span>
                             <FilteredStudentsInput
                                 size="small"
-                                defaultValue={0}
                                 type="number"
-                                {...register('salaryTo')}
+                                {...register('maxSalary')}
                                 InputProps={{inputProps: {min: 0, max: 999999}}}
                                 variant="filled"
                                 label="PLN"
-                                error={!!errors.salaryTo}
-                                helperText={errors.salaryTo ? errors.salaryTo?.message : ''}
+                                error={!!errors.maxSalary}
+                                helperText={errors.maxSalary ? errors.maxSalary?.message : ''}
                             />
                         </div>
                     </div>
@@ -464,7 +461,9 @@ export const HrFilterStudentsForm = () => {
                     {/*-----------------ZGODA NA ODBYCIE BEZPŁATNYCH PRAKTYK/STAŻU------------------------------*/}
                     <p className='filterStudents_subTitle'>Zgoda na odbycie bezpłatnych praktyk/stażu na początek</p>
                     <div className="filterStudents_lineContent_practice">
-                        <FormControl fullWidth sx={{margin: '0'}}>
+                        <FormControl
+                            fullWidth sx={{margin: '0'}}
+                        >
                             <RadioGroup
                                 sx={{
                                     color: '#f7f7f7',
@@ -518,12 +517,11 @@ export const HrFilterStudentsForm = () => {
                     <div className="filterStudents_lineContent">
                         <FilteredStudentsInput
                             size="small"
-                            defaultValue={0}
                             type="number"
                             {...register('monthsOfCommercialExp')}
                             InputProps={{inputProps: {min: 0, max: 999}}}
                             variant="filled"
-                            label="PODAJ ILOŚĆ"
+                            label="ILOŚĆ"
                             error={!!errors.monthsOfCommercialExp}
                             helperText={errors.monthsOfCommercialExp ? errors.monthsOfCommercialExp?.message : ''}
                         />
