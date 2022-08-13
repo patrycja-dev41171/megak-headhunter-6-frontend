@@ -7,11 +7,10 @@ export const FilterButton = styled(Button)(() => ({
   height: '39px',
   border: 'none',
   padding: '5px',
-  marginRight: '10px',
   backgroundColor: '#1E1E1F',
-  color: '#F7F7F7',
+  color: '#f7f7f7',
   fontSize: '16px',
-  fontFamily: 'Catamaran Regular',
+  fontFamily: 'Catamaran',
   textTransform: 'none',
   '&:hover': {
     backgroundColor: '#1E1E1F',

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 import { MainButton } from '../../common/MainButton/MainButton';
-
+import {StudentGradesAndExpectationsForHR} from "../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR";
 import './HrHomeSingleStudent.css';
 
 interface HrHomeSingleStudentProps {
@@ -30,7 +30,8 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
       {...props}
     />
   ))(({ theme }) => ({
-    border: `1px solid ${theme.palette.divider}`,
+    marginTop: '3px',
+    // border: `1px solid ${theme.palette.divider}`,
     '&:not(:last-child)': {
       borderBottom: 0,
     },
@@ -38,8 +39,6 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
       display: 'none',
     },
     backgroundColor: '#292a2b',
-    width: '1390px',
-    marginBottom: '20px',
   }));
 
   const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
@@ -48,17 +47,18 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
     },
     color: '#f7f7f7',
     minHeight: '70px',
+
   }));
 
   const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-    padding: theme.spacing(3),
+    padding: '0',
     borderTop: '1px solid rgba(0, 0, 0, .125)',
     color: '#f7f7f7',
     backgroundColor: '#222324',
+    borderBottom: '10px solid #1E1E1F',
   }));
 
   return (
-    <div className="hr-home-single-student__wrapper">
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
@@ -69,8 +69,9 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
           </Typography>
           <MainButton onClick={handleBookCallWithStudent}>Zarezerwuj rozmowę</MainButton>
         </AccordionSummary>
-        <AccordionDetails>Miejsce na komponent</AccordionDetails>
+        <AccordionDetails>
+          <StudentGradesAndExpectationsForHR/>
+        </AccordionDetails>
       </Accordion>
-    </div>
   );
 };

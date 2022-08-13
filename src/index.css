@@ -30,6 +30,12 @@ code {
   background: #222224;
 }
 
+.mainBackground {
+  background: #222224;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
 .displayCenter {
   display: flex;
   flex-direction: column;

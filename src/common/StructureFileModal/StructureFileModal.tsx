@@ -7,9 +7,10 @@ import {useTheme} from '@mui/material/styles';
 import DialogTitle from '@mui/material/DialogTitle';
 import {MainButton} from "../MainButton/MainButton";
 import './StructureFileModal.css';
+import {useState} from "react";
 
 export function StructureFileModal() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
