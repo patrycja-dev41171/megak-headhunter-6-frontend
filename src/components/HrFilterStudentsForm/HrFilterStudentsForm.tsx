@@ -34,7 +34,7 @@ interface StudentValues {
 }
 
 interface Props {
-    handleClose: any;
+    handleClose: () => void;
 }
 
 export const HrFilterStudentsForm = (props: Props) => {
@@ -109,9 +109,6 @@ export const HrFilterStudentsForm = (props: Props) => {
 
     //modal
     const [openModal, setOpenModal] = useState(false);
-    const handleClose = () => {
-        setOpenModal(false);
-    };
 
     //infoFromBackendStatus
     const [feedbackError, setFeedbackError] = useState('');
@@ -157,7 +154,7 @@ export const HrFilterStudentsForm = (props: Props) => {
                         <h2 className='formView_header'>Filtrowanie</h2>
                         <MainButton
                             type="button"
-                            onClick={() => reset()}
+                            // onClick={() => reset()}
                             sx={{
                                 backgroundColor: '#172A35',
                                 '&:hover': {
@@ -544,7 +541,7 @@ export const HrFilterStudentsForm = (props: Props) => {
                         >
                             Anuluj
                         </MainButton>
-                        <MainButton type="submit">Pokaż wyniki</MainButton>
+                        <MainButton onClick={props.handleClose} type="submit">Pokaż wyniki</MainButton>
                     </div>
                 </Container>
             </form>

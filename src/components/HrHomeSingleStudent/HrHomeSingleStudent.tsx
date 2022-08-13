@@ -31,9 +31,8 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
     />
   ))(({ theme }) => ({
     marginTop: '3px',
-    // border: `1px solid ${theme.palette.divider}`,
     '&:not(:last-child)': {
-      borderBottom: 0,
+      border: 0,
     },
     '&:before': {
       display: 'none',
@@ -47,12 +46,10 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
     },
     color: '#f7f7f7',
     minHeight: '70px',
-
   }));
 
   const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     padding: '0',
-    borderTop: '1px solid rgba(0, 0, 0, .125)',
     color: '#f7f7f7',
     backgroundColor: '#222324',
     borderBottom: '10px solid #1E1E1F',
