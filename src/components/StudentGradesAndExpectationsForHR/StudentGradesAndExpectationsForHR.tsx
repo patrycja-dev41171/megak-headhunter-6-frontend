@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './StudentGradesAndExpectationsForHR.css';
 
 //Wszystkie propsy są ustawione jako opcjonalne, żeby nie wyskakiwały błedy - po dodaniu propsów, trzeba to zmienić zgodnie z :)

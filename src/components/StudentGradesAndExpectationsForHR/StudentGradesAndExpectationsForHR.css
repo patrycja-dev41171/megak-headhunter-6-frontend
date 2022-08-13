@@ -2,17 +2,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 1390px;
-    height: 110px;
     background-color: #222324;
-    padding: 10px;
+    padding: 0;
 }
 
 .student-expectations__item {
     max-width: 164px;
-    height: 77px;
     border-right: 1px solid #292a2b;
-    padding: 5px;
 }
 
 .student-expectations__item:last-child {

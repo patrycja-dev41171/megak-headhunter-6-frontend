@@ -1,6 +1,10 @@
 import React from 'react';
-import {HrFilterStudentsForm} from "../../components/HrFilterStudentsForm/HrFilterStudentsForm";
+import {HrHomeBox} from "../../components/HrHomeBox/HrHomeBox";
 
 export const HrHomeView = () => {
-  return <HrFilterStudentsForm/>
+  return (
+      <>
+      <HrHomeBox/>
+      </>
+  )
 };

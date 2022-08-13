@@ -33,7 +33,11 @@ interface StudentValues {
     expectedContractType?: any;
 }
 
-export const HrFilterStudentsForm = () => {
+interface Props {
+    handleClose: any;
+}
+
+export const HrFilterStudentsForm = (props: Props) => {
     const [expectedTypesWork, setExpectedTypesWork] = useState<string[] | null>(() => null);
     const [expectedContractTypes, setExpectedContractTypes] = useState<string[] | null>(() => null);
 
@@ -529,6 +533,7 @@ export const HrFilterStudentsForm = () => {
                     <div className="filterStudents_endButtons">
                         <MainButton
                             type="button"
+                            onClick={props.handleClose}
                             sx={{
                                 backgroundColor: '#0a0a0a',
                                 marginRight: '20px',

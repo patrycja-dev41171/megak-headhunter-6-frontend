@@ -1,23 +1,16 @@
-.hr-home__navbar {
-    display: flex;
-    width: 1430px;
-    height: 72px;
-    padding: 10px;
-    margin-bottom: 2px;
+.hr-home__links {
     background-color: #292A2B;
-    color: #CFCFCF;
+    max-width: 1430px;
+    padding: 20px 15px;
 }
+
 .hr-home__navbar-link {
-    border:none;
-    margin: 10px;
-    backgroundColor: #292A2B;
-    color: #CFCFCF;
+    color: #cfcfcf;
+    padding: 20px 15px;
+    min-width: 130px;
     font-size: 18px;
-    text-transform: none;
-    border-radius: 0;
-    border-bottom: #292A2B solid 3px;
-    font-family: Catamaran Regular;
-    text-decoration: none;
+    margin-bottom: 2px;
 }
+
 
 

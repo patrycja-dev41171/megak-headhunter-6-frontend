@@ -1,28 +1,20 @@
-.hr-home__searching {
-    width: 1430px;
-    height: 72px;
-    padding: 10px;
-    background-color: #292A2B;
-    color: #CFCFCF;
-    position: relative;
+.hr_line__searchByFilterBox {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px;
+    background-color: #292A2B;
+    padding: 0 26px;
+    margin-top: 3px;
 }
 
-.hr-home__searching__icon {
-    position: absolute;
-    top: 28px;
-    left: 25px;
+.hr_line__searchIconBox {
+    display: flex;
+    align-items: center;
 }
 
-.hr-home__searching__input {
-    background-color: #1E1E1F;
-    width: 365px;
-    height: 38px;
-    margin-left: 10px;
-    border: none;
-    padding-left: 30px;
+.hr_line_searchText {
     color: #666666;
+    margin: 0 5px;
 }
 
