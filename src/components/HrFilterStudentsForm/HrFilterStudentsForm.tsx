@@ -30,7 +30,7 @@ interface StudentValues {
 }
 
 interface Props {
-  handleClose: any;
+handleClose: () => void;
 }
 
 export const HrFilterStudentsForm = (props: Props) => {
@@ -100,13 +100,10 @@ export const HrFilterStudentsForm = (props: Props) => {
     setValue('expectedContractType', newChoices);
   };
 
-  //modal
-  const [openModal, setOpenModal] = useState(false);
-  const handleClose = () => {
-    setOpenModal(false);
-  };
+//modal
+ const [openModal, setOpenModal] = useState(false);
 
-  //infoFromBackendStatus
+//infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -148,8 +145,7 @@ export const HrFilterStudentsForm = (props: Props) => {
             <h2 className="formView_header">Filtrowanie</h2>
             <MainButton
               type="button"
-              onClick={() => reset()}
-              sx={{
+            sx={{
                 backgroundColor: '#172A35',
                 '&:hover': {
                   backgroundColor: '#172A35',
@@ -203,6 +199,7 @@ export const HrFilterStudentsForm = (props: Props) => {
               }
             />
           </div>
+
 
           {/*---------------------------------OCENA AKTYWNOŚCI I ZAANGAŻOWANIA NA KURSIE-------------------*/}
           <p className="filterStudents_subTitle">Ocena aktywności i zaangażowania na kursie</p>
@@ -501,49 +498,42 @@ export const HrFilterStudentsForm = (props: Props) => {
             </FormControl>
           </div>
 
-          {/*-----------------ILOŚĆ MIESIĘCY DOŚWIADCZENIA KOMERCYJNEGO------------------------------*/}
-          <p className="filterStudents_subTitle">Ilość miesięcy doświadczenia komercyjnego kandydata w programowaniu</p>
-          <div className="filterStudents_lineContent">
-            <FilteredStudentsInput
-              size="small"
-              type="number"
-              {...register('monthsOfCommercialExp')}
-              InputProps={{ inputProps: { min: 0, max: 999 } }}
-              variant="filled"
-              label="ILOŚĆ"
-              error={!!errors.monthsOfCommercialExp}
-              helperText={errors.monthsOfCommercialExp ? errors.monthsOfCommercialExp?.message : ''}
-            />
-          </div>
-          <div className="filterStudents_endButtons">
-            <MainButton
-              type="button"
-              onClick={props.handleClose}
-              sx={{
-                backgroundColor: '#0a0a0a',
-                marginRight: '20px',
-                '&:hover': {
-                  backgroundColor: '#0a0a0a',
-                },
-              }}>
-              Anuluj
-            </MainButton>
-            <MainButton type="submit">Pokaż wyniki</MainButton>
-          </div>
-          {openModal && (
-            <SimpleDialog
-              open={openModal}
-              onClose={handleClose}>
-              {openModal && (
-                <DisplayAlertModals
-                  error={feedbackError}
-                  success={feedbackSuccess}
-                />
-              )}
-            </SimpleDialog>
-          )}
-        </Container>
-      </form>
-    </>
-  );
-};
+
+                    {/*-----------------ILOŚĆ MIESIĘCY DOŚWIADCZENIA KOMERCYJNEGO------------------------------*/}
+                    <p className='filterStudents_subTitle'>Ilość miesięcy doświadczenia komercyjnego kandydata w
+                        programowaniu</p>
+                    <div className="filterStudents_lineContent">
+                        <FilteredStudentsInput
+                            size="small"
+                            type="number"
+                            {...register('monthsOfCommercialExp')}
+                            InputProps={{inputProps: {min: 0, max: 999}}}
+                            variant="filled"
+                            label="ILOŚĆ"
+                            error={!!errors.monthsOfCommercialExp}
+                            helperText={errors.monthsOfCommercialExp ? errors.monthsOfCommercialExp?.message : ''}
+                        />
+                    </div>
+                    <div className="filterStudents_endButtons">
+                        <MainButton
+                            type="button"
+                            onClick={props.handleClose}
+                            sx={{
+                                backgroundColor: '#0a0a0a',
+                                marginRight: '20px',
+                                '&:hover': {
+                                    backgroundColor: '#0a0a0a'
+                                }
+                            }}
+                        >
+                            Anuluj
+                        </MainButton>
+                        <MainButton onClick={props.handleClose} type="submit">Pokaż wyniki</MainButton>
+                    </div>
+                </Container>
+            </form>
+        </>
+    )
+}
+
+         
