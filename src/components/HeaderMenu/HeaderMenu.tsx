@@ -77,6 +77,7 @@ export const HeaderMenu = (props: HeaderMenuProps) => {
         dispatch(setAccessToken(''));
         dispatch(setExpirationTime(0));
         dispatch(setRole(''));
+        dispatch(setIsLoggedIn(false));
         navigate('/login');
       }
     } catch (error) {

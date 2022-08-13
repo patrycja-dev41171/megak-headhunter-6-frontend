@@ -41,9 +41,22 @@ export const LoginBox = () => {
     showPassword: false,
   });
   const { role } = useSelector((store: StoreState) => store.user);
-
   const dispatch = useDispatch();
   let navigate = useNavigate();
+
+  useEffect(() => {
+    switch (role) {
+      case 'admin':
+        navigate('/home-admin');
+        break;
+      case 'hr':
+        navigate('/hr/home');
+        break;
+      case 'student':
+        navigate('/student');
+        break;
+    }
+  }, []);
 
   const showPassword = () => {
     setValues({
@@ -65,20 +78,6 @@ export const LoginBox = () => {
   //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
-
-  useEffect(() => {
-    switch (role) {
-      case 'admin':
-        navigate('/home-admin');
-        break;
-      case 'hr':
-        navigate('/hr/home');
-        break;
-      case 'student':
-        navigate('/student');
-        break;
-    }
-  }, [role]);
 
   const {
     register,
@@ -130,7 +129,6 @@ export const LoginBox = () => {
       console.log(err);
     }
   };
-
   return (
     <div className="main-container">
       <MiniLogoMegaK />
