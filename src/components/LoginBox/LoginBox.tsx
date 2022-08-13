@@ -35,7 +35,6 @@ interface AccessToken {
 }
 
 export const LoginBox = () => {
-  //eye visible-hidden handle
   const [values, setValues] = useState<InputNumber>({
     loginPassword: '',
     showPassword: false,
@@ -43,20 +42,6 @@ export const LoginBox = () => {
   const { role } = useSelector((store: StoreState) => store.user);
   const dispatch = useDispatch();
   let navigate = useNavigate();
-
-  useEffect(() => {
-    switch (role) {
-      case 'admin':
-        navigate('/home-admin');
-        break;
-      case 'hr':
-        navigate('/hr/home');
-        break;
-      case 'student':
-        navigate('/student');
-        break;
-    }
-  }, []);
 
   const showPassword = () => {
     setValues({
@@ -129,6 +114,22 @@ export const LoginBox = () => {
       console.log(err);
     }
   };
+  useEffect(() => {
+    if (role !== '') {
+      switch (role) {
+        case 'admin':
+          navigate('/home-admin');
+          break;
+        case 'hr':
+          navigate('/hr/home');
+          break;
+        case 'student':
+          navigate('/student');
+          break;
+      }
+    }
+  });
+
   return (
     <div className="main-container">
       <MiniLogoMegaK />
