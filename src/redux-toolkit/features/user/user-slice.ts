@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { StudentGetAll } from 'types';
 
 interface User {
   id: string;
@@ -6,6 +7,7 @@ interface User {
   expirationTime: number;
   role: string;
   isLoggedIn: boolean;
+  studentsList: StudentGetAll[];
 }
 
 const initialState: User = {
@@ -14,6 +16,7 @@ const initialState: User = {
   expirationTime: 0,
   role: '',
   isLoggedIn: false,
+  studentsList: [],
 };
 
 interface SetId {
@@ -36,6 +39,10 @@ interface SetIsLoggedIn {
   payload: boolean;
 }
 
+interface SetStudentList {
+  payload: StudentGetAll[];
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -55,7 +62,10 @@ export const userSlice = createSlice({
     setIsLoggedIn: (state, action: SetIsLoggedIn) => {
       state.isLoggedIn = action.payload;
     },
+    setStudentList: (state, action: SetStudentList) => {
+      state.studentsList = action.payload;
+    },
   },
 });
 
-export const {setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn} = userSlice.actions;
+export const {setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList} = userSlice.actions;

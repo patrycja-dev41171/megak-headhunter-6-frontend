@@ -24,13 +24,11 @@ export const SidebarHr = (props: SidebarHrProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(img_src);
   const [fileName, setFileName] = useState<string>('');
 
-  //modal
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
