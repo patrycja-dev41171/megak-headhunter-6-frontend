@@ -4,6 +4,7 @@ import './HrSelectedStudentsBox.css';
 import {Container} from "@mui/material";
 import {NavbarForHRHome} from "../NavbarForHRHome/NavbarForHRHome";
 import {SearchByFilterForHRHome} from "../SearchByFilterForHRHome/SearchByFilterForHRHome";
+import {OneSelectedStudentOnList} from "../OneSelectedStudentOnList/OneSelectedStudentOnList";
 
 export const HrSelectedStudentsBox = () => {
     return (
@@ -24,6 +25,7 @@ export const HrSelectedStudentsBox = () => {
                 />
                 <NavbarForHRHome/>
                 <SearchByFilterForHRHome/>
+                <OneSelectedStudentOnList/>
             </Container>
         </div>
         )
