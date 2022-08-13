@@ -1,0 +1,62 @@
+.student_container{
+    background-color: #292a2b;
+    color: #f7f7f7;
+    width: 1328px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 17px 0 0;
+}
+
+.main_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reserved_box{
+    min-width: 33px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 0 10px;
+}
+
+.reserved_text{
+    max-height: 23px;
+    font-size: 14px;
+    color: #cfcfcf;
+}
+
+.student_info{
+    display: flex;
+    align-items: center;
+    padding-left: 65px;
+}
+
+.student_avatar{
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+}
+
+.buttons_box{
+    min-width: 412px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 7px 0 7px;
+}
+
+.MuiAccordionSummary-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.MuiAccordionSummary-content > button {
+    margin-right: 20px;
+}
+
+.MuiAccordionSummary-content > p {
+    font-size: 18px;
+}
+

@@ -14,22 +14,21 @@ interface SidebarHrProps {
   email: string;
   fullName: string;
   img_src: string | null;
+  renderComponent: (render: boolean) => void;
 }
 
 export const SidebarHr = (props: SidebarHrProps) => {
   const { img_src, fullName, email } = props;
   const { id } = useSelector((store: StoreState) => store.user);
   const [imageSelected, setImageSelected] = useState<any>('');
-  const [imagePreview, setImagePreview] = useState<any>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(img_src);
   const [fileName, setFileName] = useState<string>('');
 
-  //modal
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -111,6 +110,7 @@ export const SidebarHr = (props: SidebarHrProps) => {
       setFeedbackSuccess(data);
       setFeedbackError(data.message);
       setOpenModal(true);
+      props.renderComponent(true);
     } catch (err) {
       console.log(err);
     }
@@ -120,7 +120,7 @@ export const SidebarHr = (props: SidebarHrProps) => {
     <div className="sidebar_container">
       <Avatar
         alt={fullName}
-        src={img_src ? img_src : imagePreview}
+        src={imagePreview !== null ? imagePreview : ''}
         sx={{ width: 150, height: 150 }}
       />
       <p className="sidebar_fullName sidebar_fullName_hr">HR</p>
@@ -154,9 +154,9 @@ export const SidebarHr = (props: SidebarHrProps) => {
                 if (e.target.files !== null) {
                   const isCorrect = imgValidation(e);
                   if (isCorrect) {
+                    setImagePreview(URL.createObjectURL((e.target as any).files[0]));
                     setImageSelected(e.target.files[0]);
                     setFileName(e.target.files[0].name);
-                    setImagePreview(URL.createObjectURL((e.target as any).files[0]));
                   }
                 }
               }}

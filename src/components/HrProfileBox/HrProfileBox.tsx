@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../Header/Header';
-import { Box, Container } from '@mui/material';
-import { SidebarHr } from '../Sidebars/SidebarHr';
 import { Link } from 'react-router-dom';
-import { MainButton } from '../../common/MainButton/MainButton';
-import '../../styles/stylesForLayouts.css';
-import './HrProfileBox.css';
-import { HrFrontEntity } from 'types';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
+import { HrFrontEntity } from 'types';
 import SimpleDialog from '@mui/material/Dialog';
+import { Box, Container } from '@mui/material';
+import { Header } from '../Header/Header';
+import { SidebarHr } from '../Sidebars/SidebarHr';
+import { MainButton } from '../../common/MainButton/MainButton';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+
+import '../../styles/stylesForLayouts.css';
+import './HrProfileBox.css';
 
 export const HrProfileBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
-const [hrData, setHrData] = useState<HrFrontEntity>({
+  const [render, setRender] = useState(false);
+  const [feedbackError, setFeedbackError] = useState('');
+  const [feedbackSuccess, setFeedbackSuccess] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const [hrData, setHrData] = useState<HrFrontEntity>({
     id: '',
     user_id: '',
     email: '',
@@ -25,15 +30,13 @@ const [hrData, setHrData] = useState<HrFrontEntity>({
     reservedStudents: 0,
   });
 
-  //modal
-  const [openModal, setOpenModal] = useState(false);
+  const handleRender = (render: boolean) => {
+    setRender(render);
+  };
+
   const handleClose = () => {
     setOpenModal(false);
   };
-
-  //infoFromBackendStatus
-  const [feedbackError, setFeedbackError] = useState('');
-  const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   useEffect(() => {
     const getData = async () => {
@@ -49,13 +52,14 @@ const [hrData, setHrData] = useState<HrFrontEntity>({
           setFeedbackError(data.message);
           setOpenModal(true);
         }
+        setRender(false);
       } catch (err) {
         console.log(err);
       }
     };
 
     getData();
-  }, []);
+  }, [render]);
 
   return (
     <>
@@ -76,11 +80,14 @@ const [hrData, setHrData] = useState<HrFrontEntity>({
             },
           }}>
           <div className="sidebarBox">
-            <SidebarHr
-              email={hrData.email}
-              fullName={hrData.fullName}
-              img_src={hrData.img_src}
-            />
+            {hrData.img_src !== '' ? (
+              <SidebarHr
+                email={hrData.email}
+                fullName={hrData.fullName}
+                img_src={hrData.img_src}
+                renderComponent={render => handleRender(render)}
+              />
+            ) : null}
           </div>
           <Box
             sx={{

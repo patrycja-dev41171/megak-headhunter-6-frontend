@@ -36,6 +36,7 @@ interface StudentFormProps {
   education: string | null;
   workExperience: string | null;
   courses: string | null;
+  renderComponent: (render: boolean) => void;
 }
 
 interface StudentValidateValues extends StudentFormProps {
@@ -143,6 +144,7 @@ export const StudentForm = (props: StudentFormProps) => {
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
+      props.renderComponent(true);
     } catch (err) {
       console.log(err);
     }

@@ -1,11 +1,12 @@
 import React, { SyntheticEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { setAccessToken, setExpirationTime, setId, setIsLoggedIn, setRole } from '../../redux-toolkit/features/user/user-slice';
+import { useDispatch } from 'react-redux';
+
 import { styled } from '@mui/material/styles';
 import Menu, { MenuProps } from '@mui/material/Menu';
-import { useNavigate } from 'react-router-dom';
 import { MenuBtn } from '../../common/MenuBtn/MenuBtn';
 import { ShowMenuBtn } from '../../common/ShowMenuBtn/ShowMenuBtn';
-import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-toolkit/features/user/user-slice';
-import { useDispatch } from 'react-redux';
 
 import './HeaderMenu.css';
 
@@ -77,6 +78,7 @@ export const HeaderMenu = (props: HeaderMenuProps) => {
         dispatch(setAccessToken(''));
         dispatch(setExpirationTime(0));
         dispatch(setRole(''));
+        dispatch(setIsLoggedIn(false));
         navigate('/login');
       }
     } catch (error) {

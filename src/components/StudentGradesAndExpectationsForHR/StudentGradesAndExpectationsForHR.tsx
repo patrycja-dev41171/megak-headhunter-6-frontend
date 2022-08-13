@@ -1,34 +1,13 @@
 import React from 'react';
+import { StudentGetAll } from 'types';
 import './StudentGradesAndExpectationsForHR.css';
 
-//Wszystkie propsy są ustawione jako opcjonalne, żeby nie wyskakiwały błedy - po dodaniu propsów, trzeba to zmienić zgodnie z :)
-
 interface StudentGradesAndExpectationsForHRProps {
-  overallEvaluation?: number;
-  engagementEvaluation?: number;
-  codeEvaluation?: number;
-  teamWorkEvaluation?: number;
-  expectedTypeWork?: string;
-  targetWorkCity?: string;
-  expectedContractType?: string;
-  expectedSalary?: number;
-  canTakeApprenticeship?: number;
-  monthsOfCommercialExp?: number;
+  student: StudentGetAll;
 }
 
 export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpectationsForHRProps) => {
-  const {
-    overallEvaluation,
-    engagementEvaluation,
-    codeEvaluation,
-    teamWorkEvaluation,
-    expectedTypeWork,
-    targetWorkCity,
-    expectedContractType,
-    expectedSalary,
-    canTakeApprenticeship,
-    monthsOfCommercialExp,
-  } = props;
+  const { student } = props;
 
   const switchMonths = (months: number) => {
     switch (months) {
@@ -49,9 +28,9 @@ export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpecta
     <div className="student-expectations__wrapper">
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Ocena przejścia kursu</p>
-        {overallEvaluation ? (
+        {student.courseCompletion ? (
           <p className="student-expectations__item-description">
-            {overallEvaluation}
+            {student.courseCompletion}
             <span className="student-expectations__item-description__span">/5</span>
           </p>
         ) : (
@@ -60,9 +39,9 @@ export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpecta
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Ocena aktywności i zaangażowania na kursie</p>
-        {engagementEvaluation ? (
+        {student.courseEngagement ? (
           <p className="student-expectations__item-description">
-            {engagementEvaluation}
+            {student.courseEngagement}
             <span className="student-expectations__item-description__span">/5</span>
           </p>
         ) : (
@@ -71,9 +50,9 @@ export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpecta
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Ocena kodu w projekcie własnym</p>
-        {codeEvaluation ? (
+        {student.projectDegree ? (
           <p className="student-expectations__item-description">
-            {codeEvaluation}
+            {student.projectDegree}
             <span className="student-expectations__item-description__span">/5</span>
           </p>
         ) : (
@@ -82,9 +61,9 @@ export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpecta
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Ocena pracy w zespole w Scrum</p>
-        {teamWorkEvaluation ? (
+        {student.teamProjectDegree ? (
           <p className="student-expectations__item-description">
-            {teamWorkEvaluation}
+            {student.teamProjectDegree}
             <span className="student-expectations__item-description__span">/5</span>
           </p>
         ) : (
@@ -93,49 +72,49 @@ export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpecta
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Preferowane miejsce pracy</p>
-        {expectedTypeWork ? (
-          <p className="student-expectations__item-description">{expectedTypeWork}</p>
+        {student.expectedTypeWork ? (
+          <p className="student-expectations__item-description">{student.expectedTypeWork}</p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>
         )}
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Docelowe miasto, gdzie chce pracować kandydat</p>
-        {targetWorkCity ? (
-          <p className="student-expectations__item-description">{targetWorkCity}</p>
+        {student.targetWorkCity ? (
+          <p className="student-expectations__item-description">{student.targetWorkCity}</p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>
         )}
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Oczekiwany typ kontraktu</p>
-        {expectedContractType ? (
-          <p className="student-expectations__item-description">{expectedContractType}</p>
+        {student.expectedContractType ? (
+          <p className="student-expectations__item-description">{student.expectedContractType}</p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>
         )}
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Oczekiwane wynagrodzenie miesięczne netto</p>
-        {expectedSalary ? (
-          <p className="student-expectations__item-description">{expectedSalary} zł</p>
+        {student.expectedSalary ? (
+          <p className="student-expectations__item-description">{student.expectedSalary} zł</p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>
         )}
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Zgoda na odbycie bezpłatnych praktyk/stażu na początek</p>
-        {canTakeApprenticeship ? (
-          <p className="student-expectations__item-description">{canTakeApprenticeship ? 'TAK' : 'NIE'}</p>
+        {student.canTakeApprenticeship ? (
+          <p className="student-expectations__item-description">{student.canTakeApprenticeship ? 'TAK' : 'NIE'}</p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>
         )}
       </div>
       <div className="student-expectations__item">
         <p className="student-expectations__item-title">Komercyjne doświadczenie w programowaniu</p>
-        {monthsOfCommercialExp ? (
+        {student.monthsOfCommercialExp ? (
           <p className="student-expectations__item-description">
-            {monthsOfCommercialExp} {switchMonths(monthsOfCommercialExp)}
+            {student.monthsOfCommercialExp} {switchMonths(student.monthsOfCommercialExp)}
           </p>
         ) : (
           <p className="student-expectations__item-description">Nie podano</p>

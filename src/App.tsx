@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { StoreState } from './redux-toolkit/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAccessToken, setExpirationTime, setId, setIsLoggedIn, setRole } from './redux-toolkit/features/user/user-slice';
+import { AdminRoutes, HrRoutes, StudentRoutes } from './utils/protected-routes';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+
 import { LoginView } from './pages/LoginView/LoginView';
-import { Route, Routes } from 'react-router-dom';
 import { RegisterView } from './pages/RegisterView/RegisterView';
 import { ForgotPasswordView } from './pages/ForgotPasswordView/ForgotPasswordView';
 import { ChangePasswordView } from './pages/ChangePasswordView/ChangePasswordView';
@@ -9,17 +16,12 @@ import { HrSelectedStudentsView } from './pages/HrSelectedStudentsView/HrSelecte
 import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProfileView';
 import { StudentView } from './pages/StudentView/StudentView';
 import { HrProfileView } from './pages/HrProfileView/HrProfileView';
-import { StoreState } from './redux-toolkit/store';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken, setExpirationTime, setId, setRole } from './redux-toolkit/features/user/user-slice';
-import { AdminRoutes, HrRoutes, StudentRoutes } from './utils/protected-routes';
 import { HomeAdmin } from './components/HomeAdmin/HomeAdmin';
 
 export const App = () => {
-  const { expirationTime } = useSelector((store: StoreState) => store.user);
+  const { expirationTime, role } = useSelector((store: StoreState) => store.user);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const axiosJWT = axios.create();
 
   const refreshToken = async () => {
@@ -38,6 +40,9 @@ export const App = () => {
       dispatch(setAccessToken(data.accessToken));
       dispatch(setExpirationTime(decoded.exp));
       dispatch(setRole(data.role));
+      if (data) {
+        dispatch(setIsLoggedIn(true));
+      }
     } catch (error) {
       return;
     }
@@ -61,6 +66,9 @@ export const App = () => {
         dispatch(setAccessToken(data.accessToken));
         dispatch(setExpirationTime(decoded.exp));
         dispatch(setRole(data.role));
+        if (data) {
+          dispatch(setIsLoggedIn(true));
+        }
       }
       return config;
     },
@@ -71,6 +79,19 @@ export const App = () => {
 
   useEffect(() => {
     refreshToken();
+    if (role !== '') {
+      switch (role) {
+        case 'admin':
+          navigate('/home-admin');
+          break;
+        case 'hr':
+          navigate('/hr/home');
+          break;
+        case 'student':
+          navigate('/student');
+          break;
+      }
+    }
   }, []);
 
   return (
