@@ -66,7 +66,7 @@ export const SearchByFilterForHRHome = () => {
               <span className="hr_line_searchText">Szukaj</span>
             </InputAdornment>
           ),
-        }}></MainStyledTextField>
+        }}/>
       <FilterButton onClick={handleClickOpen}>
         <FilterAltIcon
           sx={{

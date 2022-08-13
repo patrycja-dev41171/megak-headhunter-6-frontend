@@ -9,6 +9,7 @@ import { MainButton } from '../../common/MainButton/MainButton';
 
 import './OneSelectedStudentOnList.css';
 import { Avatar } from '@mui/material';
+import {StudentGradesAndExpectationsForHR} from "../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR";
 
 export const OneSelectedStudentOnList = () => {
   const Accordion = styled((props: AccordionProps) => (
@@ -95,7 +96,9 @@ export const OneSelectedStudentOnList = () => {
           </div>
         </Typography>
       </AccordionSummary>
-      <AccordionDetails>Miejsce na komponent</AccordionDetails>
+      <AccordionDetails>
+        {/*<StudentGradesAndExpectationsForHR/>*/}
+      </AccordionDetails>
     </Accordion>
   );
 };
