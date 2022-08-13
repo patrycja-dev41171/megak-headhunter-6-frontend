@@ -5,6 +5,7 @@ interface User {
   accessToken: string;
   expirationTime: number;
   role: string;
+  isLoggedIn: boolean;
 }
 
 const initialState: User = {
@@ -12,6 +13,7 @@ const initialState: User = {
   accessToken: '',
   expirationTime: 0,
   role: '',
+  isLoggedIn: false,
 };
 
 interface SetId {
@@ -30,6 +32,10 @@ interface SetRole {
   payload: string;
 }
 
+interface SetIsLoggedIn {
+  payload: boolean;
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -46,7 +52,10 @@ export const userSlice = createSlice({
     setRole: (state, action: SetRole) => {
       state.role = action.payload;
     },
+    setIsLoggedIn: (state, action: SetIsLoggedIn) => {
+      state.isLoggedIn = action.payload;
+    },
   },
 });
 
-export const {setId, setAccessToken, setExpirationTime, setRole} = userSlice.actions;
+export const {setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn} = userSlice.actions;

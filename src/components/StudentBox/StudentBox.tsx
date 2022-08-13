@@ -10,9 +10,11 @@ import { studentEntityFront } from 'types';
 import './StudentBox.css';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { useNavigate } from 'react-router-dom';
 
 export const StudentBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
+  const [render, setRender] = useState(false);
   const [studentData, setStudentData] = useState<studentEntityFront>({
     email: '',
     courseCompletion: 0,
@@ -38,6 +40,15 @@ export const StudentBox = () => {
     courses: null,
     status: null,
   });
+  const [value, setValue] = useState('');
+  let navigate = useNavigate();
+  const updateValue = (datafromChild: any) => {
+    setValue(datafromChild);
+  };
+
+  const handleRender = (render: boolean) => {
+    setRender(render);
+  };
 
   //modal
   const [openModal, setOpenModal] = useState(false);
@@ -57,6 +68,7 @@ export const StudentBox = () => {
         });
         const data = await res.json();
         await setStudentData(data);
+        setRender(false);
         if (data.message) {
           setFeedbackError(data.message);
           setOpenModal(true);
@@ -66,7 +78,7 @@ export const StudentBox = () => {
       }
     };
     getData();
-  }, []);
+  }, [render]);
 
   return (
     <>
@@ -118,7 +130,7 @@ export const StudentBox = () => {
 
             <div className="studentView_subtitle">
               <h3>Uzupełnij swój profil</h3>
-              {studentData.status === null ? (
+              {studentData.firstName === null ? (
                 <span className="studentView_subtitleInstruction">Jesteś niewidoczny dla HR. Uzupełnij dane w formularzu.</span>
               ) : (
                 <span className="studentView_subtitleInstruction studentView_subtitleInstruction_success">Twój profil jest widoczny.</span>
@@ -145,6 +157,7 @@ export const StudentBox = () => {
                   courses={studentData.courses}
                   expectedContractType={studentData.expectedContractType}
                   targetWorkCity={studentData.targetWorkCity}
+                  renderComponent={render => handleRender(render)}
                 />
               ) : null}
             </div>
