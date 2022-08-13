@@ -8,6 +8,7 @@ interface User {
   role: string;
   isLoggedIn: boolean;
   studentsList: StudentGetAll[];
+  studentsContainer: StudentGetAll[];
 }
 
 const initialState: User = {
@@ -17,6 +18,7 @@ const initialState: User = {
   role: '',
   isLoggedIn: false,
   studentsList: [],
+  studentsContainer: [],
 };
 
 interface SetId {
@@ -43,6 +45,7 @@ interface SetStudentList {
   payload: StudentGetAll[];
 }
 
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -64,8 +67,12 @@ export const userSlice = createSlice({
     },
     setStudentList: (state, action: SetStudentList) => {
       state.studentsList = action.payload;
+      state.studentsContainer = action.payload;
+    },
+    filteredUsers: (state, action) => {
+      state.studentsList = state.studentsContainer.filter(student => student.firstName.toLowerCase().includes(action.payload));
     },
   },
 });
 
-export const {setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList} = userSlice.actions;
+export const { setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList, filteredUsers } = userSlice.actions;
