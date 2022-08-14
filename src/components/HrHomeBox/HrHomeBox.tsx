@@ -63,7 +63,7 @@ export const HrHomeBox = () => {
   useEffect(() => {
     const getStudentsData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/hr/home/getAll`, {
+        const res = await fetch(`http://localhost:8080/hr/home/getAll/${id}`, {
           method: 'GET',
         });
         const data = await res.json();

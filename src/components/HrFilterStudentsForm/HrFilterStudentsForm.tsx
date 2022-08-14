@@ -101,7 +101,7 @@ export const HrFilterStudentsForm = (props: Props) => {
   const submitForm: SubmitHandler<any> = async data => {
     if (window.location.href === 'http://localhost:3000/hr/home') {
       try {
-        const res = await fetch(`http://localhost:8080/hr/home/filterList`, {
+        const res = await fetch(`http://localhost:8080/hr/home/filterList/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
