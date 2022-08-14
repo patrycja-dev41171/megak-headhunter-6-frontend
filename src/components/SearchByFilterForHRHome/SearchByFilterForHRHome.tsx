@@ -38,6 +38,9 @@ export const SearchByFilterForHRHome = () => {
         value={inputValue}
         onChange={e => setInputValue(e.target.value.toLowerCase())}
         variant="filled"
+        inputProps={{
+            maxLength: '25',
+        }}
         sx={{
           width: '350px',
           '& .MuiInputBase-input': {

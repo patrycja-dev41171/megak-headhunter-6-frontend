@@ -1,3 +1,9 @@
+.hrHomeBox__contentContainer {
+    background-color: #292A2B;
+    padding: 0 26px 26px 26px;
+}
+
 .hrHomeBox__content {
+    padding-bottom: 1px;
     background-color: #1E1E1F;
 }

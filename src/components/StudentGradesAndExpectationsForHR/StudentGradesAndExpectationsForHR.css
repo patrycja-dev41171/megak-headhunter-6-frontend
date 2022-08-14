@@ -1,31 +1,31 @@
 .student-expectations__wrapper {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #222324;
-    padding: 0;
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    /*align-items: center;*/
+    /*background-color: #222324;*/
+    /*padding: 0;*/
 }
 
 .student-expectations__item {
-    max-width: 164px;
-    border-right: 1px solid #292a2b;
+    /*max-width: 164px;*/
+    /*border-right: 1px solid #292a2b;*/
 }
 
 .student-expectations__item:last-child {
-    border: none;
+    /*border: none;*/
 }
 
 .student-expectations__item-title {
-    height: 34px;
-    font-size: 12px;
-    color: #cfcfcf;
-    line-height: 1.2;
+    /*height: 34px;*/
+    /*font-size: 12px;*/
+    /*color: #cfcfcf;*/
+    /*line-height: 1.2;*/
 }
 
 .student-expectations__item-description {
-    padding-top: 10px ;
-    font-size: 15px;
-    color: #f7f7f7;
+    /*padding-top: 10px ;*/
+    /*font-size: 15px;*/
+    /*color: #f7f7f7;*/
 }
 
 .student-expectations__item-description__span {

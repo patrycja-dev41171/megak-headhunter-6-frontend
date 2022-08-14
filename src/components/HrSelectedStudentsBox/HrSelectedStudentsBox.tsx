@@ -13,119 +13,123 @@ import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 
 export const HrSelectedStudentsBox = () => {
-  const { id, selectedStudentsList } = useSelector((store: StoreState) => store.user);
-  const [render, setRender] = useState(false);
-  const [feedbackError, setFeedbackError] = useState('');
-  const [feedbackSuccess, setFeedbackSuccess] = useState('');
-  const [openModal, setOpenModal] = useState(false);
-  const [hrData, setHrData] = useState<HrFrontEntity>({
-    id: '',
-    user_id: '',
-    email: '',
-    fullName: '',
-    company: '',
-    maxReservedStudents: 0,
-    img_src: '',
-    reservedStudents: 0,
-  });
+    const { id, selectedStudentsList } = useSelector((store: StoreState) => store.user);
+    const [render, setRender] = useState(false);
+    const [feedbackError, setFeedbackError] = useState('');
+    const [feedbackSuccess, setFeedbackSuccess] = useState('');
+    const [openModal, setOpenModal] = useState(false);
+    const [hrData, setHrData] = useState<HrFrontEntity>({
+        id: '',
+        user_id: '',
+        email: '',
+        fullName: '',
+        company: '',
+        maxReservedStudents: 0,
+        img_src: '',
+        reservedStudents: 0,
+    });
 
-  const handleRender = (render: boolean) => {
-    setRender(render);
-  };
-
-  const dispatch = useDispatch();
-
-  const handleClose = () => {
-    setOpenModal(false);
-  };
-
-  useEffect(() => {
-    const getHrData = async () => {
-      try {
-        const res = await fetch(`http://localhost:8080/hr/${id}`, {
-          method: 'GET',
-        });
-        const data = await res.json();
-        await setHrData({
-          ...data,
-        });
-        if (data.message) {
-          setFeedbackError(data.message);
-          setOpenModal(true);
-        }
-      } catch (err) {
-        console.log(err);
-      }
+    const handleRender = (render: boolean) => {
+        setRender(render);
     };
-    getHrData();
-  }, []);
 
-  useEffect(() => {
-    const getStudentsData = async () => {
-      try {
-        const res = await fetch(`http://localhost:8080/hr/selected/students/${id}`, {
-          method: 'GET',
-        });
-        const data = await res.json();
+    const dispatch = useDispatch();
 
-        if (data.message) {
-          dispatch(SetSelectedStudentList([]));
-          setFeedbackError(data.message);
-          setOpenModal(true);
-        }
-        if (!data.message) {
-          dispatch(SetSelectedStudentList(data));
-        }
-        setRender(false);
-      } catch (err) {
-        console.log(err);
-      }
+    const handleClose = () => {
+        setOpenModal(false);
     };
-    getStudentsData();
-  }, [render]);
 
-  return (
-    <div className="mainBackground pageWithHeader">
-      <Container
-        sx={{
-          marginTop: '26px',
-          '&.MuiContainer-root': {
-            maxWidth: '1430px',
-          },
-        }}>
-        <Header
-          img_alt={hrData.fullName}
-          img_src={hrData.img_src ? hrData.img_src : undefined}
-          fullName={hrData.fullName}
-          role="hr"
-          id={hrData.user_id}
-        />
-        <NavbarForHRHome />
-        <SearchByFilterForHRHome />
-        {selectedStudentsList === []
-          ? null
-          : selectedStudentsList.map(el => {
-              return (
-                <OneSelectedStudentOnList
-                  student={el}
-                  key={el.user_id}
-                  renderComponent={render => handleRender(render)}
+    useEffect(() => {
+        const getHrData = async () => {
+            try {
+                const res = await fetch(`http://localhost:8080/hr/${id}`, {
+                    method: 'GET',
+                });
+                const data = await res.json();
+                await setHrData({
+                    ...data,
+                });
+                if (data.message) {
+                    setFeedbackError(data.message);
+                    setOpenModal(true);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getHrData();
+    }, []);
+
+    useEffect(() => {
+        const getStudentsData = async () => {
+            try {
+                const res = await fetch(`http://localhost:8080/hr/selected/students/${id}`, {
+                    method: 'GET',
+                });
+                const data = await res.json();
+
+                if (data.message) {
+                    dispatch(SetSelectedStudentList([]));
+                    setFeedbackError(data.message);
+                    setOpenModal(true);
+                }
+                if (!data.message) {
+                    dispatch(SetSelectedStudentList(data));
+                }
+                setRender(false);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getStudentsData();
+    }, [render]);
+
+    return (
+        <div className="mainBackground pageWithHeader">
+            <Container
+                sx={{
+                    marginTop: '26px',
+                    '&.MuiContainer-root': {
+                        maxWidth: '1430px',
+                    },
+                }}>
+                <Header
+                    img_alt={hrData.fullName}
+                    img_src={hrData.img_src ? hrData.img_src : undefined}
+                    fullName={hrData.fullName}
+                    role="hr"
+                    id={hrData.user_id}
                 />
-              );
-            })}
-        {openModal && (
-          <SimpleDialog
-            open={openModal}
-            onClose={handleClose}>
-            {openModal && (
-              <DisplayAlertModals
-                error={feedbackError}
-                success={feedbackSuccess}
-              />
-            )}
-          </SimpleDialog>
-        )}
-      </Container>
-    </div>
-  );
+                <div className="hrSelStudBox__contentContainer">
+                    <div className="hrSelStudBox__content">
+                <NavbarForHRHome />
+                <SearchByFilterForHRHome />
+                {selectedStudentsList === []
+                    ? null
+                    : selectedStudentsList.map(el => {
+                        return (
+                            <OneSelectedStudentOnList
+                                student={el}
+                                key={el.user_id}
+                                renderComponent={render => handleRender(render)}
+                            />
+                        );
+                    })}
+                {openModal && (
+                    <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}>
+                        {openModal && (
+                            <DisplayAlertModals
+                                error={feedbackError}
+                                success={feedbackSuccess}
+                            />
+                        )}
+                    </SimpleDialog>
+                )}
+                    </div>
+                </div>
+            </Container>
+        </div>
+    );
 };

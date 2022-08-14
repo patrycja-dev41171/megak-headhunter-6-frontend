@@ -1,3 +1,13 @@
+.hrSelStudBox__contentContainer {
+    background-color: #292A2B;
+    padding: 0 26px 26px 26px;
+}
+
+.hrSelStudBox__content {
+    padding-bottom: 1px;
+    background-color: #1E1E1F;
+}
+
 .hr-selected-students__content {
     display: flex;
     flex-direction: column;
