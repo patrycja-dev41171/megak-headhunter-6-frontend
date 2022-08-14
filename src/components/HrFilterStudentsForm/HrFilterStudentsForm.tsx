@@ -11,9 +11,7 @@ import { ToggleButtonFilterStudents } from '../../common/ToggleButtonFilterStude
 import { FilteredStudentsInput } from '../StyledComponents/MainStyledTextField';
 import { StudentFilteredValidation } from '../../Validations/StudentFilteredValidation';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStudentList } from '../../redux-toolkit/features/user/user-slice';
-import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { SetSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { StoreState } from '../../redux-toolkit/store';
 
 interface StudentValues {
@@ -30,11 +28,11 @@ interface StudentValues {
 }
 
 interface Props {
-handleClose: () => void;
+  handleClose: () => void;
 }
 
 export const HrFilterStudentsForm = (props: Props) => {
-  const { studentsList } = useSelector((store: StoreState) => store.user);
+  const { id } = useSelector((store: StoreState) => store.user);
 
   const [expectedTypesWork, setExpectedTypesWork] = useState<string[] | null>(() => null);
   const [expectedContractTypes, setExpectedContractTypes] = useState<string[] | null>(() => null);
@@ -100,33 +98,49 @@ export const HrFilterStudentsForm = (props: Props) => {
     setValue('expectedContractType', newChoices);
   };
 
-//modal
- const [openModal, setOpenModal] = useState(false);
-
-//infoFromBackendStatus
-  const [feedbackError, setFeedbackError] = useState('');
-  const [feedbackSuccess, setFeedbackSuccess] = useState('');
-
   const submitForm: SubmitHandler<any> = async data => {
-    try {
-      const res = await fetch(`http://localhost:8080/hr/home/filterList`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+    if (window.location.href === 'http://localhost:3000/hr/home') {
+      try {
+        const res = await fetch(`http://localhost:8080/hr/home/filterList`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        if (result.message) {
+          dispatch(setStudentList([]));
+        }
+        if (!result.message) {
+          dispatch(setStudentList(result));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else if (window.location.href === 'http://localhost:3000/hr/selected-students') {
+      try {
+        const res = await fetch(`http://localhost:8080/hr/home/selectedStudents/filterList`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...data,
+            hr_id: id,
+          }),
+        });
 
-      const result = await res.json();
-      console.log(result.message);
-      if (result.message) {
-        dispatch(setStudentList([]));
+        const result = await res.json();
+        if (result.message) {
+          dispatch(SetSelectedStudentList([]));
+        }
+        if (!result.message) {
+          dispatch(SetSelectedStudentList(result));
+        }
+      } catch (err) {
+        console.log(err);
       }
-      if (!result.message) {
-        dispatch(setStudentList(result));
-      }
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -145,7 +159,7 @@ export const HrFilterStudentsForm = (props: Props) => {
             <h2 className="formView_header">Filtrowanie</h2>
             <MainButton
               type="button"
-            sx={{
+              sx={{
                 backgroundColor: '#172A35',
                 '&:hover': {
                   backgroundColor: '#172A35',
@@ -199,7 +213,6 @@ export const HrFilterStudentsForm = (props: Props) => {
               }
             />
           </div>
-
 
           {/*---------------------------------OCENA AKTYWNOŚCI I ZAANGAŻOWANIA NA KURSIE-------------------*/}
           <p className="filterStudents_subTitle">Ocena aktywności i zaangażowania na kursie</p>
@@ -498,42 +511,41 @@ export const HrFilterStudentsForm = (props: Props) => {
             </FormControl>
           </div>
 
-
-                    {/*-----------------ILOŚĆ MIESIĘCY DOŚWIADCZENIA KOMERCYJNEGO------------------------------*/}
-                    <p className='filterStudents_subTitle'>Ilość miesięcy doświadczenia komercyjnego kandydata w
-                        programowaniu</p>
-                    <div className="filterStudents_lineContent">
-                        <FilteredStudentsInput
-                            size="small"
-                            type="number"
-                            {...register('monthsOfCommercialExp')}
-                            InputProps={{inputProps: {min: 0, max: 999}}}
-                            variant="filled"
-                            label="ILOŚĆ"
-                            error={!!errors.monthsOfCommercialExp}
-                            helperText={errors.monthsOfCommercialExp ? errors.monthsOfCommercialExp?.message : ''}
-                        />
-                    </div>
-                    <div className="filterStudents_endButtons">
-                        <MainButton
-                            type="button"
-                            onClick={props.handleClose}
-                            sx={{
-                                backgroundColor: '#0a0a0a',
-                                marginRight: '20px',
-                                '&:hover': {
-                                    backgroundColor: '#0a0a0a'
-                                }
-                            }}
-                        >
-                            Anuluj
-                        </MainButton>
-                        <MainButton onClick={props.handleClose} type="submit">Pokaż wyniki</MainButton>
-                    </div>
-                </Container>
-            </form>
-        </>
-    )
-}
-
-         
+          {/*-----------------ILOŚĆ MIESIĘCY DOŚWIADCZENIA KOMERCYJNEGO------------------------------*/}
+          <p className="filterStudents_subTitle">Ilość miesięcy doświadczenia komercyjnego kandydata w programowaniu</p>
+          <div className="filterStudents_lineContent">
+            <FilteredStudentsInput
+              size="small"
+              type="number"
+              {...register('monthsOfCommercialExp')}
+              InputProps={{ inputProps: { min: 0, max: 999 } }}
+              variant="filled"
+              label="ILOŚĆ"
+              error={!!errors.monthsOfCommercialExp}
+              helperText={errors.monthsOfCommercialExp ? errors.monthsOfCommercialExp?.message : ''}
+            />
+          </div>
+          <div className="filterStudents_endButtons">
+            <MainButton
+              type="button"
+              onClick={props.handleClose}
+              sx={{
+                backgroundColor: '#0a0a0a',
+                marginRight: '20px',
+                '&:hover': {
+                  backgroundColor: '#0a0a0a',
+                },
+              }}>
+              Anuluj
+            </MainButton>
+            <MainButton
+              onClick={props.handleClose}
+              type="submit">
+              Pokaż wyniki
+            </MainButton>
+          </div>
+        </Container>
+      </form>
+    </>
+  );
+};

@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, { useState } from 'react';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -6,21 +6,22 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 import { MainButton } from '../../common/MainButton/MainButton';
-import {StudentGradesAndExpectationsForHR} from "../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR";
+import { StudentGradesAndExpectationsForHR } from '../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR';
 import './HrHomeSingleStudent.css';
 import { StudentGetAll } from 'types';
-import {useSelector} from "react-redux";
-import {StoreState} from "../../redux-toolkit/store";
-import SimpleDialog from "@mui/material/Dialog";
-import {DisplayAlertModals} from "../../common/DisplayAlertModals/DisplayAlertModals";
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../redux-toolkit/store';
+import SimpleDialog from '@mui/material/Dialog';
+import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 
 interface HrHomeSingleStudentProps {
-  student: StudentGetAll
+  student: StudentGetAll;
+  renderComponent: (render: boolean) => void;
 }
 
 export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
   const { id } = useSelector((store: StoreState) => store.user);
-  const {student} = props;
+  const { student } = props;
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -29,7 +30,7 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
     setOpenModal(false);
   };
 
-  const handleReservation = async (student_id:string) => {
+  const handleReservation = async (student_id: string) => {
     try {
       const data = await fetch('http://localhost:8080/student/reserved', {
         method: 'POST',
@@ -43,14 +44,14 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
         }),
       });
       const result = await data.json();
-
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
+      props.renderComponent(true);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion
@@ -86,31 +87,31 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
   }));
 
   return (
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
-          aria-controls="panel1a-content"
-          id="panel1a-header">
-          <Typography>
-            {student.firstName} {student.lastName.slice(0, 1)}.
-          </Typography>
-          <MainButton onClick={() => handleReservation(student.user_id)}>Zarezerwuj rozmowę</MainButton>
-        </AccordionSummary>
-        <AccordionDetails>
-          <StudentGradesAndExpectationsForHR student={student}/>
-        </AccordionDetails>
-        {openModal && (
-            <SimpleDialog
-                open={openModal}
-                onClose={handleClose}>
-              {openModal && (
-                  <DisplayAlertModals
-                      error={feedbackError}
-                      success={feedbackSuccess}
-                  />
-              )}
-            </SimpleDialog>
-        )}
-      </Accordion>
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
+        aria-controls="panel1a-content"
+        id="panel1a-header">
+        <Typography>
+          {student.firstName} {student.lastName.slice(0, 1)}.
+        </Typography>
+        <MainButton onClick={() => handleReservation(student.user_id)}>Zarezerwuj rozmowę</MainButton>
+      </AccordionSummary>
+      <AccordionDetails>
+        <StudentGradesAndExpectationsForHR student={student} />
+      </AccordionDetails>
+      {openModal && (
+        <SimpleDialog
+          open={openModal}
+          onClose={handleClose}>
+          {openModal && (
+            <DisplayAlertModals
+              error={feedbackError}
+              success={feedbackSuccess}
+            />
+          )}
+        </SimpleDialog>
+      )}
+    </Accordion>
   );
 };
