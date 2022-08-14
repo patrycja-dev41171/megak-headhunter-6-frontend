@@ -12,7 +12,6 @@ import { HrFrontEntity } from 'types';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 
-
 export const HrSelectedStudentsBox = () => {
     const { id, selectedStudentsList } = useSelector((store: StoreState) => store.user);
     const [render, setRender] = useState(false);
@@ -85,7 +84,6 @@ export const HrSelectedStudentsBox = () => {
         getStudentsData();
     }, [render]);
 
-
     return (
         <div className="mainBackground pageWithHeader">
             <Container
@@ -103,35 +101,35 @@ export const HrSelectedStudentsBox = () => {
                     id={hrData.user_id}
                 />
                 <div className="hrSelStudBox__contentContainer">
-                <div className="hrSelStudBox__content">
-                <NavbarForHRHome/>
-                <SearchByFilterForHRHome/>
-                    {selectedStudentsList === []
-                        ? null
-                        : selectedStudentsList.map(el => {
-                            return (
-                                <OneSelectedStudentOnList
-                                    student={el}
-                                    key={el.user_id}
-                                    renderComponent={render => handleRender(render)}
-                                />
-                            );
-                        })}
-                    {openModal && (
-                        <SimpleDialog
-                            open={openModal}
-                            onClose={handleClose}>
-                            {openModal && (
-                                <DisplayAlertModals
-                                    error={feedbackError}
-                                    success={feedbackSuccess}
-                                />
-                            )}
-                        </SimpleDialog>
-                    )}
-                </div>
+                    <div className="hrSelStudBox__content">
+                <NavbarForHRHome />
+                <SearchByFilterForHRHome />
+                {selectedStudentsList === []
+                    ? null
+                    : selectedStudentsList.map(el => {
+                        return (
+                            <OneSelectedStudentOnList
+                                student={el}
+                                key={el.user_id}
+                                renderComponent={render => handleRender(render)}
+                            />
+                        );
+                    })}
+                {openModal && (
+                    <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}>
+                        {openModal && (
+                            <DisplayAlertModals
+                                error={feedbackError}
+                                success={feedbackSuccess}
+                            />
+                        )}
+                    </SimpleDialog>
+                )}
+                    </div>
                 </div>
             </Container>
         </div>
-        )
+    );
 };

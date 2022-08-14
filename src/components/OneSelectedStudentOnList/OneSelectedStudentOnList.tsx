@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
-import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
-import MuiAccordionSummary, {AccordionSummaryProps} from '@mui/material/AccordionSummary';
+import React, { useState } from 'react';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {styled} from '@mui/material/styles';
-import {MainButton} from '../../common/MainButton/MainButton';
+import { styled } from '@mui/material/styles';
+import { MainButton } from '../../common/MainButton/MainButton';
 
 import './OneSelectedStudentOnList.css';
-import {Avatar} from '@mui/material';
-import {StudentGradesAndExpectationsForHR} from '../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR';
-import {StudentEntityFront} from 'types';
-import {useSelector} from 'react-redux';
-import {StoreState} from '../../redux-toolkit/store';
-import {useNavigate} from 'react-router-dom';
+import { Avatar } from '@mui/material';
+import { StudentGradesAndExpectationsForHR } from '../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR';
+import { StudentEntityFront } from 'types';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../redux-toolkit/store';
+import { useNavigate } from 'react-router-dom';
 
 interface OneSelectedStudentOnListProps {
     student: StudentEntityFront;
@@ -20,8 +21,8 @@ interface OneSelectedStudentOnListProps {
 }
 
 export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) => {
-    const {student} = props;
-    const {id} = useSelector((store: StoreState) => store.user);
+    const { student } = props;
+    const { id } = useSelector((store: StoreState) => store.user);
     let navigate = useNavigate();
 
     const Accordion = styled((props: AccordionProps) => (
@@ -31,18 +32,17 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
             square
             {...props}
         />
-    ))(({theme}) => ({
+    ))(({ theme }) => ({
         marginBottom: '10px',
     }));
 
-    const AccordionSummary = styled((props: AccordionSummaryProps) =>
-        <MuiAccordionSummary {...props} />)(({theme}) => ({
+    const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
         color: '#f7f7f7',
         minHeight: '70px',
         backgroundColor: '#292a2b',
     }));
 
-    const AccordionDetails = styled(MuiAccordionDetails)(({theme}) => ({
+    const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
         padding: '0',
         color: '#f7f7f7',
         backgroundColor: '#292a2b',

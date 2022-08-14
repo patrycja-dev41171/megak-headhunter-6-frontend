@@ -1,5 +1,5 @@
 import React from 'react';
-import {StudentEntityFront, StudentGetAll } from 'types';
+import { StudentEntityFront, StudentGetAll } from 'types';
 import './StudentGradesAndExpectationsForHR.css';
 
 interface StudentGradesAndExpectationsForHRProps {

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { FilterButton } from '../../common/FilterButton/FilterButton';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -9,17 +9,12 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import SimpleDialog from '@mui/material/Dialog';
 import { HrFilterStudentsForm } from '../HrFilterStudentsForm/HrFilterStudentsForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../redux-toolkit/store';
-import { setStudentList } from '../../redux-toolkit/features/user/user-slice';
+import { useDispatch } from 'react-redux';
+import { filteredUsers } from '../../redux-toolkit/features/user/user-slice';
 
 export const SearchByFilterForHRHome = () => {
   const [inputValue, setInputValue] = useState('');
-  const { studentsList } = useSelector((store: StoreState) => store.user);
-  // const dispatch = useDispatch();
-  // dispatch(setStudentList(data))
-
-  //modal for FilterStudents
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -32,12 +27,16 @@ export const SearchByFilterForHRHome = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    dispatch(filteredUsers(inputValue));
+  }, [inputValue]);
+
   return (
     <div className="hr_line__searchByFilterBox">
       {/*input search*/}
       <MainStyledTextField
         value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
+        onChange={e => setInputValue(e.target.value.toLowerCase())}
         variant="filled"
         inputProps={{
             maxLength: '25',
@@ -69,7 +68,8 @@ export const SearchByFilterForHRHome = () => {
               <span className="hr_line_searchText">Szukaj</span>
             </InputAdornment>
           ),
-        }}/>
+        }}
+      />
       <FilterButton onClick={handleClickOpen}>
         <FilterAltIcon
           sx={{
