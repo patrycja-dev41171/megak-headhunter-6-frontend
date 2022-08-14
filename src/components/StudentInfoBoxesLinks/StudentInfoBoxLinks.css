@@ -5,13 +5,13 @@
   justify-content: center;
   min-height: 60px;
   background-color: #222324;
-  padding: 10px 26px;
+  padding: 10px 0;
 }
 
 .student-info-box-links__item {
   display: flex;
   align-items: center;
-  padding: 5px 15px;
+  padding: 5px 0;
 }
 
 .student-info-box-links__item-link {

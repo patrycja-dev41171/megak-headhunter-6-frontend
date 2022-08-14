@@ -119,7 +119,7 @@ export const StudentBox = () => {
               width: '1176px',
             }}>
             <h3 className="studentView_subtitle">Oceny</h3>
-            <div className="studentView_line">
+            <div className="studentView_line studentView_grades">
               <StudentGrades
                 courseCompletion={studentData.courseCompletion}
                 courseEngagement={studentData.courseEngagement}
