@@ -1,9 +1,9 @@
 import React from 'react';
-import { StudentGetAll } from 'types';
+import {StudentEntityFront, StudentGetAll } from 'types';
 import './StudentGradesAndExpectationsForHR.css';
 
 interface StudentGradesAndExpectationsForHRProps {
-  student: StudentGetAll;
+  student: StudentGetAll | StudentEntityFront;
 }
 
 export const StudentGradesAndExpectationsForHR = (props: StudentGradesAndExpectationsForHRProps) => {

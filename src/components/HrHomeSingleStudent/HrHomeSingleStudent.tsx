@@ -2,7 +2,6 @@ import React, {SyntheticEvent, useState} from 'react';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 import { MainButton } from '../../common/MainButton/MainButton';
@@ -60,29 +59,23 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
       {...props}
     />
   ))(({ theme }) => ({
-    marginTop: '3px',
-    '&:not(:last-child)': {
-      border: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    backgroundColor: '#292a2b',
+    marginBottom: '10px',
   }));
 
   const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
     '& .MuiAccordionSummary-content': {
-      marginLeft: theme.spacing(1),
+      display: 'flex',
+      alignItems: 'center',
     },
     color: '#f7f7f7',
-    minHeight: '70px',
+    minHeight: '73px',
+    backgroundColor: '#292a2b',
   }));
 
   const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     padding: '0',
     color: '#f7f7f7',
-    backgroundColor: '#222324',
-    borderBottom: '10px solid #1E1E1F',
+    backgroundColor: '#292a2b',
   }));
 
   return (
@@ -91,9 +84,7 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
           expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
           aria-controls="panel1a-content"
           id="panel1a-header">
-          <Typography>
-            {student.firstName} {student.lastName.slice(0, 1)}.
-          </Typography>
+          <span>{student.firstName} {student.lastName.slice(0, 1)}.</span>
           <MainButton onClick={() => handleReservation(student.user_id)}>Zarezerwuj rozmowę</MainButton>
         </AccordionSummary>
         <AccordionDetails>
