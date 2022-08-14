@@ -2,7 +2,7 @@ import React, { MouseEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaCreatePassword } from '../../Validations/UserValidation';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import { MainButton } from '../../common/MainButton/MainButton';
@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import '../../styles/stylesForForms.css';
+import { apiUrl } from '../../config/api';
 
 type FormValues = {
   registerPassword: string;
@@ -78,7 +79,7 @@ export const RegisterBox = () => {
 
   const submitForm: SubmitHandler<FormValues> = async ({ registerPassword: password, confirmPassword }) => {
     try {
-      const res = await fetch(`http://localhost:8080/register/${userId}/${registerToken}`, {
+      const res = await fetch(`${apiUrl}/register/${userId}/${registerToken}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -86,7 +87,7 @@ export const RegisterBox = () => {
         },
         body: JSON.stringify({
           password,
-          confirmPassword
+          confirmPassword,
         }),
       });
       const result = await res.json();
@@ -94,8 +95,8 @@ export const RegisterBox = () => {
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);
-      if(!result.message){
-        navigate('/login')
+      if (!result.message) {
+        navigate('/login');
       }
     } catch (err) {
       console.log(err);

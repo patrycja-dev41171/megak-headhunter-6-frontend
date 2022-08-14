@@ -18,6 +18,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import '../../styles/stylesForForms.css';
 import { StoreState } from '../../redux-toolkit/store';
+import { apiUrl } from '../../config/api';
 
 interface FormValues {
   loginEmail: string;
@@ -75,7 +76,7 @@ export const LoginBox = () => {
 
   const submitForm: SubmitHandler<FormValues> = async ({ loginEmail: email, loginPassword: password }) => {
     try {
-      const res = await fetch(`http://localhost:8080/login`, {
+      const res = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {

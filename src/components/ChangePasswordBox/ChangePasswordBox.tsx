@@ -15,6 +15,7 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 import '../../styles/stylesForForms.css';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
+import { apiUrl } from '../../config/api';
 
 type FormValues = {
   changedPassword: string;
@@ -82,7 +83,7 @@ export const ChangePasswordBox = () => {
 
   const submitForm: SubmitHandler<FormValues> = async ({ changedPassword: password, confirmChangedPassword: confirmPassword }) => {
     try {
-      const res = await fetch(`http://localhost:8080/change-password/${userId}`, {
+      const res = await fetch(`${apiUrl}/change-password/${userId}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

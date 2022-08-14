@@ -9,6 +9,7 @@ import { MenuBtn } from '../../common/MenuBtn/MenuBtn';
 import { ShowMenuBtn } from '../../common/ShowMenuBtn/ShowMenuBtn';
 
 import './HeaderMenu.css';
+import { apiUrl } from '../../config/api';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -65,7 +66,7 @@ export const HeaderMenu = (props: HeaderMenuProps) => {
   const handleLogout = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      const data = await fetch('http://localhost:8080/login', {
+      const data = await fetch(`${apiUrl}/login`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {

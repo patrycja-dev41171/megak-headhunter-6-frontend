@@ -17,6 +17,7 @@ import { HrStudentProfileView } from './pages/HrStudentProfileView/HrStudentProf
 import { StudentView } from './pages/StudentView/StudentView';
 import { HrProfileView } from './pages/HrProfileView/HrProfileView';
 import { HomeAdmin } from './components/HomeAdmin/HomeAdmin';
+import { apiUrl } from './config/api';
 
 export const App = () => {
   const { expirationTime, role } = useSelector((store: StoreState) => store.user);
@@ -26,7 +27,7 @@ export const App = () => {
 
   const refreshToken = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/refresh-token`, {
+      const res = await fetch(`${apiUrl}/refresh-token`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -52,7 +53,7 @@ export const App = () => {
     async config => {
       const currentDate = new Date();
       if (expirationTime * 1000 < currentDate.getTime()) {
-        const res: any = await fetch(`http://localhost:8080/refresh-token`, {
+        const res: any = await fetch(`${apiUrl}/refresh-token`, {
           method: 'GET',
           credentials: 'include',
           headers: {

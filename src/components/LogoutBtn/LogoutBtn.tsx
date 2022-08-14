@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 import { SmallBtn } from '../../common/SmallBtn/SmallBtn';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../config/api';
 
 export const LogoutBtn = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export const LogoutBtn = () => {
   const handleLogout = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      const data = await fetch('http://localhost:8080/login', {
+      const data = await fetch(`${apiUrl}/login`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {

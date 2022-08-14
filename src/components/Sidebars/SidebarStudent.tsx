@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { Avatar } from '@mui/material';
 import { MainButton } from '../../common/MainButton/MainButton';
@@ -10,11 +10,8 @@ import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import './Sidebar.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  setAccessToken,
-  setExpirationTime,
-  setId, setRole
-} from "../../redux-toolkit/features/user/user-slice";
+import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-toolkit/features/user/user-slice';
+import { apiUrl } from '../../config/api';
 
 interface SidebarStudentProps {
   img_alt?: string | undefined;
@@ -36,7 +33,6 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
@@ -53,7 +49,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
     );
     if (isConfirm) {
       try {
-        const data = await fetch('http://localhost:8080/student/hired', {
+        const data = await fetch(`${apiUrl}/student/hired`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -69,7 +65,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
         setOpenModal(true);
         if (result && role === 'student') {
           try {
-            const res = await fetch('http://localhost:8080/login', {
+            const res = await fetch(`${apiUrl}/login`, {
               method: 'DELETE',
               credentials: 'include',
               headers: {
@@ -78,8 +74,8 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
               },
             });
             const data = await res.json();
-            dispatch(setId(""));
-            dispatch(setAccessToken(""));
+            dispatch(setId(''));
+            dispatch(setAccessToken(''));
             dispatch(setExpirationTime(0));
             dispatch(setRole(''));
             if (data) {
@@ -88,8 +84,8 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
           } catch (error) {
             console.log(error);
           }
-        } else if(result) {
-          navigate('/hr/selected-students')
+        } else if (result) {
+          navigate('/hr/selected-students');
         }
       } catch (err) {
         console.log(err);
@@ -101,7 +97,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
     const isConfirm = window.confirm('Czy jesteś pewien, że chcesz odrzucić tego kursanta?');
     if (isConfirm) {
       try {
-        const data = await fetch('http://localhost:8080/student/cancel/reservation', {
+        const data = await fetch(`${apiUrl}/student/cancel/reservation`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -116,8 +112,8 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
         setFeedbackSuccess(result);
         setFeedbackError(result.message);
         setOpenModal(true);
-        if(result) {
-          navigate('/hr/selected-students')
+        if (result) {
+          navigate('/hr/selected-students');
         }
       } catch (err) {
         console.log(err);
