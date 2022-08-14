@@ -10,6 +10,7 @@ interface User {
   studentsList: StudentGetAll[];
   selectedStudentsList: StudentEntityFront[];
   selectedStudentsContainer: StudentEntityFront[];
+  studentsContainer: StudentGetAll[];
 }
 
 const initialState: User = {
@@ -21,6 +22,7 @@ const initialState: User = {
   studentsList: [],
   selectedStudentsList: [],
   selectedStudentsContainer: [],
+  studentsContainer: [],
 };
 
 interface SetId {
@@ -72,6 +74,10 @@ export const userSlice = createSlice({
     },
     setStudentList: (state, action: SetStudentList) => {
       state.studentsList = action.payload;
+      state.studentsContainer = action.payload;
+    },
+    filteredUsers: (state, action) => {
+      state.studentsList = state.studentsContainer.filter(student => student.firstName.toLowerCase().includes(action.payload));
     },
     SetSelectedStudentList: (state, action: SetSelectedStudentList) => {
       state.selectedStudentsList = action.payload;
@@ -80,4 +86,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList, SetSelectedStudentList } = userSlice.actions;
+export const { setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList, SetSelectedStudentList, filteredUsers } = userSlice.actions;
+
