@@ -10,7 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import SimpleDialog from '@mui/material/Dialog';
 import { HrFilterStudentsForm } from '../HrFilterStudentsForm/HrFilterStudentsForm';
 import { useDispatch } from 'react-redux';
-import { filteredUsers } from '../../redux-toolkit/features/user/user-slice';
+import { filteredSelectedUsers, filteredUsers } from '../../redux-toolkit/features/user/user-slice';
 
 export const SearchByFilterForHRHome = () => {
   const [inputValue, setInputValue] = useState('');
@@ -28,6 +28,10 @@ export const SearchByFilterForHRHome = () => {
   };
 
   useEffect(() => {
+    const url = window.location.href;
+    if (url === 'http://localhost:3000/hr/selected-students') {
+      dispatch(filteredSelectedUsers(inputValue));
+    }
     dispatch(filteredUsers(inputValue));
   }, [inputValue]);
 
@@ -39,7 +43,7 @@ export const SearchByFilterForHRHome = () => {
         onChange={e => setInputValue(e.target.value.toLowerCase())}
         variant="filled"
         inputProps={{
-            maxLength: '25',
+          maxLength: '25',
         }}
         sx={{
           width: '350px',

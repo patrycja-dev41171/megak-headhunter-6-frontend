@@ -7,7 +7,7 @@ import { SearchByFilterForHRHome } from '../SearchByFilterForHRHome/SearchByFilt
 import { OneSelectedStudentOnList } from '../OneSelectedStudentOnList/OneSelectedStudentOnList';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
-import { SetSelectedStudentList } from '../../redux-toolkit/features/user/user-slice';
+import { setSelectedStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { HrFrontEntity } from 'types';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
@@ -69,12 +69,12 @@ export const HrSelectedStudentsBox = () => {
                 const data = await res.json();
 
                 if (data.message) {
-                    dispatch(SetSelectedStudentList([]));
+                    dispatch(setSelectedStudentList([]));
                     setFeedbackError(data.message);
                     setOpenModal(true);
                 }
                 if (!data.message) {
-                    dispatch(SetSelectedStudentList(data));
+                    dispatch(setSelectedStudentList(data));
                 }
                 setRender(false);
             } catch (err) {

@@ -53,6 +53,14 @@ interface SetSelectedStudentList {
   payload: StudentEntityFront[];
 }
 
+interface FilteredUsers {
+  payload: string;
+}
+
+interface FilteredSelectedUsers {
+  payload: string;
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -76,15 +84,31 @@ export const userSlice = createSlice({
       state.studentsList = action.payload;
       state.studentsContainer = action.payload;
     },
-    filteredUsers: (state, action) => {
+    filteredUsers: (state, action: FilteredUsers) => {
       state.studentsList = state.studentsContainer.filter(student => student.firstName.toLowerCase().includes(action.payload));
     },
-    SetSelectedStudentList: (state, action: SetSelectedStudentList) => {
+    setSelectedStudentList: (state, action: SetSelectedStudentList) => {
       state.selectedStudentsList = action.payload;
       state.selectedStudentsContainer = action.payload;
+    },
+    filteredSelectedUsers: (state, action: FilteredSelectedUsers) => {
+      state.selectedStudentsList = state.selectedStudentsContainer.filter(student => {
+            const name = `${student.firstName}${student.lastName}`
+            return name.toLowerCase().includes(action.payload)
+          }
+      );
     },
   },
 });
 
-export const { setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList, SetSelectedStudentList, filteredUsers } = userSlice.actions;
-
+export const {
+  setId,
+  setAccessToken,
+  setExpirationTime,
+  setRole,
+  setIsLoggedIn,
+  setStudentList,
+  setSelectedStudentList,
+  filteredUsers,
+  filteredSelectedUsers,
+} = userSlice.actions;
