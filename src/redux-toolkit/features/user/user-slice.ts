@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { StudentGetAll } from 'types';
+import { StudentGetAll, StudentEntityFront } from 'types';
 
 interface User {
   id: string;
@@ -8,6 +8,8 @@ interface User {
   role: string;
   isLoggedIn: boolean;
   studentsList: StudentGetAll[];
+  selectedStudentsList: StudentEntityFront[];
+  selectedStudentsContainer: StudentEntityFront[];
 }
 
 const initialState: User = {
@@ -17,6 +19,8 @@ const initialState: User = {
   role: '',
   isLoggedIn: false,
   studentsList: [],
+  selectedStudentsList: [],
+  selectedStudentsContainer: [],
 };
 
 interface SetId {
@@ -43,6 +47,10 @@ interface SetStudentList {
   payload: StudentGetAll[];
 }
 
+interface SetSelectedStudentList {
+  payload: StudentEntityFront[];
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -65,7 +73,11 @@ export const userSlice = createSlice({
     setStudentList: (state, action: SetStudentList) => {
       state.studentsList = action.payload;
     },
+    SetSelectedStudentList: (state, action: SetSelectedStudentList) => {
+      state.selectedStudentsList = action.payload;
+      state.selectedStudentsContainer = action.payload;
+    },
   },
 });
 
-export const {setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList} = userSlice.actions;
+export const { setId, setAccessToken, setExpirationTime, setRole, setIsLoggedIn, setStudentList, SetSelectedStudentList } = userSlice.actions;
