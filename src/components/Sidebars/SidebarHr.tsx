@@ -20,7 +20,7 @@ interface SidebarHrProps {
 
 export const SidebarHr = (props: SidebarHrProps) => {
   const { img_src, fullName, email } = props;
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken} = useSelector((store: StoreState) => store.user);
   const [imageSelected, setImageSelected] = useState<any>('');
   const [imagePreview, setImagePreview] = useState<string | null>(img_src);
   const [fileName, setFileName] = useState<string>('');
@@ -57,6 +57,11 @@ export const SidebarHr = (props: SidebarHrProps) => {
     try {
       const res = await fetch(`${apiUrl}/env/cloud-connection`, {
         method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
       });
       const data = await res.json();
       setFeedbackError(data.message);
@@ -80,6 +85,11 @@ export const SidebarHr = (props: SidebarHrProps) => {
       formData.append('upload_preset', env.upload_preset);
       const res = await fetch(`https://api.cloudinary.com/${env.api_call}`, {
         method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
         body: formData,
       });
       const data = await res.json();
@@ -101,6 +111,7 @@ export const SidebarHr = (props: SidebarHrProps) => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           id: id,

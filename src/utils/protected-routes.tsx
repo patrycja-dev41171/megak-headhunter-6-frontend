@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router';
-import {useAuth} from './useAuth';
+import { useAuth } from './useAuth';
 import { LoginView } from '../pages/LoginView/LoginView';
 
 export const AdminRoutes = () => {
   const role = useAuth();
-  return role === 'admin' ? <Outlet /> : <LoginView/>;
+  return role === 'admin' ? <Outlet /> : <LoginView />;
 };
 
 export const HrRoutes = () => {

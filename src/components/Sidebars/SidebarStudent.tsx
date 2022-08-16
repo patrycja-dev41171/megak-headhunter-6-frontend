@@ -27,7 +27,7 @@ interface SidebarStudentProps {
 
 export const SidebarStudent = (props: SidebarStudentProps) => {
   const { img_alt, img_src, firstName, lastName, githubUsername, tel, email, bio, secondBtn } = props;
-  const { id, role } = useSelector((store: StoreState) => store.user);
+  const { id, role, accessToken } = useSelector((store: StoreState) => store.user);
 
   const { studentId } = useParams();
   let navigate = useNavigate();
@@ -54,6 +54,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             user_id: studentId ?? id,
@@ -102,6 +103,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             hr_id: id,

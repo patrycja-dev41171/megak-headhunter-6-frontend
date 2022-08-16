@@ -55,13 +55,11 @@ export const LoginBox = () => {
     e.preventDefault();
   };
 
-  //modal
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 

@@ -23,7 +23,7 @@ interface OneSelectedStudentOnListProps {
 
 export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) => {
   const { student } = props;
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
   let navigate = useNavigate();
 
   const Accordion = styled((props: AccordionProps) => (
@@ -70,6 +70,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             hr_id: id,
@@ -99,6 +100,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             user_id: student_id,
@@ -114,6 +116,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
       }
     }
   };
+
   return (
     <Accordion>
       <AccordionSummary

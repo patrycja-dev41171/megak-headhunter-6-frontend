@@ -4,17 +4,18 @@ import { NavbarForHRHome } from '../NavbarForHRHome/NavbarForHRHome';
 import { Container } from '@mui/material';
 import { HrHomeSingleStudent } from '../HrHomeSingleStudent/HrHomeSingleStudent';
 import { SearchByFilterForHRHome } from '../SearchByFilterForHRHome/SearchByFilterForHRHome';
-import './HrHomeBox.css';
 import { HrFrontEntity } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import { apiUrl } from '../../config/api';
 import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
+import { apiUrl } from '../../config/api';
+
+import './HrHomeBox.css';
 
 export const HrHomeBox = () => {
-  const { id, studentsList } = useSelector((store: StoreState) => store.user);
+  const { id, studentsList, accessToken } = useSelector((store: StoreState) => store.user);
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -45,6 +46,9 @@ export const HrHomeBox = () => {
       try {
         const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
         });
         const data = await res.json();
         await setHrData({
@@ -66,6 +70,9 @@ export const HrHomeBox = () => {
       try {
         const res = await fetch(`${apiUrl}/hr/home/getAll/${id}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
         });
         const data = await res.json();
         dispatch(setStudentList(data));

@@ -1,102 +1,102 @@
 .formView_header {
-    color: #f7f7f7;
-    margin: 5px;
-    font-size: 25px;
+  color: #f7f7f7;
+  margin: 5px;
+  font-size: 25px;
 }
 
 .formView_header_instruction {
-    color: #7E7E7E;
-    margin: 5px 30vw;
-    font-size: 16px;
+  color: #7e7e7e;
+  margin: 5px 30vw;
+  font-size: 16px;
 }
 
 .formView_form {
-    width: 350px;
+  width: 350px;
 }
 
 .formView_input {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .formView_forgotPasswordBtnBox {
-    text-align: right;
-    margin: 12px 0;
+  text-align: right;
+  margin: 12px 0;
 }
 
 .addHrFormView_form {
-    width: 500px;
+  width: 500px;
 }
 
 .addHrFormView_header {
-    color: #f7f7f7;
-    margin: 5px;
-    font-size: 20px;
+  color: #f7f7f7;
+  margin: 5px;
+  font-size: 20px;
 }
 
 .filterStudents_header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .filterStudents_endButtons {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .filterStudents_subTitle {
-    color: #f7f7f7;
-    padding: 0 5px;
-    font-size: 14px;
+  color: #f7f7f7;
+  padding: 0 5px;
+  font-size: 14px;
 }
 
 .filterStudents_lineContentStars {
-    padding: 5px 5px 10px 5px;
+  padding: 5px 5px 10px 5px;
 }
 
 .filterStudents_lineContent {
-    margin: 5px 5px 20px 5px;
+  margin: 5px 5px 20px 5px;
 }
 
 .filterStudents_lineContent_practice {
-    margin: 5px 5px 15px 5px;
+  margin: 5px 5px 15px 5px;
 }
 
 .filterStudents_starNumbersBox {
-    color: #f7f7f7;
-    position: relative;
+  color: #f7f7f7;
+  position: relative;
 }
 
 .filterStudents_numberAtStar {
-    font-size: 15px;
-    position: absolute;
-    top: -1px;
-    width: 45px;
-    padding: 2px 30px 2px 10px;
-    background-color: #292A2B;
+  font-size: 15px;
+  position: absolute;
+  top: -1px;
+  width: 45px;
+  padding: 2px 30px 2px 10px;
+  background-color: #292a2b;
 }
 
 .filterStudents_inputsSalaryBox {
-    line-height: 37px;
+  line-height: 37px;
 }
 
 .filterStudents_inputPrefix {
-    color: #f7f7f7;
-    padding: 0 10px 0 0;
-    font-size: 14px;
+  color: #f7f7f7;
+  padding: 0 10px 0 0;
+  font-size: 14px;
 }
 
 .starNumber2 {
-    left: 50px;
+  left: 50px;
 }
 
 .starNumber3 {
-    left: 100px;
+  left: 100px;
 }
 
 .starNumber4 {
-    left: 150px;
+  left: 150px;
 }
 
 .starNumber5 {
-    left: 200px;
+  left: 200px;
 }

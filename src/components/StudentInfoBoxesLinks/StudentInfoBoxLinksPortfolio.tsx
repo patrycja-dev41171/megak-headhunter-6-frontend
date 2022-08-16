@@ -12,9 +12,9 @@ export const StudentInfoBoxLinksPortfolio = (props: StudentInfoBoxLinksPortfolio
 
   const checkUrl = (url: string) => {
     if (url.substring(0, 4) !== 'http') {
-      return `//${url}`
+      return `//${url}`;
     }
-    return url
+    return url;
   };
 
   useEffect(() => {

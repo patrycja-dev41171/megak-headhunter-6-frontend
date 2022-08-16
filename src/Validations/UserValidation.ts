@@ -1,7 +1,5 @@
 import * as yup from 'yup';
 
-//błędy walidacji na froncie tworzymy dla kazdego formularza osobny obiekt tylko z polami które występują w formularzu
-
 export const schemaForgotPassword = yup
   .object()
   .shape({
@@ -48,17 +46,15 @@ export const schemaAddHr = yup
   .required('Musisz podać liczbę studentów');
 
 //login
-export const schemaLogin = yup
-  .object()
-  .shape({
-    loginEmail: yup
-        .string()
-        .min(5, 'Email musi posiadać przynajmniej 5 znaków')
-        .max(255, 'Email nie może być dłuższy niż 255 znaków')
-        .required('Podaj email'),
-    loginPassword: yup.string().min(1, 'Pole nie może być puste'),
-  });
-  // .required();
+export const schemaLogin = yup.object().shape({
+  loginEmail: yup
+    .string()
+    .min(5, 'Email musi posiadać przynajmniej 5 znaków')
+    .max(255, 'Email nie może być dłuższy niż 255 znaków')
+    .required('Podaj email'),
+  loginPassword: yup.string().min(1, 'Pole nie może być puste'),
+});
+// .required();
 
 export const schemaCreatePassword = yup.object().shape({
   registerPassword: yup

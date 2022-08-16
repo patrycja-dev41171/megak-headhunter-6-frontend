@@ -15,7 +15,7 @@ import './HrProfileBox.css';
 import { apiUrl } from '../../config/api';
 
 export const HrProfileBox = () => {
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
   const [render, setRender] = useState(false);
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
@@ -44,6 +44,10 @@ export const HrProfileBox = () => {
       try {
         const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
         });
         const data = await res.json();
         await setHrData({

@@ -21,7 +21,7 @@ interface HrHomeSingleStudentProps {
 }
 
 export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
   const { student } = props;
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
@@ -36,6 +36,7 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
       const data = await fetch(`${apiUrl}/student/reserved`, {
         method: 'POST',
         headers: {
+          authorization: `Bearer ${accessToken}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
@@ -45,11 +46,11 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
         }),
       });
       const result = await data.json();
-     if(result.message){
-                setFeedbackError(result.message);
-                setOpenModal(true);
-            }
-            props.renderComponent(true);
+      if (result.message) {
+        setFeedbackError(result.message);
+        setOpenModal(true);
+      }
+      props.renderComponent(true);
     } catch (err) {
       console.log(err);
     }

@@ -37,7 +37,6 @@ export const SearchByFilterForHRHome = () => {
 
   return (
     <div className="hr_line__searchByFilterBox">
-      {/*input search*/}
       <MainStyledTextField
         value={inputValue}
         onChange={e => setInputValue(e.target.value.toLowerCase())}

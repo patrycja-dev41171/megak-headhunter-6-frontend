@@ -1,36 +1,35 @@
 .layouts_subtitle {
-    font-size: 20px;
-    color: #f7f7f7;
-    background-color: #292A2B;
-    line-height: 60px;
-    min-height: 60px;
-    padding: 0 26px;
-    text-align: left;
-    display: flex;
-    flex-wrap: wrap;
+  font-size: 20px;
+  color: #f7f7f7;
+  background-color: #292a2b;
+  line-height: 60px;
+  min-height: 60px;
+  padding: 0 26px;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .layouts_line {
-    margin-bottom: 12px;
-    background-color: #222324;
+  margin-bottom: 12px;
+  background-color: #222324;
 }
 
 .layouts_sidebarBox {
-    min-width: 250px;
-    max-width: 250px;
-    margin-right: 4px;
+  min-width: 250px;
+  max-width: 250px;
+  margin-right: 4px;
 }
 
 .layouts_subtitleInstruction {
-    color: #d93535;
-    margin-left: 40px;
-    font-size: 13px;
+  color: #d93535;
+  margin-left: 40px;
+  font-size: 13px;
 }
 
 .layouts_form {
-    color: #88888d;
-    margin-top: 30px;
-    border: 1px solid gray;
-    min-height: 500px;
+  color: #88888d;
+  margin-top: 30px;
+  border: 1px solid gray;
+  min-height: 500px;
 }
-
