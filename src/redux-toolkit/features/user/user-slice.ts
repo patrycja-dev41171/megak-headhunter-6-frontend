@@ -93,10 +93,9 @@ export const userSlice = createSlice({
     },
     filteredSelectedUsers: (state, action: FilteredSelectedUsers) => {
       state.selectedStudentsList = state.selectedStudentsContainer.filter(student => {
-            const name = `${student.firstName}${student.lastName}`
-            return name.toLowerCase().includes(action.payload)
-          }
-      );
+        const name = `${student.firstName}${student.lastName}`;
+        return name.toLowerCase().includes(action.payload);
+      });
     },
   },
 });

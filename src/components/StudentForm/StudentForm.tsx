@@ -65,7 +65,7 @@ export const StudentForm = (props: StudentFormProps) => {
     workExperience,
     courses,
   } = props;
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
 
   //modal
   const [openModal, setOpenModal] = useState(false);
@@ -119,14 +119,14 @@ export const StudentForm = (props: StudentFormProps) => {
   };
 
   const handleClickOnePortfolio = async () => {
-      if ((await trigger('portfolioInput')) && getValues('portfolioInput') !== '') {
+    if ((await trigger('portfolioInput')) && getValues('portfolioInput') !== '') {
       portfolioUrlsAppend({ id: Date.now(), value: getValues('portfolioInput') });
       setValue('portfolioInput', '');
     }
   };
 
   const handleClickOneProject = async () => {
-      if ((await trigger('projectInput')) && getValues('projectInput') !== '') {
+    if ((await trigger('projectInput')) && getValues('projectInput') !== '') {
       projectUrlsAppend({ id: Date.now(), value: getValues('projectInput') });
       setValue('projectInput', '');
     }
@@ -138,6 +138,7 @@ export const StudentForm = (props: StudentFormProps) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data),
       });

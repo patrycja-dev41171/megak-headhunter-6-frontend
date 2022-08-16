@@ -14,7 +14,7 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 import { apiUrl } from '../../config/api';
 
 export const HrSelectedStudentsBox = () => {
-  const { id, selectedStudentsList } = useSelector((store: StoreState) => store.user);
+  const { id, selectedStudentsList, accessToken } = useSelector((store: StoreState) => store.user);
   const [render, setRender] = useState(false);
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
@@ -45,6 +45,9 @@ export const HrSelectedStudentsBox = () => {
       try {
         const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
         });
         const data = await res.json();
         await setHrData({
@@ -66,23 +69,26 @@ export const HrSelectedStudentsBox = () => {
       try {
         const res = await fetch(`${apiUrl}/hr/selected/students/${id}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
         });
         const data = await res.json();
-                if (data.message) {
-                    dispatch(setSelectedStudentList([]));
-                    setFeedbackError(data.message);
-                    setOpenModal(true);
-                }
-                if (!data.message) {
-                    dispatch(setSelectedStudentList(data));
-                }
-                setRender(false);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getStudentsData();
-    }, [render]);
+        if (data.message) {
+          dispatch(setSelectedStudentList([]));
+          setFeedbackError(data.message);
+          setOpenModal(true);
+        }
+        if (!data.message) {
+          dispatch(setSelectedStudentList(data));
+        }
+        setRender(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStudentsData();
+  }, [render]);
 
   return (
     <div className="mainBackground pageWithHeader">

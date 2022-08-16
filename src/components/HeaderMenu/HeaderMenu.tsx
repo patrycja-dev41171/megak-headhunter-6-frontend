@@ -1,15 +1,15 @@
 import React, { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setAccessToken, setExpirationTime, setId, setIsLoggedIn, setRole } from '../../redux-toolkit/features/user/user-slice';
-import { useDispatch } from 'react-redux';
-
+import {useDispatch, useSelector} from 'react-redux';
 import { styled } from '@mui/material/styles';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import { MenuBtn } from '../../common/MenuBtn/MenuBtn';
 import { ShowMenuBtn } from '../../common/ShowMenuBtn/ShowMenuBtn';
+import { apiUrl } from '../../config/api';
 
 import './HeaderMenu.css';
-import { apiUrl } from '../../config/api';
+import {StoreState} from "../../redux-toolkit/store";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -52,9 +52,11 @@ interface HeaderMenuProps {
 }
 
 export const HeaderMenu = (props: HeaderMenuProps) => {
+  const { accessToken } = useSelector((store: StoreState) => store.user);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -70,6 +72,7 @@ export const HeaderMenu = (props: HeaderMenuProps) => {
         method: 'DELETE',
         credentials: 'include',
         headers: {
+          authorization: `Bearer ${accessToken}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },

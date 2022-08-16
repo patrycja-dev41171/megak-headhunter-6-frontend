@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../redux-toolkit/store';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import SimpleDialog from '@mui/material/Dialog';
+import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaAddHr } from '../../Validations/UserValidation';
 import { MainButton } from '../../common/MainButton/MainButton';
-import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import '../../styles/stylesForForms.css';
-import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import { apiUrl } from '../../config/api';
+
+import '../../styles/stylesForForms.css';
 
 interface FormValues {
   fullName: string;
@@ -17,13 +20,13 @@ interface FormValues {
 }
 
 export const AddHR = () => {
-  //modal
+  const { accessToken } = useSelector((store: StoreState) => store.user);
+
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -42,6 +45,7 @@ export const AddHR = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           email,

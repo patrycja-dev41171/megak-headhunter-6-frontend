@@ -24,7 +24,7 @@ interface hrData {
 }
 
 export const HrStudentProfileBox = () => {
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
   const [studentData, setStudentData] = useState<studentEntityFront>({
     email: '',
     courseCompletion: 0,
@@ -58,13 +58,11 @@ export const HrStudentProfileBox = () => {
 
   const { studentId } = useParams();
 
-  //modal
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -73,6 +71,10 @@ export const HrStudentProfileBox = () => {
       try {
         const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
         });
         const data = await res.json();
         await setHrData({
@@ -96,6 +98,10 @@ export const HrStudentProfileBox = () => {
       try {
         const res = await fetch(`${apiUrl}/oneStudent/${studentId}`, {
           method: 'GET',
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
         });
         const data = await res.json();
         await setStudentData(data);

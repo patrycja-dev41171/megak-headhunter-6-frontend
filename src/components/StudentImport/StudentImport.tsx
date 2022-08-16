@@ -6,15 +6,17 @@ import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import './StudentImport.css';
 import { apiUrl } from '../../config/api';
+import {useSelector} from "react-redux";
+import {StoreState} from "../../redux-toolkit/store";
 
 export const StudentImport = () => {
-  //modal
+  const { accessToken } = useSelector((store: StoreState) => store.user);
+
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -38,6 +40,9 @@ export const StudentImport = () => {
       try {
         const response = await fetch(`${apiUrl}/admin/upload/students`, {
           method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
           body: formData,
         });
         const result = await response.json();

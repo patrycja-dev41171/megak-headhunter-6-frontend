@@ -1,6 +1,6 @@
 import React from 'react';
-import {RegisterBox} from '../../components/RegisterBox/RegisterBox';
+import { RegisterBox } from '../../components/RegisterBox/RegisterBox';
 
 export const RegisterView = () => {
-  return <RegisterBox/>;
+  return <RegisterBox />;
 };

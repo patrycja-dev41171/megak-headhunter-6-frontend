@@ -33,10 +33,10 @@ interface Props {
 }
 
 export const HrFilterStudentsForm = (props: Props) => {
-  const { id } = useSelector((store: StoreState) => store.user);
-
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
   const [expectedTypesWork, setExpectedTypesWork] = useState<string[] | null>(() => null);
   const [expectedContractTypes, setExpectedContractTypes] = useState<string[] | null>(() => null);
+
   const dispatch = useDispatch();
 
   const customizeValue = (val: number | null) => {
@@ -105,6 +105,7 @@ export const HrFilterStudentsForm = (props: Props) => {
         const res = await fetch(`${apiUrl}/hr/home/filterList/${id}`, {
           method: 'POST',
           headers: {
+            authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
@@ -124,6 +125,7 @@ export const HrFilterStudentsForm = (props: Props) => {
         const res = await fetch(`${apiUrl}/hr/home/selectedStudents/filterList`, {
           method: 'POST',
           headers: {
+            authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({

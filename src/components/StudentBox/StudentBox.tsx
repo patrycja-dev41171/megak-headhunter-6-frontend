@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config/api';
 
 export const StudentBox = () => {
-  const { id } = useSelector((store: StoreState) => store.user);
+  const { id, accessToken } = useSelector((store: StoreState) => store.user);
   const [render, setRender] = useState(false);
   const [studentData, setStudentData] = useState<studentEntityFront>({
     email: '',
@@ -51,13 +51,11 @@ export const StudentBox = () => {
     setRender(render);
   };
 
-  //modal
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -66,6 +64,9 @@ export const StudentBox = () => {
       try {
         const res = await fetch(`${apiUrl}/oneStudent/${id}`, {
           method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         const data = await res.json();
         await setStudentData(data);
