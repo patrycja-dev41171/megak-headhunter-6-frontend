@@ -9,6 +9,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { MainButton } from '../../common/MainButton/MainButton';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { apiUrl } from '../../config/api';
 
 interface SidebarHrProps {
   email: string;
@@ -54,7 +55,7 @@ export const SidebarHr = (props: SidebarHrProps) => {
 
   const getEnvData = async () => {
     try {
-      const res = await fetch('http://localhost:8080/env/cloud-connection', {
+      const res = await fetch(`${apiUrl}/env/cloud-connection`, {
         method: 'GET',
       });
       const data = await res.json();
@@ -95,7 +96,7 @@ export const SidebarHr = (props: SidebarHrProps) => {
 
   const sendData = async (url: string) => {
     try {
-      const res = await fetch('http://localhost:8080/hr/set/photo', {
+      const res = await fetch(`${apiUrl}/hr/set/photo`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

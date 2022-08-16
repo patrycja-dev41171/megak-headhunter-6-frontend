@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { apiUrl } from '../../config/api';
 import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 
 export const HrHomeBox = () => {
@@ -42,7 +43,7 @@ export const HrHomeBox = () => {
   useEffect(() => {
     const getHrData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/hr/${id}`, {
+        const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
         });
         const data = await res.json();
@@ -63,7 +64,7 @@ export const HrHomeBox = () => {
   useEffect(() => {
     const getStudentsData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/hr/home/getAll/${id}`, {
+        const res = await fetch(`${apiUrl}/hr/home/getAll/${id}`, {
           method: 'GET',
         });
         const data = await res.json();

@@ -14,6 +14,7 @@ import { StudentEntityFront } from 'types';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../config/api';
 
 interface OneSelectedStudentOnListProps {
   student: StudentEntityFront;
@@ -64,7 +65,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
     const isConfirm = window.confirm('Czy jesteś pewien, że chcesz odrzucić tego kursanta?');
     if (isConfirm) {
       try {
-        const data = await fetch('http://localhost:8080/student/cancel/reservation', {
+        const data = await fetch(`${apiUrl}/student/cancel/reservation`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -93,7 +94,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
     );
     if (isConfirm) {
       try {
-        const data = await fetch('http://localhost:8080/student/hired', {
+        const data = await fetch(`${apiUrl}/student/hired`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',

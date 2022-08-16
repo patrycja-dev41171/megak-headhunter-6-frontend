@@ -11,6 +11,7 @@ import './StudentBox.css';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../../config/api';
 
 export const StudentBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
@@ -63,7 +64,7 @@ export const StudentBox = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/oneStudent/${id}`, {
+        const res = await fetch(`${apiUrl}/oneStudent/${id}`, {
           method: 'GET',
         });
         const data = await res.json();

@@ -12,6 +12,7 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 
 import '../../styles/stylesForLayouts.css';
 import './HrProfileBox.css';
+import { apiUrl } from '../../config/api';
 
 export const HrProfileBox = () => {
   const { id } = useSelector((store: StoreState) => store.user);
@@ -41,7 +42,7 @@ export const HrProfileBox = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/hr/${id}`, {
+        const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
         });
         const data = await res.json();

@@ -17,6 +17,7 @@ import { ExpectedTypeWork, ExpectedContractType } from 'types';
 import './StudentForm.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StudentValidation } from '../../Validations/StudentValidation';
+import { apiUrl } from '../../config/api';
 
 interface StudentFormProps {
   email: string;
@@ -133,7 +134,7 @@ export const StudentForm = (props: StudentFormProps) => {
 
   const submitForm: SubmitHandler<any> = async ({ projectInput, portfolioInput, ...data }) => {
     try {
-      const res = await fetch(`http://localhost:8080/student/data/${id}`, {
+      const res = await fetch(`${apiUrl}/student/data/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

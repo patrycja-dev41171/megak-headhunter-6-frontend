@@ -16,6 +16,7 @@ import { StoreState } from '../../redux-toolkit/store';
 import { useParams } from 'react-router-dom';
 import { studentEntityFront } from 'types';
 import '../../styles/stylesForLayouts.css';
+import { apiUrl } from '../../config/api';
 
 interface hrData {
   fullName: string | null;
@@ -70,7 +71,7 @@ export const HrStudentProfileBox = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/hr/${id}`, {
+        const res = await fetch(`${apiUrl}/hr/${id}`, {
           method: 'GET',
         });
         const data = await res.json();
@@ -93,7 +94,7 @@ export const HrStudentProfileBox = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/oneStudent/${studentId}`, {
+        const res = await fetch(`${apiUrl}/oneStudent/${studentId}`, {
           method: 'GET',
         });
         const data = await res.json();

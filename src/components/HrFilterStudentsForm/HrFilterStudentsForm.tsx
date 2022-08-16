@@ -13,6 +13,7 @@ import { StudentFilteredValidation } from '../../Validations/StudentFilteredVali
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { StoreState } from '../../redux-toolkit/store';
+import { apiUrl } from '../../config/api';
 
 interface StudentValues {
   minSalary: string | null;
@@ -101,7 +102,7 @@ export const HrFilterStudentsForm = (props: Props) => {
   const submitForm: SubmitHandler<any> = async data => {
     if (window.location.href === 'http://localhost:3000/hr/home') {
       try {
-        const res = await fetch(`http://localhost:8080/hr/home/filterList/${id}`, {
+        const res = await fetch(`${apiUrl}/hr/home/filterList/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -120,7 +121,7 @@ export const HrFilterStudentsForm = (props: Props) => {
       }
     } else if (window.location.href === 'http://localhost:3000/hr/selected-students') {
       try {
-        const res = await fetch(`http://localhost:8080/hr/home/selectedStudents/filterList`, {
+        const res = await fetch(`${apiUrl}/hr/home/selectedStudents/filterList`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
