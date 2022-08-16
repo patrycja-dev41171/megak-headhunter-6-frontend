@@ -119,14 +119,14 @@ export const StudentForm = (props: StudentFormProps) => {
   };
 
   const handleClickOnePortfolio = async () => {
-    if ((await trigger('portfolioInput')) && getValues('portfolioInput') !== '') {
+      if ((await trigger('portfolioInput')) && getValues('portfolioInput') !== '') {
       portfolioUrlsAppend({ id: Date.now(), value: getValues('portfolioInput') });
       setValue('portfolioInput', '');
     }
   };
 
   const handleClickOneProject = async () => {
-    if ((await trigger('projectInput')) && getValues('projectInput') !== '') {
+      if ((await trigger('projectInput')) && getValues('projectInput') !== '') {
       projectUrlsAppend({ id: Date.now(), value: getValues('projectInput') });
       setValue('projectInput', '');
     }
@@ -335,7 +335,6 @@ export const StudentForm = (props: StudentFormProps) => {
                   variant="filled"
                   key={oneProject.id}
                   {...register(`projectUrls.${index}.value` as const)}
-                  defaultValue={oneProject.value}
                   InputProps={{
                     style: { backgroundColor: '#292a2b' },
                     endAdornment: (
@@ -431,7 +430,6 @@ export const StudentForm = (props: StudentFormProps) => {
                   variant="filled"
                   key={onePortfolio.id}
                   {...register(`portfolioUrls.${index}.value` as const)}
-                  defaultValue={onePortfolio.value}
                   InputProps={{
                     style: { backgroundColor: '#292a2b' },
                     endAdornment: (

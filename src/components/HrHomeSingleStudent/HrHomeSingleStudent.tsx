@@ -45,10 +45,11 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
         }),
       });
       const result = await data.json();
-      setFeedbackSuccess(result);
-      setFeedbackError(result.message);
-      setOpenModal(true);
-      props.renderComponent(true);
+     if(result.message){
+                setFeedbackError(result.message);
+                setOpenModal(true);
+            }
+            props.renderComponent(true);
     } catch (err) {
       console.log(err);
     }

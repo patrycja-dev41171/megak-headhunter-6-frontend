@@ -11,7 +11,7 @@ import { ToggleButtonFilterStudents } from '../../common/ToggleButtonFilterStude
 import { FilteredStudentsInput } from '../StyledComponents/MainStyledTextField';
 import { StudentFilteredValidation } from '../../Validations/StudentFilteredValidation';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
+import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { StoreState } from '../../redux-toolkit/store';
 import { apiUrl } from '../../config/api';
 
@@ -102,7 +102,7 @@ export const HrFilterStudentsForm = (props: Props) => {
   const submitForm: SubmitHandler<any> = async data => {
     if (window.location.href === 'http://localhost:3000/hr/home') {
       try {
-        const res = await fetch(`${apiUrl}/hr/home/filterList`, {
+        const res = await fetch(`${apiUrl}/hr/home/filterList/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -134,10 +134,10 @@ export const HrFilterStudentsForm = (props: Props) => {
 
         const result = await res.json();
         if (result.message) {
-          dispatch(SetSelectedStudentList([]));
+          dispatch(setSelectedStudentList([]));
         }
         if (!result.message) {
-          dispatch(SetSelectedStudentList(result));
+          dispatch(setSelectedStudentList(result));
         }
       } catch (err) {
         console.log(err);

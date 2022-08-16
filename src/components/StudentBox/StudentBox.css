@@ -15,6 +15,10 @@
     background-color: #222324;
 }
 
+.studentView_grades {
+    padding-left: 26px;
+}
+
 .studentView_subtitleInstruction {
     color: #d93535;
     margin-left: 40px;

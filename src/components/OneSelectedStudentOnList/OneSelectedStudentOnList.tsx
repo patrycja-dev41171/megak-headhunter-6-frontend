@@ -125,11 +125,13 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
             <div className="reserved_text">Rezerwacja do</div>
             <div>{String(student.reservedTo).split('T')[0]}</div>
           </div>
-          <Avatar
-            alt={`${student.firstName} ${student.lastName}`}
-            src={student.githubUserName === null ? undefined : `https://github.com/${student.githubUserName}.png`}
-            sx={{ width: 45, height: 45, marginRight: '20px' }}
-          />
+          {student.githubUserName !== undefined ? (
+            <Avatar
+              alt={`${student.firstName} ${student.lastName}`}
+              src={`https://github.com/${student.githubUserName}.png`}
+              sx={{ width: 45, height: 45, marginRight: '20px' }}
+            />
+          ) : null}
           <div>
             {student.firstName} {student.lastName}
           </div>

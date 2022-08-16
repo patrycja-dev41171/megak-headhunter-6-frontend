@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import { SetSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { apiUrl } from '../../config/api';
+import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 
 export const HrHomeBox = () => {
   const { id, studentsList } = useSelector((store: StoreState) => store.user);
@@ -64,18 +64,18 @@ export const HrHomeBox = () => {
   useEffect(() => {
     const getStudentsData = async () => {
       try {
-        const res = await fetch(`${apiUrl}/hr/home/getAll`, {
+        const res = await fetch(`${apiUrl}/hr/home/getAll/${id}`, {
           method: 'GET',
         });
         const data = await res.json();
         dispatch(setStudentList(data));
         if (data.message) {
-          dispatch(SetSelectedStudentList([]));
+          dispatch(setSelectedStudentList([]));
           setFeedbackError(data.message);
           setOpenModal(true);
         }
         if (!data.message) {
-          dispatch(SetSelectedStudentList(data));
+          dispatch(setSelectedStudentList(data));
         }
         setRender(false);
       } catch (err) {
