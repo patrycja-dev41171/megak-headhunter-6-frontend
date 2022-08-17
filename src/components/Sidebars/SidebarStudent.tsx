@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
-import { Avatar } from '@mui/material';
+import {Avatar, Dialog} from '@mui/material';
 import { MainButton } from '../../common/MainButton/MainButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import CallIcon from '@mui/icons-material/Call';
@@ -12,6 +12,7 @@ import './Sidebar.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-toolkit/features/user/user-slice';
 import { apiUrl } from '../../config/api';
+import {DisplayConfirmDialog} from "../../common/DisplayConfirmModal/DisplayConfirmModal";
 
 interface SidebarStudentProps {
   img_alt?: string | undefined;
@@ -28,6 +29,20 @@ interface SidebarStudentProps {
 export const SidebarStudent = (props: SidebarStudentProps) => {
   const { img_alt, img_src, firstName, lastName, githubUsername, tel, email, bio, secondBtn } = props;
   const { id, role, accessToken } = useSelector((store: StoreState) => store.user);
+  const [agree, setAgree] = useState<boolean | null>();
+  const [open, setOpen] = React.useState(false);
+  const [title, setTitle] = React.useState('');
+  const [content, setContent] = React.useState('');
+
+  const handleConfirmClose = () => {
+    setOpen(false);
+  };
+
+  const handleAgree = (agree: boolean): boolean => {
+    setAgree(agree);
+    setOpen(false);
+    return agree;
+  };
 
   const { studentId } = useParams();
   let navigate = useNavigate();
@@ -42,84 +57,85 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   const handleHired = async () => {
-    const isConfirm = window.confirm(
-      'Czy jesteś pewien, że chcesz zmienić status na' +
-        ' "zatrudniony"? Kursant utraci możliwość logowania, a jego profil przestanie być' +
-        ' widoczny.'
-    );
-    if (isConfirm) {
-      try {
-        const data = await fetch(`${apiUrl}/student/hired`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            user_id: studentId ?? id,
-          }),
-        });
-        const result = await data.json();
-        setFeedbackSuccess(result);
-        setFeedbackError(result.message);
-        setOpenModal(true);
-        if (result && role === 'student') {
-          try {
-            const res = await fetch(`${apiUrl}/login`, {
-              method: 'DELETE',
-              credentials: 'include',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-            });
-            const data = await res.json();
-            dispatch(setId(''));
-            dispatch(setAccessToken(''));
-            dispatch(setExpirationTime(0));
-            dispatch(setRole(''));
-            if (data) {
-              navigate('/login');
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        } else if (result) {
-          navigate('/hr/selected-students');
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    setTitle('Zmiana statusu kursanta');
+    setContent(`Czy chcesz zmienić status kursanta na zatrudniony? Kursant straci dostęp do aplikacji, a jego profil nie będzie widoczny.`);
+    setOpen(true);
   };
 
-  const handleDisinterest = async () => {
-    const isConfirm = window.confirm('Czy jesteś pewien, że chcesz odrzucić tego kursanta?');
-    if (isConfirm) {
-      try {
-        const data = await fetch(`${apiUrl}/student/cancel/reservation`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            hr_id: id,
-            student_id: studentId,
-          }),
-        });
-        const result = await data.json();
-        setFeedbackSuccess(result);
-        setFeedbackError(result.message);
-        setOpenModal(true);
-        if (result) {
-          navigate('/hr/selected-students');
+  useEffect(() => {
+    const hired = async () => {
+      if (agree === true) {
+        try {
+          const data = await fetch(`${apiUrl}/student/hired`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({
+              user_id: studentId ?? id,
+            }),
+          });
+          const result = await data.json();
+          setFeedbackSuccess(result);
+          setFeedbackError(result.message);
+          setOpenModal(true);
+          if (result && role === 'student') {
+            try {
+              const res = await fetch(`${apiUrl}/login`, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+              });
+              const data = await res.json();
+              dispatch(setId(''));
+              dispatch(setAccessToken(''));
+              dispatch(setExpirationTime(0));
+              dispatch(setRole(''));
+              if (data) {
+                navigate('/login');
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          } else if (result) {
+            navigate('/hr/selected-students');
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
       }
+    };
+    hired();
+  }, [agree]);
+
+  const handleDisinterest = async () => {
+    try {
+      const data = await fetch(`${apiUrl}/student/cancel/reservation`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          hr_id: id,
+          student_id: studentId,
+        }),
+      });
+      const result = await data.json();
+      setFeedbackSuccess(result);
+      setFeedbackError(result.message);
+      setOpenModal(true);
+      if (result) {
+        navigate('/hr/selected-students');
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -169,11 +185,22 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
         </MainButton>
       ) : null}
       <MainButton
-        onClick={handleHired}
+          onClick={handleHired}
         fullWidth
         sx={{ marginTop: '10px' }}>
         Zatrudniony
       </MainButton>
+      <Dialog
+          open={open}
+          onClose={handleConfirmClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+        <DisplayConfirmDialog
+            title={title}
+            content={content}
+            agree={agree => handleAgree(agree)}
+        />
+      </Dialog>
       {openModal && (
         <SimpleDialog
           open={openModal}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -8,13 +8,14 @@ import { styled } from '@mui/material/styles';
 import { MainButton } from '../../common/MainButton/MainButton';
 
 import './OneSelectedStudentOnList.css';
-import { Avatar } from '@mui/material';
+import { Avatar, Dialog } from '@mui/material';
 import { StudentGradesAndExpectationsForHR } from '../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR';
 import { StudentEntityFront } from 'types';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config/api';
+import { DisplayConfirmDialog } from '../../common/DisplayConfirmModal/DisplayConfirmModal';
 
 interface OneSelectedStudentOnListProps {
   student: StudentEntityFront;
@@ -23,8 +24,23 @@ interface OneSelectedStudentOnListProps {
 
 export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) => {
   const { student } = props;
+  const [agree, setAgree] = useState<boolean | null>();
+  const [open, setOpen] = React.useState(false);
+  const [title, setTitle] = React.useState('');
+  const [student_id, setStudentId] = React.useState<string | null | undefined>('');
+  const [content, setContent] = React.useState('');
   const { id, accessToken } = useSelector((store: StoreState) => store.user);
   let navigate = useNavigate();
+
+  const handleConfirmClose = () => {
+    setOpen(false);
+  };
+
+  const handleAgree = (agree: boolean): boolean => {
+    setAgree(agree);
+    setOpen(false);
+    return agree;
+  };
 
   const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion
@@ -62,60 +78,62 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
   };
 
   const handleDisinterest = async (student_id: string | null | undefined) => {
-    const isConfirm = window.confirm('Czy jesteś pewien, że chcesz odrzucić tego kursanta?');
-    if (isConfirm) {
-      try {
-        const data = await fetch(`${apiUrl}/student/cancel/reservation`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            hr_id: id,
-            student_id: student_id,
-          }),
-        });
-        const result = await data.json();
-        setFeedbackError(result.message);
-        setOpenModal(true);
-        props.renderComponent(true);
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      const data = await fetch(`${apiUrl}/student/cancel/reservation`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          hr_id: id,
+          student_id: student_id,
+        }),
+      });
+      const result = await data.json();
+      setFeedbackError(result.message);
+      setOpenModal(true);
+      props.renderComponent(true);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const handleHired = async (student_id: string | null | undefined) => {
-    const isConfirm = window.confirm(
-      'Czy jesteś pewien, że chcesz zmienić status na' +
-        ' "zatrudniony"? Kursant utraci możliwość logowania, a jego profil przestanie być' +
-        ' widoczny.'
-    );
-    if (isConfirm) {
-      try {
-        const data = await fetch(`${apiUrl}/student/hired`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            user_id: student_id,
-          }),
-        });
-        const result = await data.json();
-        setFeedbackSuccess(result);
-        setFeedbackError(result.message);
-        setOpenModal(true);
-        props.renderComponent(true);
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    setStudentId(student_id);
+    setTitle('Zmiana statusu kursanta');
+    setContent(`Czy chcesz zmienić status kursanta na zatrudniony? Kursant straci dostęp do aplikacji, a jego profil nie będzie widoczny.`);
+    setOpen(true);
   };
+
+  useEffect(() => {
+    const hired = async (student_id: string | null | undefined) => {
+      if (agree === true) {
+        try {
+          const data = await fetch(`${apiUrl}/student/hired`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({
+              user_id: student_id,
+            }),
+          });
+          const result = await data.json();
+          setFeedbackSuccess(result);
+          setFeedbackError(result.message);
+          setOpenModal(true);
+          props.renderComponent(true);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    hired(student_id);
+  }, [agree]);
 
   return (
     <Accordion>
@@ -148,6 +166,17 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
       <AccordionDetails>
         <StudentGradesAndExpectationsForHR student={student} />
       </AccordionDetails>
+      <Dialog
+        open={open}
+        onClose={handleConfirmClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+        <DisplayConfirmDialog
+          title={title}
+          content={content}
+          agree={agree => handleAgree(agree)}
+        />
+      </Dialog>
     </Accordion>
   );
 };

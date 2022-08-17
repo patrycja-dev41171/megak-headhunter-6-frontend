@@ -75,14 +75,19 @@ export const HrHomeBox = () => {
           },
         });
         const data = await res.json();
-        dispatch(setStudentList(data));
-        if (data.message) {
-          dispatch(setSelectedStudentList([]));
-          setFeedbackError(data.message);
+        if (data === null) {
+          dispatch(setStudentList([]));
+          setFeedbackError('Brak dostęnych kursantów.');
           setOpenModal(true);
         }
-        if (!data.message) {
-          dispatch(setSelectedStudentList(data));
+        if (data !== null) {
+          dispatch(setStudentList(data));
+          if (typeof data.message === 'string') {
+            console.log('dasds')
+            dispatch(setStudentList([]));
+            setFeedbackError(data.message);
+            setOpenModal(true);
+          }
         }
         setRender(false);
       } catch (err) {
