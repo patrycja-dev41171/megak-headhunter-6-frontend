@@ -85,11 +85,6 @@ export const SidebarHr = (props: SidebarHrProps) => {
       formData.append('upload_preset', env.upload_preset);
       const res = await fetch(`https://api.cloudinary.com/${env.api_call}`, {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${accessToken}`,
-        },
         body: formData,
       });
       const data = await res.json();

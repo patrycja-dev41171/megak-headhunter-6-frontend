@@ -1,3 +1,7 @@
 .micro-logo {
     width: 89px;
 }
+
+.microLogoMegaK_container:hover {
+    cursor: pointer;
+}
