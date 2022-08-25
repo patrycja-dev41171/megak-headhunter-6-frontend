@@ -28,7 +28,8 @@ interface InputNumber {
 }
 
 export const RegisterBox = () => {
-  //eye visible-hidden handle
+  let navigate = useNavigate();
+
   const [values, setValues] = useState<InputNumber>({
     registerPassword: '',
     showRegisterPassword: false,
@@ -36,7 +37,6 @@ export const RegisterBox = () => {
     showConfirmPassword: false,
   });
 
-  let navigate = useNavigate();
 
   const ClickShowRegPass = () => {
     setValues({
@@ -56,13 +56,11 @@ export const RegisterBox = () => {
     e.preventDefault();
   };
 
-  //modal
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  //infoFromBackendStatus
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -91,7 +89,6 @@ export const RegisterBox = () => {
         }),
       });
       const result = await res.json();
-
       setFeedbackSuccess(result);
       setFeedbackError(result.message);
       setOpenModal(true);

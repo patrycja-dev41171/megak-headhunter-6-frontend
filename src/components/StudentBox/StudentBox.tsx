@@ -12,6 +12,7 @@ import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config/api';
+import {useRefreshToken} from "../../utils/useRefreshToken";
 
 export const StudentBox = () => {
   const { id, accessToken } = useSelector((store: StoreState) => store.user);
@@ -42,7 +43,8 @@ export const StudentBox = () => {
     status: null,
   });
   const [value, setValue] = useState('');
-  let navigate = useNavigate();
+  useRefreshToken();
+
   const updateValue = (datafromChild: any) => {
     setValue(datafromChild);
   };

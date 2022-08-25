@@ -7,11 +7,12 @@ import { SearchByFilterForHRHome } from '../SearchByFilterForHRHome/SearchByFilt
 import { OneSelectedStudentOnList } from '../OneSelectedStudentOnList/OneSelectedStudentOnList';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
-import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
+import { setSelectedStudentList} from '../../redux-toolkit/features/user/user-slice';
 import { HrFrontEntity } from 'types';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
 import { apiUrl } from '../../config/api';
+import {useRefreshToken} from "../../utils/useRefreshToken";
 
 export const HrSelectedStudentsBox = () => {
   const { id, selectedStudentsList, accessToken } = useSelector((store: StoreState) => store.user);
@@ -35,6 +36,7 @@ export const HrSelectedStudentsBox = () => {
   };
 
   const dispatch = useDispatch();
+  useRefreshToken();
 
   const handleClose = () => {
     setOpenModal(false);

@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { studentEntityFront } from 'types';
 import '../../styles/stylesForLayouts.css';
 import { apiUrl } from '../../config/api';
+import {useRefreshToken} from "../../utils/useRefreshToken";
 
 interface hrData {
   fullName: string | null;
@@ -57,6 +58,7 @@ export const HrStudentProfileBox = () => {
   });
 
   const { studentId } = useParams();
+  useRefreshToken();
 
   const [openModal, setOpenModal] = useState(false);
   const handleClose = () => {
