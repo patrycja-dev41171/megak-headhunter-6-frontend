@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Header } from '../Header/Header';
 import { NavbarForHRHome } from '../NavbarForHRHome/NavbarForHRHome';
 import { Container } from '@mui/material';
@@ -9,10 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
 import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
+import { setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { apiUrl } from '../../config/api';
 
 import './HrHomeBox.css';
+import { useRefreshToken } from '../../utils/useRefreshToken';
 
 export const HrHomeBox = () => {
   const { id, studentsList, accessToken } = useSelector((store: StoreState) => store.user);
@@ -40,6 +41,7 @@ export const HrHomeBox = () => {
   const handleRender = (render: boolean) => {
     setRender(render);
   };
+  useRefreshToken()
 
   useEffect(() => {
     const getHrData = async () => {
@@ -83,7 +85,7 @@ export const HrHomeBox = () => {
         if (data !== null) {
           dispatch(setStudentList(data));
           if (typeof data.message === 'string') {
-            console.log('dasds')
+            console.log('dasds');
             dispatch(setStudentList([]));
             setFeedbackError(data.message);
             setOpenModal(true);

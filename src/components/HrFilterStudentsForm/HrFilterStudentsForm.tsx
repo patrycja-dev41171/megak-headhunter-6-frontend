@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedStudentList, setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { StoreState } from '../../redux-toolkit/store';
 import { apiUrl } from '../../config/api';
+import {useRefreshToken} from "../../utils/useRefreshToken";
 
 interface StudentValues {
   minSalary: string | null;
@@ -38,6 +39,7 @@ export const HrFilterStudentsForm = (props: Props) => {
   const [expectedContractTypes, setExpectedContractTypes] = useState<string[] | null>(() => null);
 
   const dispatch = useDispatch();
+  useRefreshToken()
 
   const customizeValue = (val: number | null) => {
     switch (val) {

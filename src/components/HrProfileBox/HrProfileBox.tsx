@@ -13,6 +13,7 @@ import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlert
 import '../../styles/stylesForLayouts.css';
 import './HrProfileBox.css';
 import { apiUrl } from '../../config/api';
+import {useRefreshToken} from "../../utils/useRefreshToken";
 
 export const HrProfileBox = () => {
   const { id, accessToken } = useSelector((store: StoreState) => store.user);
@@ -30,6 +31,8 @@ export const HrProfileBox = () => {
     img_src: '',
     reservedStudents: 0,
   });
+
+  useRefreshToken();
 
   const handleRender = (render: boolean) => {
     setRender(render);
