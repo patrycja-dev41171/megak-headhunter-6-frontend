@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import DialogTitle from '@mui/material/DialogTitle';
-import {MainButton} from "../MainButton/MainButton";
+import {MainBtn} from "../Buttons/MainBtn/MainBtn";
 import './StructureFileModal.css';
 import {useState} from "react";
 
@@ -24,13 +24,13 @@ export function StructureFileModal() {
 
     return (
         <div>
-            <MainButton
+            <MainBtn
                 variant="contained"
                 size="small"
                 onClick={handleClickOpen}
             >
                 Zobacz strukturę pliku
-            </MainButton>
+            </MainBtn>
             <Dialog
                 fullScreen={fullScreen}
                 open={open}
@@ -90,7 +90,7 @@ export function StructureFileModal() {
 
                 </DialogContent>
                 <DialogActions>
-                    <MainButton
+                    <MainBtn
                         onClick={handleClose}
                         autoFocus
                         sx={{
@@ -98,7 +98,7 @@ export function StructureFileModal() {
                         }}
                     >
                         Zamknij
-                    </MainButton>
+                    </MainBtn>
                 </DialogActions>
             </Dialog>
         </div>

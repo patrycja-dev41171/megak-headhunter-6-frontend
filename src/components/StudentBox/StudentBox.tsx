@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../Header/Header';
+import { HeaderMain } from '../Header/HeaderMain/HeaderMain';
 import { Box, Container } from '@mui/material';
 import { StudentForm } from '../StudentForm/StudentForm';
 import { SidebarStudent } from '../Sidebars/SidebarStudent';
@@ -7,12 +7,12 @@ import { StudentGrades } from '../StudentGrades/StudentGrades';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { studentEntityFront } from 'types';
-import './StudentBox.css';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import { useNavigate } from 'react-router-dom';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { apiUrl } from '../../config/api';
 import {useRefreshToken} from "../../utils/useRefreshToken";
+
+import './StudentBox.css';
 
 export const StudentBox = () => {
   const { id, accessToken } = useSelector((store: StoreState) => store.user);
@@ -42,12 +42,8 @@ export const StudentBox = () => {
     courses: null,
     status: null,
   });
-  const [value, setValue] = useState('');
-  useRefreshToken();
 
-  const updateValue = (datafromChild: any) => {
-    setValue(datafromChild);
-  };
+  useRefreshToken();
 
   const handleRender = (render: boolean) => {
     setRender(render);
@@ -86,7 +82,7 @@ export const StudentBox = () => {
 
   return (
     <>
-      <Header
+      <HeaderMain
         img_alt={`Kursant ${studentData.firstName} ${studentData.lastName}.`}
         img_src={studentData.githubUserName === null ? undefined : `https://github.com/${studentData.githubUserName}.png`}
         firstName={studentData.firstName}
@@ -104,6 +100,7 @@ export const StudentBox = () => {
               maxWidth: '1430px',
             },
           }}>
+
           <div className="sidebarBox">
             <SidebarStudent
               email={studentData.email}
@@ -165,6 +162,7 @@ export const StudentBox = () => {
                 />
               ) : null}
             </div>
+
             {openModal && (
               <SimpleDialog
                 open={openModal}

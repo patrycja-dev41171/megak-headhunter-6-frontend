@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../Header/Header';
+import { HeaderMain } from '../Header/HeaderMain/HeaderMain';
 import { Box, Container } from '@mui/material';
 import { StudentExpectations } from '../StudentExpectations/StudentExpectations';
 import { SidebarStudent } from '../Sidebars/SidebarStudent';
@@ -10,14 +10,15 @@ import { StudentInfoBoxWorkExperience } from '../StudentInfoBoxes/StudentInfoBox
 import { StudentInfoBoxLinksPortfolio } from '../StudentInfoBoxesLinks/StudentInfoBoxLinksPortfolio';
 import { StudentInfoBoxLinksGroupProject } from '../StudentInfoBoxesLinks/StudentInfoBoxLinksGroupProject';
 import { StudentInfoBoxLinksPassingProject } from '../StudentInfoBoxesLinks/StudentInfoBoxLinksPassingProject';
-import { ReturnBtn } from '../../common/ReturnBtn/ReturnBtn';
+import { ReturnBtn } from '../../common/Buttons/ReturnBtn/ReturnBtn';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { useParams } from 'react-router-dom';
 import { studentEntityFront } from 'types';
-import '../../styles/stylesForLayouts.css';
 import { apiUrl } from '../../config/api';
 import {useRefreshToken} from "../../utils/useRefreshToken";
+
+import '../../styles/stylesForLayouts.css';
 
 interface hrData {
   fullName: string | null;
@@ -61,12 +62,7 @@ export const HrStudentProfileBox = () => {
   useRefreshToken();
 
   const [openModal, setOpenModal] = useState(false);
-  const handleClose = () => {
-    setOpenModal(false);
-  };
-
   const [feedbackError, setFeedbackError] = useState('');
-  const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   useEffect(() => {
     const getData = async () => {
@@ -120,13 +116,14 @@ export const HrStudentProfileBox = () => {
 
   return (
     <>
-      <Header
+      <HeaderMain
         role="hr"
         id={id}
         fullName={hrData.fullName}
         img_src={hrData.img_src === null ? '' : hrData.img_src}
         img_alt={`Hr ${hrData.fullName}`}
       />
+
       <div className="main-container pageWithHeader">
         <Container
           sx={{
@@ -150,6 +147,7 @@ export const HrStudentProfileBox = () => {
               img_src={studentData.githubUserName === null ? undefined : `https://github.com/${studentData.githubUserName}.png`}
             />
           </div>
+
           <Box
             sx={{
               backgroundColor: '#222224',

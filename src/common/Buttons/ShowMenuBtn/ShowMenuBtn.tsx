@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import './ShowMenuBtn.css';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 interface Props {
   onClick: MouseEventHandler;

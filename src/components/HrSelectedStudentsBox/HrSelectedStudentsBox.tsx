@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../Header/Header';
-import './HrSelectedStudentsBox.css';
+import { HeaderMain } from '../Header/HeaderMain/HeaderMain';
 import { Container } from '@mui/material';
 import { NavbarForHRHome } from '../NavbarForHRHome/NavbarForHRHome';
 import { SearchByFilterForHRHome } from '../SearchByFilterForHRHome/SearchByFilterForHRHome';
@@ -10,9 +9,11 @@ import { StoreState } from '../../redux-toolkit/store';
 import { setSelectedStudentList} from '../../redux-toolkit/features/user/user-slice';
 import { HrFrontEntity } from 'types';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { apiUrl } from '../../config/api';
 import {useRefreshToken} from "../../utils/useRefreshToken";
+
+import './HrSelectedStudentsBox.css';
 
 export const HrSelectedStudentsBox = () => {
   const { id, selectedStudentsList, accessToken } = useSelector((store: StoreState) => store.user);
@@ -108,13 +109,15 @@ export const HrSelectedStudentsBox = () => {
             maxWidth: '1430px',
           },
         }}>
-        <Header
+
+        <HeaderMain
           img_alt={hrData.fullName}
           img_src={hrData.img_src ? hrData.img_src : undefined}
           fullName={hrData.fullName}
           role="hr"
           id={hrData.user_id}
         />
+
         <div className="hrSelStudBox__contentContainer">
           <div className="hrSelStudBox__content">
             <NavbarForHRHome />
@@ -130,6 +133,7 @@ export const HrSelectedStudentsBox = () => {
                     />
                   );
                 })}
+
             {openModal && (
               <SimpleDialog
                 open={openModal}

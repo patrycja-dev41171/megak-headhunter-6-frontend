@@ -3,17 +3,18 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaCreatePassword } from '../../Validations/UserValidation';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
+import { MiniLogoMegaK } from '../../common/LogoMegaK/MiniLogoMegaK/MiniLogoMegaK';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
-import { MainButton } from '../../common/MainButton/MainButton';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
-import '../../styles/stylesForForms.css';
 import { apiUrl } from '../../config/api';
+
+import '../../styles/stylesForForms.css';
 
 type FormValues = {
   registerPassword: string;
@@ -36,7 +37,6 @@ export const RegisterBox = () => {
     confirmPassword: '',
     showConfirmPassword: false,
   });
-
 
   const ClickShowRegPass = () => {
     setValues({
@@ -108,6 +108,7 @@ export const RegisterBox = () => {
         Utwórz hasło dla swojego konta. Hasło powinno zawierać conajmniej 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i
         jeden znak specjalny.
       </p>
+
       <form
         onSubmit={handleSubmit(submitForm)}
         className="formView_form">
@@ -167,8 +168,9 @@ export const RegisterBox = () => {
           />
         </div>
 
-        <MainButton type="submit">Utwórz hasło</MainButton>
+        <MainBtn type="submit">Utwórz hasło</MainBtn>
       </form>
+
       {openModal && (
         <SimpleDialog
           open={openModal}

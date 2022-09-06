@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { FilterButton } from '../../common/FilterButton/FilterButton';
+import { FilterBtn } from '../../common/Buttons/FilterBtn/FilterBtn';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import './SearchByFilterForHRHome.css';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import SimpleDialog from '@mui/material/Dialog';
 import { HrFilterStudentsForm } from '../HrFilterStudentsForm/HrFilterStudentsForm';
 import { useDispatch } from 'react-redux';
 import { filteredSelectedUsers, filteredUsers } from '../../redux-toolkit/features/user/user-slice';
+
+import './SearchByFilterForHRHome.css';
 
 export const SearchByFilterForHRHome = () => {
   const [inputValue, setInputValue] = useState('');
@@ -73,7 +74,7 @@ export const SearchByFilterForHRHome = () => {
           ),
         }}
       />
-      <FilterButton onClick={handleClickOpen}>
+      <FilterBtn onClick={handleClickOpen}>
         <FilterAltIcon
           sx={{
             color: '#4D4D4D',
@@ -81,7 +82,7 @@ export const SearchByFilterForHRHome = () => {
           }}
         />
         Filtrowanie
-      </FilterButton>
+      </FilterBtn>
       <SimpleDialog
         fullScreen={fullScreen}
         open={open}

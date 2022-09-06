@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
-import { MainButton } from '../../common/MainButton/MainButton';
-
-import './OneSelectedStudentOnList.css';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
 import { Avatar, Dialog } from '@mui/material';
 import { StudentGradesAndExpectationsForHR } from '../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR';
 import { StudentEntityFront } from 'types';
@@ -15,7 +12,9 @@ import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../../config/api';
-import { DisplayConfirmDialog } from '../../common/DisplayConfirmModal/DisplayConfirmModal';
+import { DisplayConfirmDialog } from '../../common/FeedbackModals/DisplayConfirmModal/DisplayConfirmModal';
+
+import './OneSelectedStudentOnList.css';
 
 interface OneSelectedStudentOnListProps {
   student: StudentEntityFront;
@@ -30,6 +29,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
   const [student_id, setStudentId] = React.useState<string | null | undefined>('');
   const [content, setContent] = React.useState('');
   const { id, accessToken } = useSelector((store: StoreState) => store.user);
+
   let navigate = useNavigate();
 
   const handleConfirmClose = () => {
@@ -49,26 +49,23 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
       square
       {...props}
     />
-  ))(({ theme }) => ({
+  ))(() => ({
     marginBottom: '10px',
   }));
 
-  const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
+  const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(() => ({
     color: '#f7f7f7',
     minHeight: '70px',
     backgroundColor: '#292a2b',
   }));
 
-  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  const AccordionDetails = styled(MuiAccordionDetails)(() => ({
     padding: '0',
     color: '#f7f7f7',
     backgroundColor: '#292a2b',
   }));
 
   const [openModal, setOpenModal] = useState(false);
-  const handleClose = () => {
-    setOpenModal(false);
-  };
 
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
@@ -137,6 +134,7 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
 
   return (
     <Accordion>
+
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
         aria-controls="panel1a-content"
@@ -158,19 +156,22 @@ export const OneSelectedStudentOnList = (props: OneSelectedStudentOnListProps) =
           </div>
         </div>
         <div className="buttons_box">
-          <MainButton onClick={() => handleShowCV(student.user_id)}>Pokaż CV</MainButton>
-          <MainButton onClick={() => handleDisinterest(student.user_id)}>Brak zainteresowania</MainButton>
-          <MainButton onClick={() => handleHired(student.user_id)}>Zatrudniony</MainButton>
+          <MainBtn onClick={() => handleShowCV(student.user_id)}>Pokaż CV</MainBtn>
+          <MainBtn onClick={() => handleDisinterest(student.user_id)}>Brak zainteresowania</MainBtn>
+          <MainBtn onClick={() => handleHired(student.user_id)}>Zatrudniony</MainBtn>
         </div>
       </AccordionSummary>
+
       <AccordionDetails>
         <StudentGradesAndExpectationsForHR student={student} />
       </AccordionDetails>
+
       <Dialog
         open={open}
         onClose={handleConfirmClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
+
         <DisplayConfirmDialog
           title={title}
           content={content}

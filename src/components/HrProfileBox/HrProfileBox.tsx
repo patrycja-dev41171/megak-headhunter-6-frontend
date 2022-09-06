@@ -5,15 +5,15 @@ import { StoreState } from '../../redux-toolkit/store';
 import { HrFrontEntity } from 'types';
 import SimpleDialog from '@mui/material/Dialog';
 import { Box, Container } from '@mui/material';
-import { Header } from '../Header/Header';
+import { HeaderMain } from '../Header/HeaderMain/HeaderMain';
 import { SidebarHr } from '../Sidebars/SidebarHr';
-import { MainButton } from '../../common/MainButton/MainButton';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
+import { apiUrl } from '../../config/api';
+import {useRefreshToken} from "../../utils/useRefreshToken";
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 
 import '../../styles/stylesForLayouts.css';
 import './HrProfileBox.css';
-import { apiUrl } from '../../config/api';
-import {useRefreshToken} from "../../utils/useRefreshToken";
 
 export const HrProfileBox = () => {
   const { id, accessToken } = useSelector((store: StoreState) => store.user);
@@ -71,7 +71,7 @@ export const HrProfileBox = () => {
 
   return (
     <>
-      <Header
+      <HeaderMain
         role="hr"
         fullName={hrData.fullName}
         id={id}
@@ -87,6 +87,7 @@ export const HrProfileBox = () => {
               maxWidth: '1430px',
             },
           }}>
+
           <div className="sidebarBox">
             {hrData.img_src !== '' ? (
               <SidebarHr
@@ -97,6 +98,7 @@ export const HrProfileBox = () => {
               />
             ) : null}
           </div>
+
           <Box
             sx={{
               backgroundColor: '#222224',
@@ -123,9 +125,10 @@ export const HrProfileBox = () => {
               <Link
                 className="noUnderline"
                 to="/hr/home">
-                <MainButton>Strona główna</MainButton>
+                <MainBtn>Strona główna</MainBtn>
               </Link>
             </div>
+
             {openModal && (
               <SimpleDialog
                 open={openModal}

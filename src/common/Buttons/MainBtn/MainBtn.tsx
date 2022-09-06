@@ -1,7 +1,7 @@
 import {styled} from '@mui/material/styles';
 import Button, {ButtonProps} from '@mui/material/Button';
 
-export const MainButton = styled(Button)<ButtonProps>(() => ({
+export const MainBtn = styled(Button)<ButtonProps>(() => ({
     textTransform: 'none',
     color: "#ffffff",
     backgroundColor: '#d92330',

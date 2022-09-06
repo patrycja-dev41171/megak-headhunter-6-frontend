@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaAddHr } from '../../Validations/UserValidation';
-import { MainButton } from '../../common/MainButton/MainButton';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
 import { apiUrl } from '../../config/api';
 
 import '../../styles/stylesForForms.css';
@@ -120,6 +120,7 @@ export const AddHR = () => {
             helperText={errors.maxReservedStudents ? errors.maxReservedStudents?.message : ''}
           />
         </div>
+
         {openModal && (
           <SimpleDialog
             open={openModal}
@@ -132,7 +133,8 @@ export const AddHR = () => {
             )}
           </SimpleDialog>
         )}
-        <MainButton type="submit">Dodaj HR</MainButton>
+
+        <MainBtn type="submit">Dodaj HR</MainBtn>
       </form>
     </>
   );

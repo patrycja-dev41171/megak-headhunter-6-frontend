@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-export const FilterButton = styled(Button)(() => ({
+export const FilterBtn = styled(Button)(() => ({
   width: '120px',
   height: '39px',
   border: 'none',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import {checkUrl} from "../../utils/checkUrl";
 
 import './StudentInfoBoxLinks.css';
 
@@ -9,13 +10,6 @@ interface StudentInfoBoxLinksPassingProjectProps {
 
 export const StudentInfoBoxLinksPassingProject = (props: StudentInfoBoxLinksPassingProjectProps) => {
   const [projectUrls, setProjectUrls] = useState<string[]>([]);
-
-  const checkUrl = (url: string) => {
-    if (url.substring(0, 4) !== 'http') {
-      return `//${url}`;
-    }
-    return url;
-  };
 
   useEffect(() => {
     if (props.projectUrls !== null) {

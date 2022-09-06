@@ -5,14 +5,14 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
-import { MainButton } from '../../common/MainButton/MainButton';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
 import { StudentGradesAndExpectationsForHR } from '../StudentGradesAndExpectationsForHR/StudentGradesAndExpectationsForHR';
 import './HrHomeSingleStudent.css';
 import { StudentGetAll } from 'types';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { apiUrl } from '../../config/api';
 
 interface HrHomeSingleStudentProps {
@@ -63,11 +63,11 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
       square
       {...props}
     />
-  ))(({ theme }) => ({
+  ))(() => ({
     marginBottom: '10px',
   }));
 
-  const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
+  const AccordionSummary = styled((props: AccordionSummaryProps) => <MuiAccordionSummary {...props} />)(() => ({
     '& .MuiAccordionSummary-content': {
       display: 'flex',
       alignItems: 'center',
@@ -77,7 +77,7 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
     backgroundColor: '#292a2b',
   }));
 
-  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  const AccordionDetails = styled(MuiAccordionDetails)(() => ({
     padding: '0',
     color: '#f7f7f7',
     backgroundColor: '#292a2b',
@@ -85,6 +85,7 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
 
   return (
     <Accordion>
+
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: '#666666', height: '30px', width: '30px' }} />}
         aria-controls="panel1a-content"
@@ -92,11 +93,13 @@ export const HrHomeSingleStudent = (props: HrHomeSingleStudentProps) => {
         <Typography>
           {student.firstName} {student.lastName.slice(0, 1)}.
         </Typography>
-        <MainButton onClick={() => handleReservation(student.user_id)}>Zarezerwuj rozmowę</MainButton>
+        <MainBtn onClick={() => handleReservation(student.user_id)}>Zarezerwuj rozmowę</MainBtn>
       </AccordionSummary>
+
       <AccordionDetails>
         <StudentGradesAndExpectationsForHR student={student} />
       </AccordionDetails>
+
       {openModal && (
         <SimpleDialog
           open={openModal}

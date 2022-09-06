@@ -3,10 +3,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
 import { schemaForgotPassword } from '../../Validations/UserValidation';
-import { MainButton } from '../../common/MainButton/MainButton';
-import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
+import { MiniLogoMegaK } from '../../common/LogoMegaK/MiniLogoMegaK/MiniLogoMegaK';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import '../../styles/stylesForForms.css';
 import { apiUrl } from '../../config/api';
 
@@ -21,7 +21,8 @@ export const ForgotPassword = () => {
   const handleClose = () => {
     setOpenModal(false);
   };
-  //informacje z backendu
+
+  //feedback from backend
   const [feedbackError, setFeedbackError] = useState('');
   const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
@@ -62,6 +63,7 @@ export const ForgotPassword = () => {
       <MiniLogoMegaK />
       <h1 className="formView_header">Zresetuj swoje hasło</h1>
       <p className="formView_header_instruction">Podaj swój adres e-mail poniżej, aby otrzymać link do zresetowania hasła.</p>
+
       <form
         onSubmit={handleSubmit(submitForm)}
         className="formView_form">
@@ -88,6 +90,7 @@ export const ForgotPassword = () => {
             helperText={errors.confirmEmail && 'Niepoprawnie potwierdzony email'}
           />
         </div>
+
         {openModal && (
           <SimpleDialog
             open={openModal}
@@ -100,7 +103,8 @@ export const ForgotPassword = () => {
             )}
           </SimpleDialog>
         )}
-        <MainButton type="submit">Wyślij hasło</MainButton>
+
+        <MainBtn type="submit">Wyślij hasło</MainBtn>
       </form>
     </div>
   );

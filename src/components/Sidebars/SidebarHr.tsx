@@ -6,9 +6,9 @@ import EmailIcon from '@mui/icons-material/Email';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import { MainButton } from '../../common/MainButton/MainButton';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { apiUrl } from '../../config/api';
 
 interface SidebarHrProps {
@@ -26,12 +26,12 @@ export const SidebarHr = (props: SidebarHrProps) => {
   const [fileName, setFileName] = useState<string>('');
 
   const [openModal, setOpenModal] = useState(false);
+  const [feedbackError, setFeedbackError] = useState('');
+  const [feedbackSuccess, setFeedbackSuccess] = useState('');
+
   const handleClose = () => {
     setOpenModal(false);
   };
-
-  const [feedbackError, setFeedbackError] = useState('');
-  const [feedbackSuccess, setFeedbackSuccess] = useState('');
 
   const displayFileName = (name: string) => {
     return <span className="sidebar_p_span">{!name ? 'Nie wybrano pliku' : <strong>{name}</strong>}</span>;
@@ -125,13 +125,16 @@ export const SidebarHr = (props: SidebarHrProps) => {
 
   return (
     <div className="sidebar_container">
+
       <Avatar
         alt={fullName}
         src={imagePreview !== null ? imagePreview : ''}
         sx={{ width: 150, height: 150 }}
       />
+
       <p className="sidebar_fullName sidebar_fullName_hr">HR</p>
       <p className="sidebar_fullName sidebar_fullName_hr">{fullName}</p>
+
       <div className="sidebar_email sidebar_email_hr">
         <EmailIcon sx={{ color: '#4D4D4D', height: '20px', width: '20px' }} />
         <p>{email}</p>
@@ -171,13 +174,14 @@ export const SidebarHr = (props: SidebarHrProps) => {
             <AddAPhotoIcon sx={{ color: 'white' }} />
           </IconButton>
           <p>{displayFileName(fileName)}</p>
-          <MainButton
+          <MainBtn
             onClick={uploadImage}
             sx={{ marginTop: '30px' }}>
             Zapisz zdjęcie
-          </MainButton>
+          </MainBtn>
         </div>
       </div>
+
       {openModal && (
         <SimpleDialog
           open={openModal}

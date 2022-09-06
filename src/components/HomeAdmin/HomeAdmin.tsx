@@ -1,7 +1,7 @@
 import React from 'react';
 import {StudentImport} from '../StudentImport/StudentImport';
 import {AddHR} from '../AddHR/AddHR';
-import {Header} from '../Header/Header';
+import {HeaderMain} from '../Header/HeaderMain/HeaderMain';
 import {useSelector} from "react-redux";
 import {StoreState} from "../../redux-toolkit/store";
 import {useRefreshToken} from "../../utils/useRefreshToken";
@@ -11,7 +11,7 @@ export const HomeAdmin = () => {
     useRefreshToken();
     return (
         <>
-            <Header role="admin" id={id}/>
+            <HeaderMain role="admin" id={id}/>
             <div className="main-container pageWithHeader">
                 <div className="displayCenter">
                     <StudentImport/>

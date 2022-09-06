@@ -1,13 +1,13 @@
 import React, { FormEvent, useState } from 'react';
 import { StructureFileModal } from '../../common/StructureFileModal/StructureFileModal';
-import { SelectFileButton } from '../../common/SelectFileBtn/SelectFileBtn';
-import { MainButton } from '../../common/MainButton/MainButton';
+import { SelectFileButton } from '../../common/Buttons/SelectFileBtn/SelectFileBtn';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import './StudentImport.css';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { apiUrl } from '../../config/api';
 import {useSelector} from "react-redux";
 import {StoreState} from "../../redux-toolkit/store";
+import './StudentImport.css';
 
 export const StudentImport = () => {
   const { accessToken } = useSelector((store: StoreState) => store.user);
@@ -63,8 +63,9 @@ export const StudentImport = () => {
       <main className="studentImport_main">
         <SelectFileButton handleChange={changeHandlerFiles} />
         <p>{displayFileName(fileName)}</p>
-        <MainButton onClick={submitForm}>Wyślij plik</MainButton>
+        <MainBtn onClick={submitForm}>Wyślij plik</MainBtn>
       </main>
+
       {openModal && (
         <SimpleDialog
           open={openModal}

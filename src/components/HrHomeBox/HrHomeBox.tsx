@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Header } from '../Header/Header';
+import { HeaderMain } from '../Header/HeaderMain/HeaderMain';
 import { NavbarForHRHome } from '../NavbarForHRHome/NavbarForHRHome';
 import { Container } from '@mui/material';
 import { HrHomeSingleStudent } from '../HrHomeSingleStudent/HrHomeSingleStudent';
@@ -8,12 +8,12 @@ import { HrFrontEntity } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../redux-toolkit/store';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
 import { setStudentList } from '../../redux-toolkit/features/user/user-slice';
 import { apiUrl } from '../../config/api';
+import { useRefreshToken } from '../../utils/useRefreshToken';
 
 import './HrHomeBox.css';
-import { useRefreshToken } from '../../utils/useRefreshToken';
 
 export const HrHomeBox = () => {
   const { id, studentsList, accessToken } = useSelector((store: StoreState) => store.user);
@@ -85,7 +85,6 @@ export const HrHomeBox = () => {
         if (data !== null) {
           dispatch(setStudentList(data));
           if (typeof data.message === 'string') {
-            console.log('dasds');
             dispatch(setStudentList([]));
             setFeedbackError(data.message);
             setOpenModal(true);
@@ -108,7 +107,7 @@ export const HrHomeBox = () => {
             maxWidth: '1430px',
           },
         }}>
-        <Header
+        <HeaderMain
           img_alt={hrData.fullName}
           img_src={hrData.img_src === null ? '' : hrData.img_src}
           fullName={hrData.fullName}

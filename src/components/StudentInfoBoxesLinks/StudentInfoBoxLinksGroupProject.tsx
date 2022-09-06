@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-
+import {checkUrl} from "../../utils/checkUrl";
 import './StudentInfoBoxLinks.css';
 
 interface StudentInfoBoxLinksGroupProjectProps {
@@ -9,13 +9,6 @@ interface StudentInfoBoxLinksGroupProjectProps {
 
 export const StudentInfoBoxLinksGroupProject = (props: StudentInfoBoxLinksGroupProjectProps) => {
   const [bonusProjectUrls, setBonusProjectUrls] = useState<string[]>([]);
-
-  const checkUrl = (url: string) => {
-    if (url.substring(0, 4) !== 'http') {
-      return `//${url}`;
-    }
-    return url;
-  };
 
   useEffect(() => {
     const array: string[] = JSON.parse(props.bonusProjectUrls);

@@ -6,19 +6,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaLogin } from '../../Validations/UserValidation';
 import { useNavigate } from 'react-router-dom';
 import { setAccessToken, setExpirationTime, setId, setRole } from '../../redux-toolkit/features/user/user-slice';
-import { MiniLogoMegaK } from '../../common/MiniLogoMegaK/MiniLogoMegaK';
+import { MiniLogoMegaK } from '../../common/LogoMegaK/MiniLogoMegaK/MiniLogoMegaK';
 import SimpleDialog from '@mui/material/Dialog';
-import { DisplayAlertModals } from '../../common/DisplayAlertModals/DisplayAlertModals';
-import { MainButton } from '../../common/MainButton/MainButton';
-import { RemindPasswordBtn } from '../../common/RemindPasswordBtn/RemindPasswordBtn';
+import { DisplayAlertModals } from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
+import { MainBtn } from '../../common/Buttons/MainBtn/MainBtn';
+import { RemindPasswordBtn } from '../../common/Buttons/RemindPasswordBtn/RemindPasswordBtn';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import { MainStyledTextField } from '../StyledComponents/MainStyledTextField';
-import '../../styles/stylesForForms.css';
 import { StoreState } from '../../redux-toolkit/store';
 import { apiUrl } from '../../config/api';
+
+import '../../styles/stylesForForms.css';
 
 interface FormValues {
   loginEmail: string;
@@ -177,7 +178,7 @@ export const LoginBox = () => {
         <div className="formView_forgotPasswordBtnBox">
           <RemindPasswordBtn />
         </div>
-        <MainButton type="submit">Zaloguj się</MainButton>
+        <MainBtn type="submit">Zaloguj się</MainBtn>
       </form>
       {openModal && (
         <SimpleDialog

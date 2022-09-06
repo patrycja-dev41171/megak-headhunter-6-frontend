@@ -1,8 +1,8 @@
 import React from 'react';
 import { HeaderMenu } from '../HeaderMenu/HeaderMenu';
-import { MicroLogoMegaK } from '../../common/MicroLogoMegaK/MicroLogoMegaK';
+import { MicroLogoMegaK } from '../../../common/LogoMegaK/MicroLogoMegaK/MicroLogoMegaK';
 import { Avatar, Container } from '@mui/material';
-import './Header.css';
+import './HeaderMain.css';
 
 interface HeaderProps {
   img_alt?: string | undefined;
@@ -14,17 +14,17 @@ interface HeaderProps {
   id: string;
 }
 
-export const Header = (props: HeaderProps) => {
+export const HeaderMain = (props: HeaderProps) => {
   const { img_alt, img_src, firstName, lastName, role, id, fullName } = props;
 
   const handleName = () => {
     switch (role) {
       case 'admin':
         return <p>Admin</p>;
-        break;
+
       case 'hr':
         return fullName ? <p>{`${fullName}`}</p> : <p>Hr</p>;
-        break;
+
       case 'student':
         return firstName ? <p>{`${firstName} ${lastName}`}</p> : <p>Kursant</p>;
     }
@@ -48,10 +48,9 @@ export const Header = (props: HeaderProps) => {
             src={img_src}
             sx={{ width: 45, height: 45 }}
           />
-          <div className="user-name">{handleName()}</div>
+          <div>{handleName()}</div>
           <HeaderMenu
-            className="options-btn"
-            userRole={role}
+              userRole={role}
             userId={id}
           />
         </div>
