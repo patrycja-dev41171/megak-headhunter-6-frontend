@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -6,8 +6,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import DialogTitle from '@mui/material/DialogTitle';
 import {MainBtn} from "../Buttons/MainBtn/MainBtn";
-import './StructureFileModal.css';
 import {useState} from "react";
+
+import './StructureFileModal.css';
 
 export function StructureFileModal() {
     const [open, setOpen] = useState(false);

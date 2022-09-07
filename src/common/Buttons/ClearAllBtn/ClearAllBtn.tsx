@@ -1,5 +1,4 @@
 import {MainBtn} from "../MainBtn/MainBtn";
-import React from "react";
 
 export const ClearAllBtn = () => <MainBtn
     type="button"

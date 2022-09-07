@@ -18,6 +18,7 @@ import {
 } from "../../common/FormsFilterParts/FilteringWithManyButtons/FilteringWithManyButtons";
 import {ApprenticeshipFilterStudents} from "../../common/FormsFilterParts/RadioForm/RadioForm";
 import {CancelBtn} from "../../common/Buttons/CancelBtn/CancelBtn";
+import {containerHrFilterStudentsForm} from "../../styles/styleObjects";
 
 import '../../styles/stylesForForms.css';
 import '../../styles/stylesForLayouts.css';
@@ -134,14 +135,7 @@ export const HrFilterStudentsForm = (props: Props) => {
     return (
         <>
             <form onSubmit={handleSubmit(submitForm)}>
-                <Container
-                    sx={{
-                        padding: '26px',
-                        '&.MuiContainer-root': {
-                            maxWidth: '600px',
-                            background: '#0a0a0a',
-                        },
-                    }}>
+                <Container sx={containerHrFilterStudentsForm}>
 
                     <header className="filterStudents_header">
                         <h2 className="formView_header">Filtrowanie</h2>
@@ -191,6 +185,7 @@ export const HrFilterStudentsForm = (props: Props) => {
                     <p className="filterStudents_subTitle">Oczekiwane wynagrodzenie miesięczne netto</p>
                     <div className="filterStudents_lineContent">
                         <div className="filterStudents_inputsSalaryBox">
+
                             <span className="filterStudents_inputPrefix">Od:</span>
                             <FilterStudentsInput
                                 size="small"
@@ -202,6 +197,7 @@ export const HrFilterStudentsForm = (props: Props) => {
                                 error={!!errors.minSalary}
                                 helperText={errors.minSalary ? errors.minSalary?.message : ''}
                             />
+
                             <span className="filterStudents_inputPrefix">Do:</span>
                             <FilterStudentsInput
                                 size="small"

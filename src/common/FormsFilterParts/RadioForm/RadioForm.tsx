@@ -1,7 +1,7 @@
 import React from "react";
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 import {UseFormRegister} from "react-hook-form";
-import {ExpectedContractType, ExpectedTypeWork } from "types";
+import {ExpectedContractType, ExpectedTypeWork} from "types";
 
 interface Props {
     reg: UseFormRegister<any>;
@@ -45,6 +45,7 @@ const radioFilterStudents = () => <Radio
 
 export const ApprenticeshipFilterStudents = (props: Props) => {
     const {reg, name} = props;
+
     return (
         <div className="filterStudents_lineContent_practice">
             <FormControl

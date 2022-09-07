@@ -12,10 +12,11 @@ import Visibility from '@mui/icons-material/Visibility';
 import {MainBtn} from '../../common/Buttons/MainBtn/MainBtn';
 import SimpleDialog from '@mui/material/Dialog';
 import {DisplayAlertModals} from '../../common/FeedbackModals/DisplayAlertModals/DisplayAlertModals';
-import '../../styles/stylesForForms.css';
 import {useSelector} from 'react-redux';
 import {StoreState} from '../../redux-toolkit/store';
 import {apiUrl} from '../../config/api';
+
+import '../../styles/stylesForForms.css';
 
 type FormValues = {
     changedPassword: string;

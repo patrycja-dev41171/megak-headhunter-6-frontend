@@ -82,6 +82,7 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
                     setFeedbackSuccess(result);
                     setFeedbackError(result.message);
                     setOpenModal(true);
+
                     if (result && role === 'student') {
                         try {
                             const res = await fetch(`${apiUrl}/login`, {
@@ -215,18 +216,20 @@ export const SidebarStudent = (props: SidebarStudentProps) => {
                 />
             </Dialog>
 
-            {openModal && (
-                <SimpleDialog
-                    open={openModal}
-                    onClose={handleClose}>
-                    {openModal && (
-                        <DisplayAlertModals
-                            error={feedbackError}
-                            success={feedbackSuccess}
-                        />
-                    )}
-                </SimpleDialog>
-            )}
+            {
+                openModal && (
+                    <SimpleDialog
+                        open={openModal}
+                        onClose={handleClose}>
+                        {openModal && (
+                            <DisplayAlertModals
+                                error={feedbackError}
+                                success={feedbackSuccess}
+                            />
+                        )}
+                    </SimpleDialog>
+                )
+            }
         </div>
     );
 };

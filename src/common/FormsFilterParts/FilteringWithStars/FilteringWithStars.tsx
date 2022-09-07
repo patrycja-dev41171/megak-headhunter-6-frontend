@@ -6,8 +6,15 @@ import {RefCallBack, UseFormSetValue} from "react-hook-form/dist/types/form";
 
 interface Props {
     name: string,
-    reference:  RefCallBack,
+    reference: RefCallBack,
     setValue: UseFormSetValue<any>,
+}
+
+const iconStyles = {
+    width: '45px',
+    height: '27px',
+    padding: '5px 5px 5px 15px',
+    marginRight: '5px',
 }
 
 export const FilteringWithStars = (props: Props) => {
@@ -36,22 +43,14 @@ export const FilteringWithStars = (props: Props) => {
                 }}
                 icon={
                     <StarIcon
-                        style={{
-                            width: '45px',
-                            height: '27px',
-                            padding: '5px 5px 5px 15px',
-                            marginRight: '5px',
-                        }}
+                        style={iconStyles}
                     />
                 }
                 emptyIcon={
                     <StarIcon
                         style={{
-                            width: '45px',
-                            height: '27px',
-                            padding: '5px 5px 5px 15px',
-                            marginRight: '5px',
                             color: '#4D4D4D',
+                            ...iconStyles
                         }}
                     />
                 }

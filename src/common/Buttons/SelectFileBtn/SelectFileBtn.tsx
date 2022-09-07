@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, {ChangeEvent} from 'react';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 type Props = {
-    handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const SelectFileButton = (props: Props) => {

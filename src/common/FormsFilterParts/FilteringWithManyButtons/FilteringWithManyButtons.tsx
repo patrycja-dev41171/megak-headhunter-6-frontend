@@ -13,19 +13,21 @@ interface ContractTypesProps {
     handleChangeContractTypes: (event: MouseEvent<HTMLElement>, newChoices: string[]) => void;
 }
 
+const buttonGroupStyles = {
+    '& .Mui-selected': {
+        color: '#f7f7f7 !important',
+        borderBottom: '2px solid #E02735',
+        backgroundColor: '#292A2B !important',
+    },
+}
+
 export const FilteringTypesWork = (props: TypesWorkProps) => {
     const {expectedTypesWork, handleChangeTypesWork} = props;
 
     return (
         <div className="filterStudents_lineContent">
             <ToggleButtonGroup
-                sx={{
-                    '& .Mui-selected': {
-                        color: '#f7f7f7 !important',
-                        borderBottom: '2px solid #E02735',
-                        backgroundColor: '#292A2B !important',
-                    },
-                }}
+                sx={buttonGroupStyles}
                 value={expectedTypesWork}
                 onChange={handleChangeTypesWork}
                 aria-label="typesWork"
@@ -66,13 +68,7 @@ export const FilteringContractTypes = (props: ContractTypesProps) => {
     return (
         <div className="filterStudents_lineContent">
             <ToggleButtonGroup
-                sx={{
-                    '& .Mui-selected': {
-                        color: '#f7f7f7 !important',
-                        borderBottom: '2px solid #E02735',
-                        backgroundColor: '#292A2B !important',
-                    },
-                }}
+                sx={buttonGroupStyles}
                 value={expectedContractTypes}
                 onChange={handleChangeContractTypes}
                 aria-label="contractTypes"

@@ -7,8 +7,9 @@ import {StoreState} from "../../redux-toolkit/store";
 import {useRefreshToken} from "../../utils/useRefreshToken";
 
 export const HomeAdmin = () => {
-    const { id } = useSelector((store: StoreState) => store.user);
+    const {id} = useSelector((store: StoreState) => store.user);
     useRefreshToken();
+
     return (
         <>
             <HeaderMain role="admin" id={id}/>

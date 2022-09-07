@@ -13,9 +13,9 @@ import Menu, {MenuProps} from '@mui/material/Menu';
 import {MenuBtn} from '../../../common/Buttons/MenuBtn/MenuBtn';
 import {ShowMenuBtn} from '../../../common/Buttons/ShowMenuBtn/ShowMenuBtn';
 import {apiUrl} from '../../../config/api';
+import {StoreState} from "../../../redux-toolkit/store";
 
 import './HeaderMenu.css';
-import {StoreState} from "../../../redux-toolkit/store";
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
