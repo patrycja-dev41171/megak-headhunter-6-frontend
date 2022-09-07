@@ -31,7 +31,7 @@ export const useRefreshToken = async () => {
                     dispatch(setIsLoggedIn(true));
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         } else return;
     }
