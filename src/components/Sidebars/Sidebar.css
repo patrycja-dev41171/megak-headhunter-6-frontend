@@ -1,0 +1,104 @@
+.sidebar_container {
+    background-color: #292A2B;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #F7F7F7;
+}
+
+.sidebar_fullName {
+    font-size: 24px;
+    margin: 5px auto;
+}
+
+.sidebar_githubName {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar_githubName > p {
+    padding-left: 8px;
+    color: #0B8BD4;
+}
+
+.sidebar_githubName, .sidebar_phoneNumber, .sidebar_email {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.sidebar_phoneNumber, .sidebar_email {
+    margin: 5px;
+}
+
+.sidebar_phoneNumber > p, .sidebar_email > p {
+    margin: auto auto auto 8px;
+}
+
+.sidebar_about_p {
+    margin: 15px auto 5px 0;
+    color: #4D4D4D;
+}
+
+.sidebar_about {
+    height: 190px;
+    line-height: 22px;
+    margin-bottom: 15px;
+    text-align: left;
+    padding: 2px;
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(black), to(rgba(0, 0, 0, 0)))
+}
+
+.sidebar_about > p {
+    max-width: 190px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(247, 247, 247, 0.25);
+    border-radius: 5px;
+}
+
+.sidebar_upload {
+    margin-top: 20px;
+    height: auto;
+    padding: 20px 10px;
+    width: 100%;
+    background-color: #3B3E3FFF;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgb(229 229 237);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.sidebar_addPhoto{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 4vh;
+}
+
+.sidebar_fullName_hr{
+    margin: 10px 0 0;
+}
+
+.sidebar_email_hr {
+    margin-top: 15px;
+}
+

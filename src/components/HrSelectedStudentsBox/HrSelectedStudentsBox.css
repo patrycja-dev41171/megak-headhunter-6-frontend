@@ -1,0 +1,46 @@
+.hrSelStudBox__contentContainer {
+    background-color: #292A2B;
+    padding: 0 26px 26px 26px;
+}
+
+.hrSelStudBox__content {
+    padding-bottom: 1px;
+    background-color: #1E1E1F;
+}
+
+.hr-selected-students__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222224;
+    color: #F7F7F7;
+}
+.hr-selected-students__main {
+    display: flex;
+    flex-direction: column;
+    width: 1430px ;
+    margin-top: 100px;
+}
+.hr-selected-students__navbar {
+    height: 72px;
+    background-color: #292A2B;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.hr-selected-students__searching-students {
+    background-color: #292A2B;
+    text-align: center;
+}
+
+.hr-selected-students__search {
+    height: 60px;
+    background-color: #292A2B;
+    margin: 0 5px 10px;
+    border-bottom: 10px solid #222224;
+}
+
+.hr-selected-students__students-list {
+    min-height: 70vh;
+    background-color: #292A2B;
+}

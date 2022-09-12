@@ -1,0 +1,27 @@
+.oneSelectedStudent__leftSide {
+    display: flex;
+    align-items: center;
+    width: 338px;
+}
+
+.reserved_box {
+    min-width: 33px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 60px;
+}
+
+.reserved_text {
+    max-height: 23px;
+    font-size: 14px;
+    color: #cfcfcf;
+}
+
+.buttons_box {
+    display: flex;
+    align-items: center;
+    min-width: 400px;
+    justify-content: space-between;
+    margin-right: 20px;
+}
+

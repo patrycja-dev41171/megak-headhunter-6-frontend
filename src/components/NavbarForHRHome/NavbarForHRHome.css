@@ -1,0 +1,16 @@
+.hr-home__links {
+    background-color: #292A2B;
+    max-width: 1430px;
+    padding: 20px 0;
+    margin-bottom: 3px;
+}
+
+.hr-home__navbar-link {
+    color: #cfcfcf;
+    padding: 20px 15px;
+    min-width: 130px;
+    font-size: 18px;
+}
+
+
+

@@ -1,0 +1,39 @@
+.studentView_subtitle {
+    font-size: 20px;
+    color: #f7f7f7;
+    background-color: #292A2B;
+    line-height: 60px;
+    min-height: 60px;
+    padding: 0 26px;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.studentView_line {
+    margin-bottom: 12px;
+    background-color: #222324;
+}
+
+.studentView_grades {
+    padding-left: 26px;
+}
+
+.studentView_subtitleInstruction {
+    color: #d93535;
+    margin-left: 40px;
+    font-size: 14px;
+}
+
+.studentView_subtitleInstruction_success {
+    color: #1fd556;
+}
+
+.sidebarBox {
+    min-width: 250px;
+    max-width: 250px;
+    margin-right: 4px;
+    position: relative;
+}
+
+

@@ -1,0 +1,19 @@
+.hr_line__searchByFilterBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    background-color: #292A2B;
+    margin-bottom: 3px;
+}
+
+.hr_line__searchIconBox {
+    display: flex;
+    align-items: center;
+}
+
+.hr_line_searchText {
+    color: #666666;
+    margin: 0 5px;
+}
+

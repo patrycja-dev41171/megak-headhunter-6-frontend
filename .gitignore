@@ -3,6 +3,7 @@
 # Don't track content of these folders
 /.history
 .idea
+tsconfig.paths.json
 
 # dependencies
 /node_modules
@@ -25,3 +26,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+tsconfig.paths.json

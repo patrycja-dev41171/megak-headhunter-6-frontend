@@ -1,0 +1,27 @@
+.student-grades {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 955px;
+    min-height: 110px;
+    color: #88888d;
+}
+.student-grades__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 163px;
+    height: 90px;
+    color: #CFCFCF;
+}
+.student-grades__typography {
+    display: flex;
+    align-items: flex-end;
+    text-align: left;
+    height: 41px;
+}
+.student-grades__rating {
+    display: flex;
+    justify-content: space-around;
+}

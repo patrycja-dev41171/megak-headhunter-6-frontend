@@ -1,0 +1,35 @@
+.student-expectations__wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: #222324;
+    flex-wrap: wrap;
+}
+
+.student-expectations__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border-right: 1px solid #292a2b;
+    text-align: left;
+    max-width: 130px;
+}
+
+.student-expectations__item:last-child {
+    border: none;
+}
+
+.student-expectations__item-title {
+    font-size: 14px;
+    color: #cfcfcf;
+}
+
+.student-expectations__item-description {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f7f7f7;
+    padding-top: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

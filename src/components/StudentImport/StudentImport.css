@@ -1,0 +1,24 @@
+.studentImport_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3B3E3FFF;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+    -webkit-box-shadow: 0 0 5px 0 rgba(229, 229, 237, 1);
+    -moz-box-shadow: 0 0 5px 0 rgba(229, 229, 237, 1);
+    box-shadow: 0 0 5px 0 rgba(229, 229, 237, 1);
+}
+
+.studentImport_fileNameBox {
+    color: #88888d;
+    margin: 0 60px 0 20px;
+}
+
+.studentImport_header {
+    color: #f7f7f7;
+    margin: 5px;
+    font-size: 20px;
+}
+
