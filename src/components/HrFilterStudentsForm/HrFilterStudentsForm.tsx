@@ -249,7 +249,7 @@ export const HrFilterStudentsForm = (props: Props) => {
                     <ApprenticeshipFilterStudents
                         reference={refApprenticeship}
                         value={apprenticeship}
-                        setApprenticeship={setApprenticeship}
+                        setValue={setApprenticeship}
                         setValueHookForm={setValueHookForm}
                         name={nameApprenticeship}
                     />

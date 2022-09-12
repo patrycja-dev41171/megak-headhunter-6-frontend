@@ -1,8 +1,8 @@
 import React, {Dispatch, SetStateAction} from "react";
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
-import {UseFormRegister} from "react-hook-form";
 import {ExpectedContractType, ExpectedTypeWork} from "types";
 import {RefCallBack, UseFormSetValue} from "react-hook-form/dist/types/form";
+import {UseFormRegister} from "react-hook-form";
 
 interface Props {
     reg: UseFormRegister<any>;
@@ -12,9 +12,9 @@ interface Props {
     expectedContractType?: ExpectedContractType | null;
 }
 
-interface PropsFilterStudents {
+interface PropsRadioInputFilterStudents {
     reference: RefCallBack,
-    setApprenticeship: Dispatch<SetStateAction<string | null>>;
+    setValue: Dispatch<SetStateAction<string | null>>;
     value: string | null;
     setValueHookForm: UseFormSetValue<any>,
     name: string;
@@ -24,6 +24,18 @@ const radioStudentForm = () => <Radio
     sx={{
         color: '#7E7E7E',
         '& .MuiSvgIcon-root': {fontSize: 14},
+    }}
+/>
+
+const radioFilterStudents = () => <Radio
+    sx={{
+        color: '#f7f7f7',
+        '& .MuiSvgIcon-root': {
+            fontSize: 14,
+        },
+        '&.Mui-checked': {
+            color: '#E02735',
+        },
     }}
 />
 
@@ -40,26 +52,12 @@ const formLabelStudentFormStyles = {
     textAlign: 'left',
 }
 
-const radioFilterStudents = () => <Radio
-    sx={{
-        color: '#f7f7f7',
-        '& .MuiSvgIcon-root': {
-            fontSize: 14,
-        },
-        '&.Mui-checked': {
-            color: '#E02735',
-        },
-    }}
-/>
+export const ApprenticeshipFilterStudents = (props: PropsRadioInputFilterStudents) => {
+    const {value, setValue, setValueHookForm, name, reference} = props;
 
-
-
-export const ApprenticeshipFilterStudents = (props: PropsFilterStudents) => {
-    const {value, setApprenticeship, setValueHookForm, name, reference} = props;
-
-    const handleRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setApprenticeship((event.target as HTMLInputElement).value);
-        setValueHookForm(name, event.target.value)
+    const handleChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue((event.target as HTMLInputElement).value);
+        setValueHookForm(name, (event.target as HTMLInputElement).value)
     };
 
     return (
@@ -68,9 +66,11 @@ export const ApprenticeshipFilterStudents = (props: PropsFilterStudents) => {
                 fullWidth
                 sx={{margin: '0'}}>
                 <RadioGroup
+                    aria-labelledby="ApprenticeshipFilterStudents"
+                    name="ApprenticeshipFilterStudentsRadioGroup"
                     ref={reference}
                     value={value}
-                    onChange={handleRadio}
+                    onChange={handleChangeRadio}
                     sx={{
                         color: '#f7f7f7',
                         padding: '0 12px',
@@ -105,12 +105,16 @@ export const ApprenticeshipStudentForm = (props: Props) => {
             fullWidth
         >
             <FormLabel
+                id="apprenticeshipStudentForm"
                 sx={formLabelStudentFormStyles}>
                 Zgoda na odbycie praktyk
             </FormLabel>
             <RadioGroup
-                defaultValue={canTakeApp !== null ? canTakeApp : '1'}
-                sx={radioGroupStudentFormStyles}>
+                aria-labelledby="apprenticeshipStudentForm"
+                name="apprenticeshipStudentFormRadioGroup"
+                defaultValue={canTakeApp !== null ? canTakeApp : "1"}
+                sx={radioGroupStudentFormStyles}
+            >
                 <FormControlLabel
                     {...reg(name)}
                     value="1"
@@ -136,12 +140,16 @@ export const ExpectedTypeWorkStudentForm = (props: Props) => {
             fullWidth
         >
             <FormLabel
+                id="expectedTypeWorkStudentForm"
                 sx={formLabelStudentFormStyles}>
                 Wybór preferowanego miejsca pracy
             </FormLabel>
             <RadioGroup
+                aria-labelledby="expectedTypeWorkStudentForm"
+                name="expectedTypeWorkStudentFormRadioGroup"
                 sx={radioGroupStudentFormStyles}
-                defaultValue={expectedTypeWork !== null ? expectedTypeWork : ExpectedTypeWork.DoesNotMatter}>
+                defaultValue={expectedTypeWork !== null ? expectedTypeWork : ExpectedTypeWork.DoesNotMatter}
+            >
                 <FormControlLabel
                     {...reg(name)}
                     value={ExpectedTypeWork.OnPlace}
@@ -183,12 +191,16 @@ export const ExpectedContractTypeStudentForm = (props: Props) => {
     return (
         <FormControl fullWidth>
             <FormLabel
+                id="expectedContractTypeStudentForm"
                 sx={formLabelStudentFormStyles}>
                 Oczekiwany typ kontraktu
             </FormLabel>
             <RadioGroup
+                aria-labelledby="expectedContractTypeStudentForm"
+                name="expectedContractTypeStudentFormRadioGroup"
                 sx={radioGroupStudentFormStyles}
-                defaultValue={expectedContractType !== null ? expectedContractType : ExpectedContractType.DoesNotMatter}>
+                defaultValue={expectedContractType !== null ? expectedContractType : ExpectedContractType.DoesNotMatter}
+            >
                 <FormControlLabel
                     {...reg(name)}
                     value={ExpectedContractType.EmploymentContract}
