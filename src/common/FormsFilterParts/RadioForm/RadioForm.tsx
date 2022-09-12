@@ -1,7 +1,8 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 import {UseFormRegister} from "react-hook-form";
 import {ExpectedContractType, ExpectedTypeWork} from "types";
+import {RefCallBack, UseFormSetValue} from "react-hook-form/dist/types/form";
 
 interface Props {
     reg: UseFormRegister<any>;
@@ -9,6 +10,14 @@ interface Props {
     canTakeApp?: number | null;
     expectedTypeWork?: ExpectedTypeWork | null;
     expectedContractType?: ExpectedContractType | null;
+}
+
+interface PropsFilterStudents {
+    reference: RefCallBack,
+    setApprenticeship: Dispatch<SetStateAction<string | null>>;
+    value: string | null;
+    setValueHookForm: UseFormSetValue<any>,
+    name: string;
 }
 
 const radioStudentForm = () => <Radio
@@ -43,8 +52,15 @@ const radioFilterStudents = () => <Radio
     }}
 />
 
-export const ApprenticeshipFilterStudents = (props: Props) => {
-    const {reg, name} = props;
+
+
+export const ApprenticeshipFilterStudents = (props: PropsFilterStudents) => {
+    const {value, setApprenticeship, setValueHookForm, name, reference} = props;
+
+    const handleRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setApprenticeship((event.target as HTMLInputElement).value);
+        setValueHookForm(name, event.target.value)
+    };
 
     return (
         <div className="filterStudents_lineContent_practice">
@@ -52,12 +68,14 @@ export const ApprenticeshipFilterStudents = (props: Props) => {
                 fullWidth
                 sx={{margin: '0'}}>
                 <RadioGroup
+                    ref={reference}
+                    value={value}
+                    onChange={handleRadio}
                     sx={{
                         color: '#f7f7f7',
                         padding: '0 12px',
                     }}>
                     <FormControlLabel
-                        {...reg(name)}
                         value="1"
                         sx={{
                             '& .MuiTypography-root': {fontSize: 14},
@@ -66,7 +84,6 @@ export const ApprenticeshipFilterStudents = (props: Props) => {
                         label="Tak"
                     />
                     <FormControlLabel
-                        {...reg(name)}
                         value="0"
                         sx={{
                             '& .MuiTypography-root': {fontSize: 14},

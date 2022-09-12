@@ -87,7 +87,9 @@ export const SearchByFilterForHRHome = () => {
                 fullScreen={fullScreen}
                 open={open}
                 aria-labelledby="responsive-dialog-title">
-                <HrFilterStudentsForm handleClose={handleClose}/>
+                <HrFilterStudentsForm
+                    handleClose={handleClose}
+                />
             </SimpleDialog>
         </div>
     );

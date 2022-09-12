@@ -1,16 +1,14 @@
-import React, {MouseEvent} from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {ToggleButtonGroup} from "@mui/material";
 import {FilterStudentsToggleBtn} from "../../Buttons/FilterStudentsToggleBtn/FilterStudentsToggleBtn";
 import {ExpectedContractType, ExpectedTypeWork} from "types";
+import {UseFormSetValue} from "react-hook-form/dist/types/form";
 
-interface TypesWorkProps {
-    expectedTypesWork: string[] | null;
-    handleChangeTypesWork: (event: MouseEvent<HTMLElement>, newChoices: string[]) => void;
-}
-
-interface ContractTypesProps {
-    expectedContractTypes: string[] | null;
-    handleChangeContractTypes: (event: MouseEvent<HTMLElement>, newChoices: string[]) => void;
+interface Props {
+    name: string;
+    expectedData: string[] | null;
+    setData: Dispatch<SetStateAction<string[] | null>>;
+    setValueHookForm: UseFormSetValue<any>,
 }
 
 const buttonGroupStyles = {
@@ -21,15 +19,20 @@ const buttonGroupStyles = {
     },
 }
 
-export const FilteringTypesWork = (props: TypesWorkProps) => {
-    const {expectedTypesWork, handleChangeTypesWork} = props;
+export const FilteringTypesWork = (props: Props) => {
+    const {name, expectedData, setData, setValueHookForm} = props;
+
+    const handleChangeData = (event: React.MouseEvent<HTMLElement>, newChoices: string[]) => {
+        setData(newChoices);
+        setValueHookForm(name, newChoices);
+    };
 
     return (
         <div className="filterStudents_lineContent">
             <ToggleButtonGroup
                 sx={buttonGroupStyles}
-                value={expectedTypesWork}
-                onChange={handleChangeTypesWork}
+                value={expectedData}
+                onChange={handleChangeData}
                 aria-label="typesWork"
             >
                 <FilterStudentsToggleBtn
@@ -62,15 +65,20 @@ export const FilteringTypesWork = (props: TypesWorkProps) => {
     )
 }
 
-export const FilteringContractTypes = (props: ContractTypesProps) => {
-    const {expectedContractTypes, handleChangeContractTypes} = props;
+export const FilteringContractTypes = (props: Props) => {
+    const {name, expectedData, setData, setValueHookForm} = props;
+
+    const handleChangeData = (event: React.MouseEvent<HTMLElement>, newChoices: string[]) => {
+        setData(newChoices);
+        setValueHookForm(name, newChoices);
+    };
 
     return (
         <div className="filterStudents_lineContent">
             <ToggleButtonGroup
                 sx={buttonGroupStyles}
-                value={expectedContractTypes}
-                onChange={handleChangeContractTypes}
+                value={expectedData}
+                onChange={handleChangeData}
                 aria-label="contractTypes"
             >
                 <FilterStudentsToggleBtn
