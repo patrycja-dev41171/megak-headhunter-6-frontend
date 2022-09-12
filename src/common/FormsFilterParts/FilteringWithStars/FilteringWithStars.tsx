@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction, SyntheticEvent} from 'react';
 import {Rating} from "@mui/material";
 import {customizeValueFromStars} from "../../../utils/customizeValueFromStars";
 import StarIcon from "@mui/icons-material/Star";
 import {RefCallBack, UseFormSetValue} from "react-hook-form/dist/types/form";
 
 interface Props {
-    name: string,
     reference: RefCallBack,
-    setValue: UseFormSetValue<any>,
+    val: number | null;
+    setVal: Dispatch<SetStateAction<number | null>>
+    setValueHookForm: UseFormSetValue<any>,
+    nameHookForm: string;
 }
 
 const iconStyles = {
@@ -18,7 +20,12 @@ const iconStyles = {
 }
 
 export const FilteringWithStars = (props: Props) => {
-    const {name, reference, setValue} = props;
+    const {val, setVal, setValueHookForm, nameHookForm, reference} = props;
+
+    const handleChangeCourseCompletion = (event: SyntheticEvent, newValue: number | null) => {
+        setVal(newValue);
+        setValueHookForm(nameHookForm, customizeValueFromStars(newValue))
+    }
 
     return (
         <div className="filterStudents_lineContentStars">
@@ -31,11 +38,9 @@ export const FilteringWithStars = (props: Props) => {
             </div>
 
             <Rating
-                name={name}
                 ref={reference}
-                onChange={(event, newValue) => {
-                    setValue(props.name, customizeValueFromStars(newValue));
-                }}
+                value={val}
+                onChange={handleChangeCourseCompletion}
                 sx={{
                     '& .MuiRating-iconFilled': {
                         color: '#E02735',

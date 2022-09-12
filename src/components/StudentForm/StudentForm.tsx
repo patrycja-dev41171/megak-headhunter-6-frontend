@@ -127,6 +127,7 @@ export const StudentForm = (props: StudentFormProps) => {
     };
 
     const submitForm: SubmitHandler<any> = async ({projectInput, portfolioInput, ...data}) => {
+        console.log({data})
         try {
             const res = await fetch(`${apiUrl}/student/data/${id}`, {
                 method: 'POST',
@@ -431,9 +432,9 @@ export const StudentForm = (props: StudentFormProps) => {
                 {/*--------------------------------Expected ContractType-----------------------------------------*/}
                 <div className="formView_input">
                     <ExpectedContractTypeStudentForm
+                        reg={register}
                         expectedContractType={expectedContractType}
                         name={'expectedContractType'}
-                        reg={register}
                     />
                 </div>
 

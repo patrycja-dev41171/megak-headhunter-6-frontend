@@ -42,8 +42,14 @@ interface Props {
 
 export const HrFilterStudentsForm = (props: Props) => {
     const {id, accessToken} = useSelector((store: StoreState) => store.user);
+
     const [expectedTypesWork, setExpectedTypesWork] = useState<string[] | null>(() => null);
     const [expectedContractTypes, setExpectedContractTypes] = useState<string[] | null>(() => null);
+    const [courseComp, setCourseComp] = useState<number | null>(null);
+    const [courseEng, setCourseEng] = useState<number | null>(null);
+    const [projectDeg, setProjectDeg] = useState<number | null>(null);
+    const [teamProjectDeg, setTeamProjectDeg] = useState<number | null>(null);
+    const [apprenticeship, setApprenticeship] = useState<string | null>(null);
 
     const dispatch = useDispatch();
     useRefreshToken()
@@ -52,8 +58,8 @@ export const HrFilterStudentsForm = (props: Props) => {
         register,
         handleSubmit,
         formState: {errors},
-        setValue,
-        control
+        setValue: setValueHookForm,
+        control,
     } = useForm<StudentValues>({
         resolver: yupResolver(StudentFilteredValidation),
         mode: 'onChange',
@@ -73,18 +79,31 @@ export const HrFilterStudentsForm = (props: Props) => {
     const {name: nameActivity, ref: refActivity} = register('courseEngagement');
     const {name: nameCode, ref: refCode} = register('projectDegree');
     const {name: nameTeamWork, ref: refTeamWork} = register('teamProjectDegree');
+    const {name: nameApprenticeship, ref: refApprenticeship} = register('canTakeApprenticeship');
 
-    const handleChangeTypesWork = (event: React.MouseEvent<HTMLElement>, newChoices: string[]) => {
-        setExpectedTypesWork(newChoices);
-        setValue('expectedTypeWork', newChoices);
-    };
-
-    const handleChangeContractTypes = (event: React.MouseEvent<HTMLElement>, newChoices: string[]) => {
-        setExpectedContractTypes(newChoices);
-        setValue('expectedContractType', newChoices);
-    };
+    const handleClearAllBtn = () => {
+        setCourseComp(null)
+        setValueHookForm('courseCompletion', null);
+        setCourseEng(null)
+        setValueHookForm('courseEngagement', null);
+        setProjectDeg(null);
+        setValueHookForm('projectDegree', null);
+        setTeamProjectDeg(null)
+        setValueHookForm('teamProjectDegree', null);
+        setValueHookForm('minSalary', "");
+        setValueHookForm('maxSalary', "");
+        setValueHookForm('monthsOfCommercialExp', "");
+        setExpectedTypesWork([]);
+        setValueHookForm('expectedTypeWork', []);
+        setExpectedContractTypes([]);
+        setValueHookForm('expectedContractType', []);
+        setApprenticeship(null)
+        setValueHookForm('canTakeApprenticeship', null);
+    }
 
     const submitForm: SubmitHandler<any> = async data => {
+        console.log({data})
+
         if (window.location.href === 'http://localhost:3000/hr/home') {
             try {
                 const res = await fetch(`${apiUrl}/hr/home/filterList/${id}`, {
@@ -139,47 +158,61 @@ export const HrFilterStudentsForm = (props: Props) => {
 
                     <header className="filterStudents_header">
                         <h2 className="formView_header">Filtrowanie</h2>
-                        <ClearAllBtn/>
+                        <ClearAllBtn
+                            onClick={handleClearAllBtn}
+                        />
                     </header>
 
                     <p className="filterStudents_subTitle">Ocena przejścia kursu</p>
                     <FilteringWithStars
-                        name={namePassCourse}
                         reference={refPassCourse}
-                        setValue={setValue}
+                        val={courseComp}
+                        setVal={setCourseComp}
+                        setValueHookForm={setValueHookForm}
+                        nameHookForm={namePassCourse}
                     />
 
                     <p className="filterStudents_subTitle">Ocena aktywności i zaangażowania na kursie</p>
                     <FilteringWithStars
-                        name={nameActivity}
                         reference={refActivity}
-                        setValue={setValue}
+                        val={courseEng}
+                        setVal={setCourseEng}
+                        setValueHookForm={setValueHookForm}
+                        nameHookForm={nameActivity}
                     />
 
                     <p className="filterStudents_subTitle">Ocena kodu w projekcie własnym</p>
                     <FilteringWithStars
-                        name={nameCode}
                         reference={refCode}
-                        setValue={setValue}
+                        val={projectDeg}
+                        setVal={setProjectDeg}
+                        setValueHookForm={setValueHookForm}
+                        nameHookForm={nameCode}
                     />
 
                     <p className="filterStudents_subTitle">Ocena pracy w zespole w Scrum</p>
                     <FilteringWithStars
-                        name={nameTeamWork}
                         reference={refTeamWork}
-                        setValue={setValue}
+                        val={teamProjectDeg}
+                        setVal={setTeamProjectDeg}
+                        setValueHookForm={setValueHookForm}
+                        nameHookForm={nameTeamWork}
                     />
 
                     <p className="filterStudents_subTitle">Preferowane miejsce pracy</p>
                     <FilteringTypesWork
-                        expectedTypesWork={expectedTypesWork}
-                        handleChangeTypesWork={handleChangeTypesWork}
+                        expectedData={expectedTypesWork}
+                        setValueHookForm={setValueHookForm}
+                        setData={setExpectedTypesWork}
+                        name={'expectedTypeWork'}
                     />
 
                     <p className="filterStudents_subTitle">Oczekiwany typ kontraktu</p>
                     <FilteringContractTypes
-                        expectedContractTypes={expectedContractTypes}
-                        handleChangeContractTypes={handleChangeContractTypes}
+                        expectedData={expectedContractTypes}
+                        setValueHookForm={setValueHookForm}
+                        setData={setExpectedContractTypes}
+                        name={'expectedContractType'}
                     />
 
                     <p className="filterStudents_subTitle">Oczekiwane wynagrodzenie miesięczne netto</p>
@@ -214,8 +247,11 @@ export const HrFilterStudentsForm = (props: Props) => {
 
                     <p className="filterStudents_subTitle">Zgoda na odbycie bezpłatnych praktyk/stażu na początek</p>
                     <ApprenticeshipFilterStudents
-                        reg={register}
-                        name={'canTakeApprenticeship'}
+                        reference={refApprenticeship}
+                        value={apprenticeship}
+                        setValue={setApprenticeship}
+                        setValueHookForm={setValueHookForm}
+                        name={nameApprenticeship}
                     />
 
                     <p className="filterStudents_subTitle">Ilość miesięcy doświadczenia komercyjnego kandydata w
@@ -239,9 +275,11 @@ export const HrFilterStudentsForm = (props: Props) => {
                         >
                             Anuluj
                         </CancelBtn>
+
                         <MainBtn
                             onClick={props.handleClose}
-                            type="submit">
+                            type="submit"
+                        >
                             Pokaż wyniki
                         </MainBtn>
                     </div>
